@@ -8,22 +8,23 @@ import java.io.InputStream;
 
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.Directions.DOWN;
-import static utilz.Constants.PlayerConstants.IDLE;
-import static utilz.Constants.PlayerConstants.RUNNING;
+import static utilz.Constants.PlayerConstants.*;
 
 public class Player extends Entity{
-    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH;
-    private int aniTick, aniIndex, aniSpeed = 15;
+    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt;
+    private int aniTick, aniIndex, aniSpeed = 20;
     private int playerAction = IDLE;
 //    private int playerDir = -1;
     private boolean left, right, up, down;
-    private boolean moving = false;
+    private boolean moving = false,attacking = false;
     private float playerSpeed = 0.5f;
+    private int widthPy = 30;
     public Player(float x, float y) {
         super(x, y);
         loadAnimations();
         loadAnimationsLeft();
         loadAnimationsRight();
+        loadAnimationsAttack();
     }
     public void update(){
         updatePos();
@@ -31,7 +32,7 @@ public class Player extends Entity{
         updateAnimationTick();
     }
     public void render(Graphics g){
-        g.drawImage(idAniIm[aniIndex],(int)x,(int)y,30,42,null);
+        g.drawImage(idAniIm[aniIndex],(int)x,(int)y,widthPy,42,null);
     }
 
     private void loadAnimations() {
@@ -110,13 +111,30 @@ public class Player extends Entity{
         }
     }
 
-//    public void setDerection(int derection){
-//        this.playerDir = derection;
-//        moving = true;
-//    }
-//    public void setMoving(boolean moving){
-//        this.moving=moving;
-//    }
+    private void loadAnimationsAttack() {
+        InputStream is = getClass().getResourceAsStream("/playerAttack.png");
+        try(is) {
+            if (is != null) {
+                BufferedImage imgAt = ImageIO.read(is);
+                idAniAt = new BufferedImage[5];
+                for(int i=0;i<idAniAt.length;i++){
+                    idAniAt[i]= imgAt.getSubimage(i*100, 0, 100, 70);
+                }
+
+            } else {
+                throw new IOException("Image file not found!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     private void updateAnimationTick() {
         aniTick++;
@@ -125,10 +143,12 @@ public class Player extends Entity{
             aniIndex++;
             if(aniIndex>=idAniIm.length){
                 aniIndex=0;
+                attacking=false;
             }
         }
     }
     private void setAnimation() {
+        int startAnimation = playerAction;
         if (moving) {
             if (left && !right) {
                 idAniIm = idAniLeft;
@@ -145,7 +165,24 @@ public class Player extends Entity{
             playerAction = IDLE;
             idAniIm = idAniH;
         }
+        if(attacking){
+            widthPy=60;
+            playerAction=ATTACK_1;
+            idAniIm=idAniAt;
+        }
+        else {
+            widthPy = 30;
+        }
+        if(startAnimation!=playerAction){
+            resetAniTick();
+        }
     }
+
+    private void resetAniTick() {
+        aniIndex = 0;
+        aniTick = 0;
+    }
+
     private void updatePos() {
         moving = false;
         if(left &&!right){
@@ -165,23 +202,16 @@ public class Player extends Entity{
             y+=playerSpeed;
             moving = true;
         }
-//        if(moving){
-//            switch (playerDir){
-//                case LEFT:
-//                    x -=1;
-//                    break;
-//                case RIGHT:
-//                    x +=1;
-//                    break;
-//                case UP:
-//                    y -=1;
-//                    break;
-//                case DOWN:
-//                    y +=1;
-//                    break;
-//            }
-//        }
+    }
+    public void resetDirBooleans(){
+        left=false;
+        right=false;
+        up=false;
+        down=false;
+    }
 
+    public void setAttacking(boolean attacking){
+        this.attacking=attacking;
     }
 	public boolean isLeft() {
 		return left;
@@ -207,6 +237,4 @@ public class Player extends Entity{
 	public void setDown(boolean down) {
 		this.down = down;
 	}
-    
-    
 }

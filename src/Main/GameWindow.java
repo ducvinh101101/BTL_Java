@@ -1,5 +1,9 @@
 package Main;
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+
 public class GameWindow extends JFrame{
     private JFrame jfame;
     public GameWindow(GamePanel gamePanel){
@@ -11,5 +15,15 @@ public class GameWindow extends JFrame{
         jfame.setLocationRelativeTo(null);
         jfame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfame.setVisible(true);
+        jfame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                gamePanel.getGame().windowFocusLost();
+            }
+        });
     }
 }
