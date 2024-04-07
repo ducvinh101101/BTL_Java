@@ -1,5 +1,7 @@
 package entities;
 
+import utilz.LoadSave;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,103 +38,39 @@ public class Player extends Entity{
     }
 
     private void loadAnimations() {
-        InputStream is = getClass().getResourceAsStream("/player.png");
-        try(is) {
-            if (is != null) {
-                BufferedImage img = ImageIO.read(is);
-                idAniIm = new BufferedImage[5];
-                for(int i=0;i<idAniIm.length;i++){
-                    idAniIm[i]= img.getSubimage(i*50, 0, 50, 70);
-                }
-                idAniH= new BufferedImage[5];
-                idAniH = idAniIm;
-
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        BufferedImage img = LoadSave.getPlayerAni();
+        idAniIm = new BufferedImage[5];
+        for(int i=0;i<idAniIm.length;i++){
+            idAniIm[i]= img.getSubimage(i*50, 0, 50, 70);
         }
-
+        idAniH= new BufferedImage[5];
+        idAniH = idAniIm;
     }
 
     private void loadAnimationsLeft() {
-        InputStream is = getClass().getResourceAsStream("/pyrunleft.png");
-        try(is) {
-            if (is != null) {
-                BufferedImage imgLeft = ImageIO.read(is);
-                idAniLeft = new BufferedImage[5];
-                for(int i=0;i<idAniLeft.length;i++){
-                    idAniLeft[i]= imgLeft.getSubimage(i*50, 0, 50, 70);
-                }
-
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        BufferedImage imgLeft = LoadSave.getPlayerRunLeft();
+        idAniLeft = new BufferedImage[5];
+        for(int i=0;i<idAniLeft.length;i++){
+            idAniLeft[i]= imgLeft.getSubimage(i*50, 0, 50, 70);
         }
-
     }
 
     private void loadAnimationsRight() {
-        InputStream is = getClass().getResourceAsStream("/pyrunright.png");
-        try(is) {
-            if (is != null) {
-                BufferedImage imgRight = ImageIO.read(is);
-                idAniRight = new BufferedImage[5];
-                for(int i=0;i<idAniRight.length;i++){
-                    idAniRight[i]= imgRight.getSubimage(i*50, 0, 50, 70);
-                }
-
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        BufferedImage imgRight = LoadSave.getPlayerRunRight();
+        idAniRight = new BufferedImage[5];
+        for(int i=0;i<idAniRight.length;i++) {
+            idAniRight[i] = imgRight.getSubimage(i * 50, 0, 50, 70);
         }
     }
 
     private void loadAnimationsAttack() {
-        InputStream is = getClass().getResourceAsStream("/playerAttack.png");
-        try(is) {
-            if (is != null) {
-                BufferedImage imgAt = ImageIO.read(is);
-                idAniAt = new BufferedImage[5];
-                for(int i=0;i<idAniAt.length;i++){
-                    idAniAt[i]= imgAt.getSubimage(i*100, 0, 100, 70);
-                }
 
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        BufferedImage imgAt = LoadSave.getPlayerAttack();
+        idAniAt = new BufferedImage[5];
+        for(int i=0;i<idAniAt.length;i++){
+            idAniAt[i]= imgAt.getSubimage(i*100, 0, 100, 70);
         }
+
 
     }
 
