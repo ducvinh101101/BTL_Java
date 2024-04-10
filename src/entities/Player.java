@@ -24,8 +24,8 @@ public class Player extends Entity{
     private boolean moving = false,attacking = false;
     private float playerSpeed = 1.5f;
     private int widthPy = 30,heightPy = 42;
-    private float xDrawOffSet = 0* Game.SCALE;
-    private float yDrawOffSet = 0* Game.SCALE;
+    private float xDrawOffSet = 5f* Game.SCALE;
+    private float yDrawOffSet = 10* Game.SCALE;
     // nhảy trọng lực:
     private float airSpeed = 0f;
     private float gravity = 0.04f * Game.SCALE;
@@ -37,15 +37,15 @@ public class Player extends Entity{
 
 
     private int lvlData[][];
-    public Player(float x, float y,int widthPy,int heightPy) {
-        super(x, y,widthPy,heightPy);
+    public Player(float x, float y,int width,int height) {
+        super(x, y,width,height);
         loadAnimations();
         loadAnimationsImLeft();
         loadAnimationsLeft();
         loadAnimationsRight();
         loadAnimationsAttack();
         loadAnimationsAttackLeft();
-        initHitBox(x,y,widthPy*Game.SCALE,heightPy*Game.SCALE);
+        initHitBox(x,y,widthPy*Game.SCALE-10,heightPy*Game.SCALE-10);
     }
     public void update(){
         updatePos();
@@ -186,17 +186,18 @@ public class Player extends Entity{
         }
         float xSpeed = 0;
         if (left) {
-            xSpeed = -playerSpeed;
+            xSpeed -= playerSpeed;
         }
         if (right) {
-            xSpeed = playerSpeed;
+            xSpeed += playerSpeed;
         }
+
+        System.out.println(inAir);
+
         if(!inAir){
             if(!isEntityOnFloor(hitBox,lvlData)){
                 inAir = true;
             }
-            else inAir = false;
-            airSpeed =0;
         }
 
         if(inAir){
@@ -207,7 +208,6 @@ public class Player extends Entity{
             }
             else{
                 hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox,airSpeed);
-                System.out.println(hitBox.y);
                 if(airSpeed>0){
                     resetInAir();
                 }
@@ -222,10 +222,11 @@ public class Player extends Entity{
     }
 
     private void jump() {
-        if (!inAir) {
-            inAir = true;
-            airSpeed = jumpSpeed;
+        if (inAir) {
+           return;
         }
+        inAir = true;
+        airSpeed = jumpSpeed;
         jump = false;
     }
 
