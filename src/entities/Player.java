@@ -16,6 +16,7 @@ import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity{
+
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt,idAniL,idAniAtL;
     private int aniTick, aniIndex, aniSpeed = 10;
     private int playerAction = IDLE;
@@ -25,13 +26,14 @@ public class Player extends Entity{
     private float playerSpeed = 1.5f;
     private int widthPy = 30,heightPy = 42;
     private float xDrawOffSet = 5f* Game.SCALE;
-    private float yDrawOffSet = 10* Game.SCALE;
+    private float yDrawOffSet = 9* Game.SCALE;
     // nhảy trọng lực:
     private float airSpeed = 0f;
     private float gravity = 0.04f * Game.SCALE;
     private float jumpSpeed = -2.25f*Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f*Game.SCALE;
     private boolean inAir = false;
+
 
 
 
@@ -58,7 +60,7 @@ public class Player extends Entity{
     }
 
     private void loadAnimations() {
-        BufferedImage img = LoadSave.getPlayerAni();
+        BufferedImage img = LoadSave.getPlayerAlas(LoadSave.PLAYER_ANI);
         idAniIm = new BufferedImage[5];
         for(int i=0;i<idAniIm.length;i++){
             idAniIm[i]= img.getSubimage(i*50, 0, 50, 70);
@@ -67,7 +69,7 @@ public class Player extends Entity{
         idAniH = idAniIm;
     }
     private void loadAnimationsImLeft(){
-        BufferedImage imgLeft = LoadSave.getPlayerAniLeft();
+        BufferedImage imgLeft = LoadSave.getPlayerAlas(LoadSave.PLAYER_IML);
         idAniL = new BufferedImage[5];
         for(int i=0;i<idAniL.length;i++){
             idAniL[i]= imgLeft.getSubimage(i*50, 0, 50, 70);
@@ -75,7 +77,7 @@ public class Player extends Entity{
     }
 
     private void loadAnimationsLeft() {
-        BufferedImage imgLeft = LoadSave.getPlayerRunLeft();
+        BufferedImage imgLeft = LoadSave.getPlayerAlas(LoadSave.PLAYER_RUNL);
         idAniLeft = new BufferedImage[5];
         for(int i=0;i<idAniLeft.length;i++){
             idAniLeft[i]= imgLeft.getSubimage(i*50, 0, 50, 70);
@@ -83,7 +85,7 @@ public class Player extends Entity{
     }
 
     private void loadAnimationsRight() {
-        BufferedImage imgRight = LoadSave.getPlayerRunRight();
+        BufferedImage imgRight = LoadSave.getPlayerAlas(LoadSave.PLAYER_RUNR);
         idAniRight = new BufferedImage[5];
         for(int i=0;i<idAniRight.length;i++) {
             idAniRight[i] = imgRight.getSubimage(i * 50, 0, 50, 70);
@@ -92,14 +94,14 @@ public class Player extends Entity{
 
     private void loadAnimationsAttack() {
 
-        BufferedImage imgAt = LoadSave.getPlayerAttack();
+        BufferedImage imgAt = LoadSave.getPlayerAlas(LoadSave.PLAYER_AT);
         idAniAt = new BufferedImage[5];
         for(int i=0;i<idAniAt.length;i++){
             idAniAt[i]= imgAt.getSubimage(i*100, 0, 100, 70);
         }
     }
     private void loadAnimationsAttackLeft(){
-        BufferedImage imgAt = LoadSave.getPlayerAttackLeft();
+        BufferedImage imgAt = LoadSave.getPlayerAlas(LoadSave.PLAYER_AT_LEFT);
         idAniAtL = new BufferedImage[5];
         for(int i=0;i<idAniAtL.length;i++){
             idAniAtL[i]= imgAt.getSubimage(i*100, 0, 100, 70);
@@ -108,6 +110,9 @@ public class Player extends Entity{
 
     public void loadlvlData(int lvlData[][]){
         this.lvlData=lvlData;
+        if(!isEntityOnFloor(hitBox,lvlData)){
+            inAir = true;
+        }
     }
 
     private void updateAnimationTick() {
@@ -191,9 +196,6 @@ public class Player extends Entity{
         if (right) {
             xSpeed += playerSpeed;
         }
-
-        System.out.println(inAir);
-
         if(!inAir){
             if(!isEntityOnFloor(hitBox,lvlData)){
                 inAir = true;

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class LoadSave {
-
     public static final String PLAYER_AT = "playerAttackRight.png";
     public static final String PLAYER_AT_LEFT = "playerAttackLeft.png";
     public static final String PLAYER_ANI = "playerRight.png";
@@ -18,30 +17,10 @@ public class LoadSave {
     public static final String PLAYER_IML = "playerLeft.png";
     public static final String BACKGROUND_MAP_1 = "background.png";
     public static final String TILESET = "Tileset.png";
-    public static final String LEVEL_ONE = "level_one_data.png";
-    public static BufferedImage getPlayerAttack(){
+
+    public static BufferedImage getPlayerAlas(String fileName){
         BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_AT);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getPlayerAttackLeft(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_AT_LEFT);
+        InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);
         try(is) {
             if (is != null) {
                 img = ImageIO.read(is);
@@ -60,146 +39,6 @@ public class LoadSave {
         return img;
     }
 
-    public static BufferedImage getPlayerAni(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_ANI);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getPlayerAniLeft(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_IML);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getPlayerRunRight(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_RUNR);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getPlayerRunLeft(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_RUNL);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getAtlas(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+TILESET);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getBackground(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+BACKGROUND_MAP_1);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
-    public static BufferedImage getLevelOne(){
-        BufferedImage img=null;
-        InputStream is = LoadSave.class.getResourceAsStream("/"+LEVEL_ONE);
-        try(is) {
-            if (is != null) {
-                img = ImageIO.read(is);
-            } else {
-                throw new IOException("Image file not found!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try{
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return img;
-    }
     public static int[][] getLevelData(){
         int[][] lvData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
         int[][] sampleMap = {
@@ -214,8 +53,8 @@ public class LoadSave {
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 2, 80, 80, 80, 80, 80, 80, 2, 2, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {80, 80, 80, 80, 80, 80, 80, 80, 2, 2, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
         };
