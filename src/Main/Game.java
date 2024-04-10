@@ -1,6 +1,9 @@
 package Main;
 
 import entities.Player;
+import levels.Background;
+import levels.Level;
+import levels.LevelManager;
 
 import java.awt.*;
 
@@ -8,9 +11,20 @@ public class Game implements Runnable{
     private Thread gameThread;
     private GamePanel gamePanel;
     private GameWindow gameWindow;
-    private final int FPS_SET = 120;
-    private final int UPS_SET =200;
+    private final int FPS_SET = 60;
+    private final int UPS_SET =100;
     private Player player;
+    private LevelManager levelManager;
+
+    private Background backGround1;
+    public final static int TILES_DEFAULT_SIZE = 32;
+    public final static float SCALE = 1.0f;
+    public final static int TILES_IN_WIDTH = 26;
+    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE*SCALE);
+    public final static int GAME_WIDTH = TILES_SIZE*TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT = TILES_IN_HEIGHT*TILES_SIZE;
+
     public Game(){
         initClasses();
         gamePanel = new GamePanel(this);
@@ -20,7 +34,10 @@ public class Game implements Runnable{
     }
 
     private void initClasses() {
-        player=new Player(200,200);
+        backGround1 = new Background();
+        levelManager = new LevelManager(this);
+        player=new Player(32,32*11,30,42);
+        player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
     }
 
     private void startGameLoop(){
@@ -28,10 +45,13 @@ public class Game implements Runnable{
         gameThread.start();
     }
     private void update() {
+        levelManager.update();
         player.update();
     }
 
     public void render(Graphics g){
+        backGround1.draw(g);
+        levelManager.draw(g);
         player.render(g);
     }
 

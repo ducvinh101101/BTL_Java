@@ -1,5 +1,6 @@
 package entities;
 
+import Main.Game;
 import utilz.LoadSave;
 
 import javax.imageio.ImageIO;
@@ -10,23 +11,38 @@ import java.io.InputStream;
 
 import static utilz.Constants.Directions.*;
 import static utilz.Constants.Directions.DOWN;
+import static utilz.HelpMethods.*;
 import static utilz.Constants.PlayerConstants.*;
 
 public class Player extends Entity{
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt;
-    private int aniTick, aniIndex, aniSpeed = 20;
+    private int aniTick, aniIndex, aniSpeed = 10;
     private int playerAction = IDLE;
 //    private int playerDir = -1;
-    private boolean left, right, up, down;
+    private boolean left, right, up, down,jump;
     private boolean moving = false,attacking = false;
-    private float playerSpeed = 0.5f;
-    private int widthPy = 30;
-    public Player(float x, float y) {
-        super(x, y);
+    private float playerSpeed = 1.5f;
+    private int widthPy = 30,heightPy = 42;
+    private float xDrawOffSet = 0* Game.SCALE;
+    private float yDrawOffSet = 0* Game.SCALE;
+    // nhảy trọng lực:
+    private float airSpeed = 0f;
+    private float gravity = 0.04f * Game.SCALE;
+    private float jumpSpeed = -2.25f*Game.SCALE;
+    private float fallSpeedAfterCollision = 0.5f*Game.SCALE;
+    private boolean inAir = false;
+
+
+
+
+    private int lvlData[][];
+    public Player(float x, float y,int widthPy,int heightPy) {
+        super(x, y,widthPy,heightPy);
         loadAnimations();
         loadAnimationsLeft();
         loadAnimationsRight();
         loadAnimationsAttack();
+        initHitBox(x,y,widthPy*Game.SCALE,heightPy*Game.SCALE);
     }
     public void update(){
         updatePos();
@@ -34,7 +50,8 @@ public class Player extends Entity{
         updateAnimationTick();
     }
     public void render(Graphics g){
-        g.drawImage(idAniIm[aniIndex],(int)x,(int)y,widthPy,42,null);
+        g.drawImage(idAniIm[aniIndex],(int)(hitBox.x-xDrawOffSet),(int) (hitBox.y-yDrawOffSet),widthPy,heightPy,null);
+        drawHitBox(g);
     }
 
     private void loadAnimations() {
@@ -74,6 +91,10 @@ public class Player extends Entity{
 
     }
 
+    public void loadlvlData(int lvlData[][]){
+        this.lvlData=lvlData;
+    }
+
     private void updateAnimationTick() {
         aniTick++;
         if(aniTick>=aniSpeed){
@@ -89,11 +110,11 @@ public class Player extends Entity{
         int startAnimation = playerAction;
         if (moving) {
             if (left && !right) {
+                playerAction = RUNNING;
                 idAniIm = idAniLeft;
-                playerAction = RUNNING;
             } else if (!left && right) {
-                idAniIm = idAniRight;
                 playerAction = RUNNING;
+                idAniIm = idAniRight;
             } else if(!left && !right) {
                 playerAction = IDLE;
                 idAniIm = idAniH;
@@ -123,29 +144,52 @@ public class Player extends Entity{
 
     private void updatePos() {
         moving = false;
+        if(!left&&!right&&!inAir){
+            return;
+        }
+        float xSpeed = 0, ySpeed = 0;
         if(left &&!right){
-            x-=playerSpeed;
-            moving = true;
+            xSpeed=-playerSpeed;
         }
         else if(!left && right){
-            x+=playerSpeed;
-            moving = true;
+            xSpeed=playerSpeed;
         }
 
-        if(up &&!down){
-            y-=playerSpeed;
+        if(canMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,lvlData)){
+            hitBox.x += xSpeed;
             moving = true;
         }
-        else if(!up && down){
-            y+=playerSpeed;
-            moving = true;
+        if(inAir){
+
+        }
+        else{
+            updateXPos(xSpeed);
+        }
+
+
+    }
+
+    private void updateXPos(float xSpeed) {
+        if(canMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,lvlData)){
+            this.x += xSpeed;
+        }
+        else {
+            //this.x = getEntityXPosNextToWall()
         }
     }
+
     public void resetDirBooleans(){
         left=false;
         right=false;
         up=false;
         down=false;
+    }
+
+    public int getWidthPy() {
+        return widthPy;
+    }
+    public int getHeightPy(){
+        return heightPy;
     }
 
     public void setAttacking(boolean attacking){
