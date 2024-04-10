@@ -14,6 +14,7 @@ public class LoadSave {
     public static final String PLAYER_ANI = "playerRight.png";
     public static final String PLAYER_RUNR = "pyrunright.png";
     public static final String PLAYER_RUNL = "pyrunleft.png";
+    public static final String PLAYER_IML = "playerLeft.png";
     public static final String BACKGROUND_MAP_1 = "background.png";
     public static final String TILESET = "Tileset.png";
     public static final String LEVEL_ONE = "level_one_data.png";
@@ -40,6 +41,26 @@ public class LoadSave {
     public static BufferedImage getPlayerAni(){
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_ANI);
+        try(is) {
+            if (is != null) {
+                img = ImageIO.read(is);
+            } else {
+                throw new IOException("Image file not found!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return img;
+    }
+    public static BufferedImage getPlayerAniLeft(){
+        BufferedImage img=null;
+        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_IML);
         try(is) {
             if (is != null) {
                 img = ImageIO.read(is);
@@ -172,7 +193,7 @@ public class LoadSave {
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
         };
