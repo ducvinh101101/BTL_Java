@@ -36,7 +36,7 @@ public class Game implements Runnable{
     private void initClasses() {
         backGround1 = new Background();
         levelManager = new LevelManager(this);
-        player=new Player(32,32*3,30,42);
+        player=new Player(32,32,30,42);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
     }
 

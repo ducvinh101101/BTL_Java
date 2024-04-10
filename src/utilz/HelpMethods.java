@@ -35,7 +35,7 @@ public class HelpMethods {
     public static float getEntityXPosNextToWall(Rectangle2D.Float hitBox, float xSpeed){
         int currentTile = (int) (hitBox.x/Game.TILES_SIZE);
         if(xSpeed>0){
-            int tileXPos = (int) (currentTile*Game.TILES_SIZE);
+            int tileXPos =  currentTile*Game.TILES_SIZE;
             int xOffSet = (int) (Game.TILES_SIZE-hitBox.width);
             return tileXPos+xOffSet-1;
         }
@@ -44,14 +44,25 @@ public class HelpMethods {
         }
     }
     public static float getEntityYPosUnderRoofOrAboveFloor(Rectangle2D.Float hitBox, float airSpeed){
-        int currentTile = (int) (hitBox.x/Game.TILES_SIZE);
-        if(airSpeed>0){
-            int tileYPos = (int) (currentTile*Game.TILES_SIZE);
-            int yOffSet = (int) (Game.TILES_SIZE-hitBox.height);
-            return tileYPos+yOffSet-1;
+        int currentTile = (int) ((hitBox.y)/Game.TILES_SIZE);
+        if(airSpeed > 0){
+            int tileYPos = currentTile * Game.TILES_SIZE;
+            int yOffSet = (int) (Game.TILES_SIZE - hitBox.height);
+            return tileYPos + yOffSet-1+Game.TILES_DEFAULT_SIZE;
         }
         else {
-            return currentTile*Game.TILES_SIZE;
+            return currentTile * Game.TILES_SIZE;
         }
+    }
+    public static boolean isEntityOnFloor(Rectangle2D.Float hitBox, int [][] lvlData){
+        float leftTile = hitBox.x / Game.TILES_SIZE;
+        float rightTile = (hitBox.x + hitBox.width) / Game.TILES_SIZE;
+        int bottomTile = (int) ((hitBox.y + hitBox.height) / Game.TILES_SIZE);
+        for (int i = (int) leftTile; i <= rightTile; i++) {
+            if (isSolid(i, bottomTile, lvlData)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

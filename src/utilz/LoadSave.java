@@ -11,6 +11,7 @@ import java.io.InputStream;
 public class LoadSave {
 
     public static final String PLAYER_AT = "playerAttackRight.png";
+    public static final String PLAYER_AT_LEFT = "playerAttackLeft.png";
     public static final String PLAYER_ANI = "playerRight.png";
     public static final String PLAYER_RUNR = "pyrunright.png";
     public static final String PLAYER_RUNL = "pyrunleft.png";
@@ -38,6 +39,27 @@ public class LoadSave {
         }
         return img;
     }
+    public static BufferedImage getPlayerAttackLeft(){
+        BufferedImage img=null;
+        InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_AT_LEFT);
+        try(is) {
+            if (is != null) {
+                img = ImageIO.read(is);
+            } else {
+                throw new IOException("Image file not found!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return img;
+    }
+
     public static BufferedImage getPlayerAni(){
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+PLAYER_ANI);
@@ -183,16 +205,16 @@ public class LoadSave {
         int[][] sampleMap = {
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 80, 80, 80, 80, 80, 80, 80, 80, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 80, 80, 80, 80, 80, 80, 2, 80, 80, 80, 80, 80, 80, 20 ,20 ,20 , 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 2, 2, 2, 2, 80, 80, 80, 80, 56, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 80, 80, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
-                {80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
+                {80, 2, 80, 80, 80, 80, 80, 80, 2, 2, 2, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 

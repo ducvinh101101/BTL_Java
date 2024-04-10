@@ -16,19 +16,19 @@ import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity{
-    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt,idAniL;
+    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt,idAniL,idAniAtL;
     private int aniTick, aniIndex, aniSpeed = 10;
     private int playerAction = IDLE;
 //    private int playerDir = -1;
-    private boolean left, right, up, down,jump=false,checkL,checkR;
+    private boolean left, right,jump,checkL,checkR;
     private boolean moving = false,attacking = false;
     private float playerSpeed = 1.5f;
     private int widthPy = 30,heightPy = 42;
     private float xDrawOffSet = 0* Game.SCALE;
     private float yDrawOffSet = 0* Game.SCALE;
     // nhảy trọng lực:
-    private float airSpeed = 1f;
-    private float gravity = 1f * Game.SCALE;
+    private float airSpeed = 0f;
+    private float gravity = 0.04f * Game.SCALE;
     private float jumpSpeed = -2.25f*Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f*Game.SCALE;
     private boolean inAir = false;
@@ -44,6 +44,7 @@ public class Player extends Entity{
         loadAnimationsLeft();
         loadAnimationsRight();
         loadAnimationsAttack();
+        loadAnimationsAttackLeft();
         initHitBox(x,y,widthPy*Game.SCALE,heightPy*Game.SCALE);
     }
     public void update(){
@@ -96,8 +97,13 @@ public class Player extends Entity{
         for(int i=0;i<idAniAt.length;i++){
             idAniAt[i]= imgAt.getSubimage(i*100, 0, 100, 70);
         }
-
-
+    }
+    private void loadAnimationsAttackLeft(){
+        BufferedImage imgAt = LoadSave.getPlayerAttackLeft();
+        idAniAtL = new BufferedImage[5];
+        for(int i=0;i<idAniAtL.length;i++){
+            idAniAtL[i]= imgAt.getSubimage(i*100, 0, 100, 70);
+        }
     }
 
     public void loadlvlData(int lvlData[][]){
@@ -150,7 +156,12 @@ public class Player extends Entity{
         if(attacking){
             widthPy=60;
             playerAction=ATTACK_1;
-            idAniIm=idAniAt;
+            if(checkL&&!checkR){
+                idAniIm =idAniAtL;
+            }
+            else {
+                idAniIm = idAniAt;
+            }
         }
         else {
             widthPy = 30;
@@ -174,51 +185,40 @@ public class Player extends Entity{
             return;
         }
         float xSpeed = 0;
-        if (left && !right) {
+        if (left) {
             xSpeed = -playerSpeed;
-        } else if (!left && right) {
+        }
+        if (right) {
             xSpeed = playerSpeed;
         }
-        if(inAir){
-        updateAirPos(xSpeed);
-        if(canMoveHere(hitBox.x,hitBox.y+airSpeed,hitBox.width,hitBox.height,lvlData)){
-            hitBox.y += airSpeed;
-            airSpeed = gravity;
-            updateXPos(xSpeed);
-        }
-        else{
-            hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox,airSpeed);
-            if(airSpeed>0){
-                resetInAir();
+        if(!inAir){
+            if(!isEntityOnFloor(hitBox,lvlData)){
+                inAir = true;
             }
-            else {
-                airSpeed = fallSpeedAfterCollision;
-            }
-            updateXPos(xSpeed);
+            else inAir = false;
+            airSpeed =0;
         }
-    }
-    else updateGroundPos(xSpeed);
-    moving = true;
-//        if(inAir){
 
-//            if(canMoveHere(hitBox.x,hitBox.y+airSpeed,hitBox.width,hitBox.height,lvlData)){
-//                hitBox.y += airSpeed;
-//                airSpeed = gravity;
-//                updateXPos(xSpeed);
-//            }
-//            else{
-//                hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox,airSpeed);
-//                if(airSpeed>0){
-//                    resetInAir();
-//                }
-//                else {
-//                    airSpeed = fallSpeedAfterCollision;
-//                }
-//                updateXPos(xSpeed);
-//            }
- //       }
-//        else
-//        moving =true;
+        if(inAir){
+            if(canMoveHere(hitBox.x,hitBox.y+airSpeed,hitBox.width,hitBox.height,lvlData)){
+                hitBox.y += airSpeed;
+                airSpeed += gravity;
+                updateXPos(xSpeed);
+            }
+            else{
+                hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox,airSpeed);
+                System.out.println(hitBox.y);
+                if(airSpeed>0){
+                    resetInAir();
+                }
+                else {
+                    airSpeed = fallSpeedAfterCollision;
+                }
+                updateXPos(xSpeed);
+            }
+        }
+        else updateXPos(xSpeed);
+        moving =true;
     }
 
     private void jump() {
@@ -228,32 +228,7 @@ public class Player extends Entity{
         }
         jump = false;
     }
-    private void updateGroundPos(float xSpeed) {
-        moving = false;
-        if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvlData)) {
-            hitBox.x += xSpeed;
-            moving = true;
-        }
-    }
 
-    private void updateAirPos(float xSpeed) {
-        if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvlData)) {
-            hitBox.x += xSpeed;
-        } else {
-            hitBox.x = getEntityXPosNextToWall(hitBox, xSpeed);
-        }
-
-        float ySpeed = airSpeed;
-        if (canMoveHere(hitBox.x, hitBox.y + ySpeed, hitBox.width, hitBox.height, lvlData)) {
-            hitBox.y += ySpeed;
-            airSpeed += gravity;
-        } else {
-            // Nếu va chạm với mặt đất hoặc vật cản
-            airSpeed = 0; // Đặt lại vận tốc rơi
-            hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
-            inAir = false; // Đặt lại trạng thái nhân vật không còn trong không trung
-        }
-    }
 
     private void resetInAir() {
         inAir = false;
@@ -269,25 +244,9 @@ public class Player extends Entity{
         }
     }
 
-//    private void resetInAir() {
-//        inAir =false;
-//        airSpeed =0;
-//    }
-//
-//    private void updateXPos(float xSpeed) {
-//        if(canMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,lvlData)){
-//            hitBox.x += xSpeed;
-//        }
-//        else {
-//            hitBox.x = getEntityXPosNextToWall(hitBox,xSpeed);
-//        }
-//    }
-
     public void resetDirBooleans(){
         left=false;
         right=false;
-        up=false;
-        down=false;
     }
 
     public int getWidthPy() {
