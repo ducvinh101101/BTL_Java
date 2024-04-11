@@ -18,6 +18,15 @@ public class LoadSave {
     public static final String BACKGROUND_MAP_1 = "background.png";
     public static final String TILESET = "Tileset.png";
 
+    public static final String PLAYER_IN_AIR = "inAir.png";
+
+    public static final String PLAYER_JUMP = "jump.png";
+
+    public static final String PLAYER_FALL = "falling.png";
+    public static final String PLAYER_JUMP_LEFT = "jumpLeft.png";
+
+    public static final String PLAYER_FALL_LEFT = "fallingLeft.png";
+
     public static BufferedImage getPlayerAlas(String fileName){
         BufferedImage img=null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+fileName);

@@ -17,7 +17,7 @@ import static utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity{
 
-    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt,idAniL,idAniAtL;
+    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH,idAniAt,idAniL,idAniAtL, idAniJumpL,idAniFallL,idAniJump,idAniFall,idAniInAir;
     private int aniTick, aniIndex, aniSpeed = 10;
     private int playerAction = IDLE;
 //    private int playerDir = -1;
@@ -47,6 +47,11 @@ public class Player extends Entity{
         loadAnimationsRight();
         loadAnimationsAttack();
         loadAnimationsAttackLeft();
+        loadAnimationsJump();
+        loadAnimationsFalling();
+        loadAnimationsJumpLeft();
+        loadAnimationsFallingLeft();
+        loadAnimationAir();
         initHitBox(x,y,widthPy*Game.SCALE-10,heightPy*Game.SCALE-10);
     }
     public void update(){
@@ -61,7 +66,7 @@ public class Player extends Entity{
 
     private void loadAnimations() {
         BufferedImage img = LoadSave.getPlayerAlas(LoadSave.PLAYER_ANI);
-        idAniIm = new BufferedImage[5];
+        idAniIm = new BufferedImage[playerAction];
         for(int i=0;i<idAniIm.length;i++){
             idAniIm[i]= img.getSubimage(i*50, 0, 50, 70);
         }
@@ -105,6 +110,44 @@ public class Player extends Entity{
         idAniAtL = new BufferedImage[5];
         for(int i=0;i<idAniAtL.length;i++){
             idAniAtL[i]= imgAt.getSubimage(i*100, 0, 100, 70);
+        }
+    }
+
+    private void loadAnimationsJump(){
+        BufferedImage imgJump = LoadSave.getPlayerAlas(LoadSave.PLAYER_JUMP);
+        idAniJump = new BufferedImage[5];
+        for(int i=0;i<idAniJump.length;i++){
+            idAniJump[i]= imgJump;
+        }
+    }
+
+    private void loadAnimationsFalling(){
+        BufferedImage imgFall = LoadSave.getPlayerAlas(LoadSave.PLAYER_FALL);
+        idAniFall = new BufferedImage[5];
+        for(int i=0;i<idAniFall.length;i++){
+            idAniFall[i]= imgFall;
+        }
+    }
+    private void loadAnimationsJumpLeft(){
+        BufferedImage imgJump = LoadSave.getPlayerAlas(LoadSave.PLAYER_JUMP_LEFT);
+        idAniJumpL = new BufferedImage[5];
+        for(int i=0;i<idAniJumpL.length;i++){
+            idAniJumpL[i]= imgJump;
+        }
+    }
+
+    private void loadAnimationsFallingLeft(){
+        BufferedImage imgFall = LoadSave.getPlayerAlas(LoadSave.PLAYER_FALL_LEFT);
+        idAniFallL = new BufferedImage[5];
+        for(int i=0;i<idAniFallL.length;i++){
+            idAniFallL[i]= imgFall;
+        }
+    }
+    private void loadAnimationAir(){
+        BufferedImage imgInAir = LoadSave.getPlayerAlas(LoadSave.PLAYER_IN_AIR);
+        idAniInAir = new BufferedImage[4];
+        for(int i=0;i<idAniInAir.length;i++){
+            idAniInAir[i]= imgInAir.getSubimage(i*50, 0, 50, 70);
         }
     }
 
@@ -156,6 +199,28 @@ public class Player extends Entity{
             }
             else {
                 idAniIm = idAniH;
+            }
+        }
+        if(inAir){
+            if(airSpeed>0){
+                playerAction = FALLING;
+                if(checkL&&!checkR){
+                    idAniIm =idAniFallL;
+                }
+                else {
+                    idAniIm = idAniFall;
+                }
+            } else if (airSpeed>-1 && airSpeed<=0) {
+                playerAction = AIR;
+                idAniIm = idAniInAir;
+            } else {
+                playerAction = JUMPPING;
+                if(checkL&&!checkR){
+                    idAniIm =idAniJumpL;
+                }
+                else {
+                    idAniIm = idAniJump;
+                }
             }
         }
         if(attacking){

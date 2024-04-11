@@ -36,7 +36,7 @@ public class Game implements Runnable{
     private void initClasses() {
         backGround1 = new Background();
         levelManager = new LevelManager(this);
-        player=new Player(TILES_DEFAULT_SIZE,TILES_DEFAULT_SIZE*12-1,30,42);
+        player=new Player(TILES_DEFAULT_SIZE,TILES_DEFAULT_SIZE*12-1-40,30,42);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
     }
 
