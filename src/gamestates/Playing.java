@@ -18,8 +18,8 @@ public class Playing extends State implements Statemethod{
     private Background background;
 
     private int xLvOffset;
-    private int leftBorder = (int) (0.2 * GAME_WIDTH);
-    private int rightBorder = (int) (0.8 * GAME_WIDTH);
+    private int leftBorder = (int) (0.4 * GAME_WIDTH);
+    private int rightBorder = (int) (0.6 * GAME_WIDTH);
     private int lvTilesWide = LoadSave.getLevelData()[0].length;
     private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
     private int maxLvOffset = maxTilesOffset * TILES_SIZE;

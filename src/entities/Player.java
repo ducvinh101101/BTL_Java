@@ -59,7 +59,7 @@ public class Player extends Entity {
 
     private void loadAnimations() {
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.PLAYER_ANI);
-        idAniIm = new BufferedImage[playerAction];
+        idAniIm = new BufferedImage[5];
         for (int i = 0; i < idAniIm.length; i++) {
             idAniIm[i] = img.getSubimage(i * 50, 0, 50, 70);
         }
