@@ -1,25 +1,38 @@
 package gamestates;
 
 import Main.Game;
+import ui.MenuButton;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class Menu extends State implements Statemethod{
+    private MenuButton[] buttons = new MenuButton[3];
+    private BufferedImage backgroundImg;
+    private int menuX, menuY, menuWidth, menuHeight;
     public Menu(Game game) {
         super(game);
+        loadButton();
+    }
+
+    private void loadButton() {
+        buttons[0] = new MenuButton(Game.GAME_WIDTH / 2, (int) (150 * Game.SCALE), 0, Gamestate.PLAYING);
+        buttons[1] = new MenuButton(Game.GAME_WIDTH / 2, (int) (220 * Game.SCALE), 1, Gamestate.OPTIONS);
+        buttons[2] = new MenuButton(Game.GAME_WIDTH / 2, (int) (290 * Game.SCALE), 2, Gamestate.QUIT);
     }
 
     @Override
     public void update() {
-
+        for (MenuButton mb : buttons)
+            mb.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.cyan);
-        g.drawString("MENU", Game.GAME_WIDTH/2, 200);
+        for (MenuButton mb : buttons)
+            mb.draw(g);
     }
 
     @Override
@@ -29,17 +42,41 @@ public class Menu extends State implements Statemethod{
 
     @Override
     public void mousePresser(MouseEvent e) {
-
+        for (MenuButton mb : buttons) {
+            if (isIn(e, mb)) {
+                mb.setMousePressed(true);
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        for (MenuButton mb : buttons) {
+            if (isIn(e, mb)) {
+                if (mb.isMousePressed())
+                    mb.apllyGamestate();
+                break;
+            }
+        }
 
+        resetButton();
+    }
+
+    private void resetButton() {
+        for (MenuButton mb : buttons)
+            mb.resetBools();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        for (MenuButton mb : buttons)
+            mb.setMouseOver(false);
 
+        for (MenuButton mb : buttons)
+            if (isIn(e, mb)) {
+                mb.setMouseOver(true);
+                break;
+            }
     }
 
     @Override

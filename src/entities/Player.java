@@ -27,7 +27,7 @@ public class Player extends Entity {
     private float gravity = 0.04f * Game.SCALE;
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-    private boolean inAir = false, ktAttack = false;
+    private boolean inAir = false;
     private int lvlData[][];
 
     public Player(float x, float y, int width, int height) {

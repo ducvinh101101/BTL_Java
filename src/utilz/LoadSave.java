@@ -6,24 +6,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class LoadSave {
-    public static final String PLAYER_AT = "playerAttackRight.png";
-    public static final String PLAYER_AT_LEFT = "playerAttackLeft.png";
-    public static final String PLAYER_ANI = "playerRight.png";
-    public static final String PLAYER_RUNR = "pyrunright.png";
-    public static final String PLAYER_RUNL = "pyrunleft.png";
-    public static final String PLAYER_IML = "playerLeft.png";
-    public static final String BACKGROUND_MAP_1 = "background.png";
-    public static final String TILESET = "Tileset.png";
+    public static final String PLAYER_AT = "player/playerAttackRight.png";
+    public static final String PLAYER_AT_LEFT = "player/playerAttackLeft.png";
+    public static final String PLAYER_ANI = "player/playerRight.png";
+    public static final String PLAYER_RUNR = "player/pyrunright.png";
+    public static final String PLAYER_RUNL = "player/pyrunleft.png";
+    public static final String PLAYER_IML = "player/playerLeft.png";
+    public static final String BACKGROUND_MAP_1 = "map/background.png";
+    public static final String TILESET = "map/Tileset.png";
 
-    public static final String PLAYER_IN_AIR = "inAir.png";
+    public static final String PLAYER_IN_AIR = "player/inAir.png";
 
-    public static final String PLAYER_JUMP = "jump.png";
+    public static final String PLAYER_JUMP = "player/jump.png";
 
-    public static final String PLAYER_FALL = "falling.png";
-    public static final String PLAYER_JUMP_LEFT = "jumpLeft.png";
+    public static final String PLAYER_FALL = "player/falling.png";
+    public static final String PLAYER_JUMP_LEFT = "player/jumpLeft.png";
 
-    public static final String PLAYER_FALL_LEFT = "fallingLeft.png";
-    public static final String MENU_BUTTON = "button_atlas.png";
+    public static final String PLAYER_FALL_LEFT = "player/fallingLeft.png";
+    public static final String MENU_BUTTON = "button/button_atlas.png";
 
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;

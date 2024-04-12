@@ -11,7 +11,7 @@ import static utilz.Constants.UI.*;
 public class MenuButton {
     private int posX, posY, rowIndex, index;
     private int xOffsetCenter = B_WIDTH / 2;
-    private boolean mouseOver, mousePress;
+    private boolean mouseOver, mousePressed;
     private Gamestate state;
     private Rectangle bounds;
     BufferedImage[] imgs;
@@ -22,6 +22,11 @@ public class MenuButton {
         this.rowIndex = rowIndex;
         this.state = state;
         loadsImg();
+        initBounds();
+    }
+
+    private void initBounds() {
+        bounds = new Rectangle(posX - xOffsetCenter, posY, B_WIDTH, B_HEIGHT);
     }
 
     private void loadsImg() {
@@ -41,7 +46,7 @@ public class MenuButton {
         if (mouseOver) {
             index = 1;
         }
-        if (mousePress) {
+        if (mousePressed) {
             index = 2;
         }
     }
@@ -54,11 +59,23 @@ public class MenuButton {
         this.mouseOver = mouseOver;
     }
 
-    public boolean isMousePress() {
-        return mousePress;
+    public boolean isMousePressed() {
+        return mousePressed;
     }
 
-    public void setMousePress(boolean mousePress) {
-        this.mousePress = mousePress;
+    public void setMousePressed(boolean mousePressed) {
+        this.mousePressed = mousePressed;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public void apllyGamestate(){
+        Gamestate.state = state;
+    }
+    public void resetBools() {
+        mouseOver = false;
+        mousePressed = false;
     }
 }
