@@ -4,17 +4,25 @@ import Main.Game;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
+import static Main.Game.*;
 
 public class Playing extends State implements Statemethod{
     private Player player;
     private LevelManager levelManager;
     private Background background;
 
-
+    private int xLvOffset;
+    private int leftBorder = (int) (0.2 * GAME_WIDTH);
+    private int rightBorder = (int) (0.8 * GAME_WIDTH);
+    private int lvTilesWide = LoadSave.getLevelData()[0].length;
+    private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
+    private int maxLvOffset = maxTilesOffset * TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -37,16 +45,26 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void update() {
-
         levelManager.update();
         player.update();
+        checkCloseToBorder();
+    }
+
+    private void checkCloseToBorder() {
+        int playerX = (int)player.getHitBox().x;
+        int diff = playerX - xLvOffset;
+        if (diff > rightBorder) xLvOffset += diff - rightBorder;
+        else if (diff < leftBorder) xLvOffset += diff - leftBorder;
+
+        if(xLvOffset > maxLvOffset) xLvOffset = maxLvOffset;
+        else if (xLvOffset < 0) xLvOffset = 0;
     }
 
     @Override
     public void draw(Graphics g) {
         background.draw(g);
-        levelManager.draw(g);
-        player.render(g);
+        levelManager.draw(g, xLvOffset);
+        player.render(g, xLvOffset);
 
     }
 

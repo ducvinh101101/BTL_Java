@@ -32,7 +32,7 @@ public class Player extends Entity{
     private float gravity = 0.04f * Game.SCALE;
     private float jumpSpeed = -2.25f*Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f*Game.SCALE;
-    private boolean inAir = false;
+    private boolean inAir = false,ktAttack = false;
     private int lvlData[][];
     public Player(float x, float y,int width,int height) {
         super(x, y,width,height);
@@ -54,8 +54,8 @@ public class Player extends Entity{
         setAnimation();
         updateAnimationTick();
     }
-    public void render(Graphics g){
-        g.drawImage(idAniIm[aniIndex],(int)(hitBox.x-xDrawOffSet),(int) (hitBox.y-yDrawOffSet),widthPy,heightPy,null);
+    public void render(Graphics g, int xLevelOffset){
+        g.drawImage(idAniIm[aniIndex],(int)(hitBox.x-xDrawOffSet) - xLevelOffset,(int) (hitBox.y-yDrawOffSet),widthPy,heightPy,null);
         drawHitBox(g);
     }
 
@@ -219,18 +219,21 @@ public class Player extends Entity{
             }
         }
         if(attacking){
+            ktAttack = true;
             widthPy=60;
             playerAction=ATTACK_1;
             if(checkL&&!checkR){
                 idAniIm =idAniAtL;
             }
             else {
-
                 idAniIm = idAniAt;
             }
         }
         else {
-            resetAniTick();
+            if(ktAttack){
+                resetAniTick();
+            }
+            ktAttack=false;
             widthPy = 30;
 
         }
