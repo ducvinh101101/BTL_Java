@@ -1,13 +1,15 @@
 package Main;
+
 import javax.swing.*;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
-public class GameWindow extends JFrame{
+public class GameWindow extends JFrame {
     private JFrame jfame;
-    public GameWindow(GamePanel gamePanel){
-        jfame= new JFrame();
+
+    public GameWindow(GamePanel gamePanel) {
+        jfame = new JFrame();
         jfame.setTitle("Ninja Kun");
         jfame.add(gamePanel);
         jfame.pack();

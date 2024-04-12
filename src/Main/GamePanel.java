@@ -17,16 +17,17 @@ import static utilz.Constants.Directions.*;
 import static utilz.Constants.PlayerConstants.*;
 import static Main.Game.*;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
     private KeyboardInputs keyboardInputs;
-    private int frames=0;
-    private long lastCheck=0;
+    private int frames = 0;
+    private long lastCheck = 0;
     private Game game;
-    public GamePanel(Game game){
+
+    public GamePanel(Game game) {
         mouseInputs = new MouseInputs(this);
         keyboardInputs = new KeyboardInputs(this);
-        this.game=game;
+        this.game = game;
         setFocusable(true);
         requestFocusInWindow();
         setPanelSize();
@@ -38,14 +39,15 @@ public class GamePanel extends JPanel{
 
 
     private void setPanelSize() {
-        Dimension size = new Dimension(GAME_WIDTH,GAME_HEIGHT);
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
-        System.out.println(GAME_WIDTH +" " + GAME_HEIGHT);
+        System.out.println(GAME_WIDTH + " " + GAME_HEIGHT);
     }
 
-    public void updateGame(){
+    public void updateGame() {
     }
-    public void paintComponent(Graphics g){
+
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         game.render(g);
         frames++;
