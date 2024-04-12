@@ -59,7 +59,7 @@ public class Player extends Entity {
 
     private void loadAnimations() {
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.PLAYER_ANI);
-        idAniIm = new BufferedImage[5];
+        idAniIm = new BufferedImage[playerAction];
         for (int i = 0; i < idAniIm.length; i++) {
             idAniIm[i] = img.getSubimage(i * 50, 0, 50, 70);
         }
@@ -143,9 +143,10 @@ public class Player extends Entity {
     private void loadAnimationAir() {
         BufferedImage imgInAir = LoadSave.getSpriteAlas(LoadSave.PLAYER_IN_AIR);
         idAniInAir = new BufferedImage[4];
-        for (int i = 0; i < idAniInAir.length; i++) {
+        for (int i = 0; i < idAniInAir.length-1; i++) {
             idAniInAir[i] = imgInAir.getSubimage(i * 50, 0, 50, 70);
         }
+
     }
 
     public void loadlvlData(int lvlData[][]) {
@@ -217,7 +218,6 @@ public class Player extends Entity {
             }
         }
         if (attacking) {
-            ktAttack = true;
             widthPy = 60;
             playerAction = ATTACK_1;
             if (checkL && !checkR) {
@@ -226,10 +226,6 @@ public class Player extends Entity {
                 idAniIm = idAniAt;
             }
         } else {
-            if (ktAttack) {
-                resetAniTick();
-            }
-            ktAttack = false;
             widthPy = 30;
 
         }
@@ -319,7 +315,11 @@ public class Player extends Entity {
     }
 
     public void setAttacking(boolean attacking) {
-        this.attacking = attacking;
+        if (!this.attacking) {
+            aniIndex=0;
+            aniTick =0;
+            this.attacking = attacking;
+        }
     }
 
     public boolean isLeft() {
