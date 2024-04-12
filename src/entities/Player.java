@@ -33,11 +33,6 @@ public class Player extends Entity{
     private float jumpSpeed = -2.25f*Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f*Game.SCALE;
     private boolean inAir = false;
-
-
-
-
-
     private int lvlData[][];
     public Player(float x, float y,int width,int height) {
         super(x, y,width,height);
@@ -230,11 +225,14 @@ public class Player extends Entity{
                 idAniIm =idAniAtL;
             }
             else {
+
                 idAniIm = idAniAt;
             }
         }
         else {
+            resetAniTick();
             widthPy = 30;
+
         }
         if(startAnimation!=playerAction){
             resetAniTick();

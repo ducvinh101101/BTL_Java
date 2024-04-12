@@ -26,6 +26,7 @@ public class LoadSave {
     public static final String PLAYER_JUMP_LEFT = "jumpLeft.png";
 
     public static final String PLAYER_FALL_LEFT = "fallingLeft.png";
+    public static final String MENU_BUTTON = "button_atlas.png";
 
     public static BufferedImage getPlayerAlas(String fileName){
         BufferedImage img=null;
