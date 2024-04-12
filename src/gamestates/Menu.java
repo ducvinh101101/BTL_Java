@@ -2,6 +2,7 @@ package gamestates;
 
 import Main.Game;
 import ui.MenuButton;
+import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,15 @@ public class Menu extends State implements Statemethod{
     public Menu(Game game) {
         super(game);
         loadButton();
+        loadBackground();
+    }
+
+    private void loadBackground() {
+        backgroundImg = LoadSave.getSpriteAlas(LoadSave.MENU_BACKGROUND);
+        menuWidth = (int) (backgroundImg.getWidth() * Game.SCALE);
+        menuHeight = (int) (backgroundImg.getHeight() * Game.SCALE);
+        menuX = Game.GAME_WIDTH / 2 - menuWidth / 2;
+        menuY = (int) (45 * Game.SCALE);
     }
 
     private void loadButton() {
@@ -31,6 +41,7 @@ public class Menu extends State implements Statemethod{
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(backgroundImg,menuX,menuY,menuWidth,menuHeight,null);
         for (MenuButton mb : buttons)
             mb.draw(g);
     }

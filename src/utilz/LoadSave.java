@@ -24,6 +24,7 @@ public class LoadSave {
 
     public static final String PLAYER_FALL_LEFT = "player/fallingLeft.png";
     public static final String MENU_BUTTON = "button/button_atlas.png";
+    public static final String MENU_BACKGROUND = "button/menu_background.png";
 
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;
