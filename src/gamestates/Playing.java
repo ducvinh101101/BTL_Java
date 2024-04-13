@@ -4,6 +4,7 @@ import Main.Game;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
+import ui.PauseOverplay;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -23,6 +24,9 @@ public class Playing extends State implements Statemethod{
     private int lvTilesWide = LoadSave.getLevelData()[0].length;
     private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
     private int maxLvOffset = maxTilesOffset * TILES_SIZE;
+    private PauseOverplay pauseOverplay;
+
+    private boolean pause = false;
 
     public Playing(Game game) {
         super(game);
@@ -34,6 +38,7 @@ public class Playing extends State implements Statemethod{
         levelManager = new LevelManager(game);
         player=new Player(game.TILES_DEFAULT_SIZE,game.TILES_DEFAULT_SIZE*12-1-40,30,42);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
+        pauseOverplay = new PauseOverplay(this);
     }
     public void windowFocusLost(){
         player.resetDirBooleans();
@@ -45,9 +50,15 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void update() {
-        levelManager.update();
-        player.update();
-        checkCloseToBorder();
+        if(!pause){
+            levelManager.update();
+            player.update();
+            checkCloseToBorder();
+        }
+        else{
+            pauseOverplay.update();
+        }
+
     }
 
     private void checkCloseToBorder() {
@@ -65,7 +76,12 @@ public class Playing extends State implements Statemethod{
         background.draw(g);
         levelManager.draw(g, xLvOffset);
         player.render(g, xLvOffset);
-
+        if(pause){
+            pauseOverplay.draw(g);
+        }
+    }
+    public void unPauseGame(){
+        pause = false;
     }
 
     @Override
@@ -74,17 +90,23 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void mousePresser(MouseEvent e) {
-
+        if(pause){
+            pauseOverplay.mousePresser(e);
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if(pause){
+            pauseOverplay.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if(pause){
+            pauseOverplay.mouseMoved(e);
+        }
     }
 
     @Override
@@ -107,6 +129,8 @@ public class Playing extends State implements Statemethod{
             case KeyEvent.VK_BACK_SPACE:
                 Gamestate.state=Gamestate.MENU;
                 break;
+            case KeyEvent.VK_P:
+                pause = !pause;
         }
     }
 

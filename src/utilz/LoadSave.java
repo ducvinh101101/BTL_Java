@@ -25,6 +25,11 @@ public class LoadSave {
     public static final String PLAYER_FALL_LEFT = "player/fallingLeft.png";
     public static final String MENU_BUTTON = "button/button_atlas.png";
     public static final String MENU_BACKGROUND = "button/menu_background.png";
+    public static final String IN_BACKGROUND = "map/8.png";
+    public static final String PAUSE_BACKGROUND = "button/pause_menu.png";
+    public static final String SOUND_BUTTON = "button/sound_button.png";
+    public static final String URM_BUTTON = "button/urm_buttons.png";
+    public static final String VOLUME_BUTTON = "button/volume_button.png";
 
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;

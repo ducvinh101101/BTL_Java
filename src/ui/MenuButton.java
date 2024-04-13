@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static utilz.Constants.UI.*;
+import static utilz.Constants.UI.Buttons.*;
 
 public class MenuButton {
     private int posX, posY, rowIndex, index;
@@ -39,6 +40,7 @@ public class MenuButton {
 
     public void draw(Graphics g) {
         g.drawImage(imgs[index], posX - xOffsetCenter, posY, B_WIDTH, B_HEIGHT, null);
+
     }
 
     public void update() {
