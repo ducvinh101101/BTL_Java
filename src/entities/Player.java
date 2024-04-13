@@ -48,8 +48,8 @@ public class Player extends Entity {
 
     public void update() {
         updatePos();
-        setAnimation();
         updateAnimationTick();
+        setAnimation();
     }
 
     public void render(Graphics g, int xLevelOffset) {

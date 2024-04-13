@@ -108,6 +108,11 @@ public class Playing extends State implements Statemethod{
             pauseOverplay.mouseMoved(e);
         }
     }
+    public void mouseDragged(MouseEvent e){
+        if(pause){
+            pauseOverplay.mouseDragger(e);
+        }
+    }
 
     @Override
     public void keyPresser(KeyEvent e) {
