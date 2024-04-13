@@ -26,9 +26,32 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         }
         return isTileSolid((int) xIndex, (int) yIndex, lvlData);
     }
+
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 80;
+        return value != 80 && value !=7; // thêm vị tr có thể đi  là 7
+    }
+    public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
+        float left = x / Game.TILES_SIZE;
+        float right = (x + width) / Game.TILES_SIZE;
+        float top = y / Game.TILES_SIZE;
+        float bottom = (y + height) / Game.TILES_SIZE;
+        if (!isNextMap(left, top, lvlData))
+            if (!isNextMap(right, bottom, lvlData))
+                if (!isNextMap(right, top, lvlData))
+                    if (!isNextMap(left, bottom, lvlData))
+                        return false;
+        return true;
+    }
+    private static boolean isNextMap(float xIndex, float yIndex, int[][] lvlData){
+        if (xIndex < 0 || xIndex >= lvlData[0].length || yIndex < 0 || yIndex >= lvlData.length) {
+            return true;
+        }
+        return isTileNextMap((int) xIndex, (int) yIndex, lvlData);
+    }
+    public static boolean isTileNextMap(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra cổng dịch chuyển
+        int value = lvData[(int) yTile][(int) xTile];
+        return value == 7;
     }
     public static float getEntityXPosNextToWall(Rectangle2D.Float hitBox, float xSpeed){
         int currentTile = (int) (hitBox.x/Game.TILES_SIZE);

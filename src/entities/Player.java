@@ -2,6 +2,7 @@ package entities;
 
 import Main.Game;
 import gamestates.Playing;
+import levels.LevelManager;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -30,7 +31,7 @@ public class Player extends Entity {
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
-    private int lvlData[][];
+    private int lvlData[][] ;
     private BufferedImage statusBarImg;
 
     private int statusBarWidth = (int) (192 * Game.SCALE);
@@ -74,7 +75,8 @@ public class Player extends Entity {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
-    public void update() {
+    public void update( ) {
+        lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         updateHealthBar();
         updateAttackBox();
         updatePos();
@@ -309,6 +311,8 @@ public class Player extends Entity {
         aniIndex = 0;
         aniTick = 0;
     }
+
+//    public void resetAll()
 
     private void updatePos() {
         moving = false;

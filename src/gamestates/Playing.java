@@ -5,7 +5,9 @@ import entities.EnemyManager;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
+import ui.LevelCompletedOverlay;
 import ui.PauseOverplay;
+import utilz.HelpMethods;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -27,12 +29,18 @@ public class Playing extends State implements Statemethod {
     private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
     private int maxLvOffset = maxTilesOffset * TILES_SIZE;
     private PauseOverplay pauseOverplay;
+    private LevelCompletedOverlay levelCompletedOverlay;
+    private boolean lvlCompleter = false;
 
     private boolean pause = false;
 
     public Playing(Game game) {
         super(game);
         initClasses();
+    }
+    public void loadNextMap(){
+        levelManager.nextMap(lvlCompleter);
+        lvlCompleter = false;
     }
 
     private void initClasses() {
@@ -42,6 +50,7 @@ public class Playing extends State implements Statemethod {
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
         enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
+        levelCompletedOverlay = new LevelCompletedOverlay(this);
     }
 
     public void windowFocusLost() {
@@ -53,15 +62,30 @@ public class Playing extends State implements Statemethod {
     }
 
     @Override
-    public void update() {
-        if (!pause) {
+    public void update() { // đã đổi hàm update
+        if(pause){
+            pauseOverplay.update();
+        }
+        else if (lvlCompleter){
+            levelCompletedOverlay.update();
+        }
+        else {
             levelManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
             checkCloseToBorder();
-        } else {
-            pauseOverplay.update();
+            if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
+                lvlCompleter = true;
+            }
         }
+//        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
+//            levelManager.update();
+//            player.update();
+//            enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
+//            checkCloseToBorder();
+//        } else {
+//            pauseOverplay.update();
+//        }
 
     }
 
@@ -84,6 +108,10 @@ public class Playing extends State implements Statemethod {
         if (pause) {
             pauseOverplay.draw(g);
         }
+        else if (lvlCompleter){// thêm vẽ hộp thoại chuyển map
+            levelCompletedOverlay.draw(g);
+        }
+
     }
 
     public void unPauseGame() {
@@ -98,6 +126,8 @@ public class Playing extends State implements Statemethod {
     public void mousePresser(MouseEvent e) {
         if (pause) {
             pauseOverplay.mousePresser(e);
+        } else if (lvlCompleter) {
+            levelCompletedOverlay.mousePressed(e);
         }
     }
 
@@ -106,12 +136,18 @@ public class Playing extends State implements Statemethod {
         if (pause) {
             pauseOverplay.mouseReleased(e);
         }
+        else if (lvlCompleter) {
+            levelCompletedOverlay.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         if (pause) {
             pauseOverplay.mouseMoved(e);
+        }
+        else if (lvlCompleter) {
+            levelCompletedOverlay.mouseMoved(e);
         }
     }
 
@@ -166,5 +202,9 @@ public class Playing extends State implements Statemethod {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
     }
 }
