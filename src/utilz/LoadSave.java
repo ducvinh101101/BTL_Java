@@ -31,6 +31,12 @@ public class LoadSave {
     public static final String URM_BUTTON = "button/urm_buttons.png";
     public static final String VOLUME_BUTTON = "button/volume_buttons.png";
 
+    public static final String CRAB_0 = "monster/15_0.png";
+    public static final String CRAB_1 = "monster/15_1.png";
+    public static final String CRAB_2 = "monster/15_2.png";
+    public static final String CRAB_3 = "monster/15_3.png";
+    public static final String STATUS_BAR = "health_power_bar.png";
+
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);

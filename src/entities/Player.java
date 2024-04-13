@@ -1,9 +1,11 @@
 package entities;
 
 import Main.Game;
+import gamestates.Playing;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static utilz.HelpMethods.*;
@@ -29,9 +31,30 @@ public class Player extends Entity {
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
     private int lvlData[][];
+    private BufferedImage statusBarImg;
 
-    public Player(float x, float y, int width, int height) {
+    private int statusBarWidth = (int) (192 * Game.SCALE);
+    private int statusBarHeight = (int) (58 * Game.SCALE);
+    private int statusBarX = (int) (10 * Game.SCALE);
+    private int statusBarY = (int) (10 * Game.SCALE);
+
+    private int healthBarWidth = (int) (150 * Game.SCALE);
+    private int healthBarHeight = (int) (4 * Game.SCALE);
+    private int healthBarXStart = (int) (34 * Game.SCALE);
+    private int healthBarYStart = (int) (14 * Game.SCALE);
+
+    private int maxHealth = 100;
+    private int currentHealth = maxHealth;
+
+    private int healthWidth = healthBarWidth;
+
+    private Rectangle2D.Float attackBox;
+    private boolean attackChecked;
+    private Playing playing;
+
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing = playing;
         loadAnimations();
         loadAnimationsImLeft();
         loadAnimationsLeft();
@@ -44,17 +67,64 @@ public class Player extends Entity {
         loadAnimationsFallingLeft();
         loadAnimationAir();
         initHitBox(x, y, widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
+        initAttackBox();
+    }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
     public void update() {
+        updateHealthBar();
+        updateAttackBox();
         updatePos();
+        if (attacking) checkAttack();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if (attackChecked || aniIndex != 1) return;
+        attackChecked = true;
+        playing.checkEnemyHit(attackBox);
+    }
+
+    private void drawAttackBox(Graphics g, int xLevelOffset) {
+        g.setColor(Color.red);
+        g.drawRect((int) attackBox.x - xLevelOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
+    }
+
+    private void updateAttackBox() {
+        if (right) {
+            attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 10);
+
+        } else if (left) {
+            attackBox.x = hitBox.x - hitBox.width + (int) (Game.SCALE * 10);
+        }
+        attackBox.y = hitBox.y + (int) (Game.SCALE);
+    }
+
+    private void updateHealthBar() {
+        healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
 
     public void render(Graphics g, int xLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet), widthPy, heightPy, null);
         drawHitBox(g, xLevelOffset);
+        drawAttackBox(g, xLevelOffset);
+        drawUI(g);
+    }
+
+    private void drawUI(Graphics g) {
+        g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.red);
+        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+    }
+
+    public void changeHealth(int value) {
+        currentHealth += value;
+        if (currentHealth <= 0) currentHealth = 0;
+        else if (currentHealth >= maxHealth) currentHealth = maxHealth;
     }
 
     private void loadAnimations() {
@@ -65,6 +135,7 @@ public class Player extends Entity {
         }
         idAniH = new BufferedImage[5];
         idAniH = idAniIm;
+        statusBarImg = LoadSave.getSpriteAlas(LoadSave.STATUS_BAR);
     }
 
     private void loadAnimationsImLeft() {
@@ -143,7 +214,7 @@ public class Player extends Entity {
     private void loadAnimationAir() {
         BufferedImage imgInAir = LoadSave.getSpriteAlas(LoadSave.PLAYER_IN_AIR);
         idAniInAir = new BufferedImage[4];
-        for (int i = 0; i < idAniInAir.length-1; i++) {
+        for (int i = 0; i < idAniInAir.length - 1; i++) {
             idAniInAir[i] = imgInAir.getSubimage(i * 50, 0, 50, 70);
         }
 
@@ -316,8 +387,8 @@ public class Player extends Entity {
 
     public void setAttacking(boolean attacking) {
         if (!this.attacking) {
-            aniIndex=0;
-            aniTick =0;
+            aniIndex = 0;
+            aniTick = 0;
             this.attacking = attacking;
         }
     }

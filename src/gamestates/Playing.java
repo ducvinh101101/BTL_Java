@@ -1,6 +1,7 @@
 package gamestates;
 
 import Main.Game;
+import entities.EnemyManager;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
@@ -10,14 +11,15 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 import static Main.Game.*;
 
-public class Playing extends State implements Statemethod{
+public class Playing extends State implements Statemethod {
     private Player player;
     private LevelManager levelManager;
     private Background background;
-
+    private EnemyManager enemyManager;
     private int xLvOffset;
     private int leftBorder = (int) (0.4 * GAME_WIDTH);
     private int rightBorder = (int) (0.6 * GAME_WIDTH);
@@ -36,11 +38,13 @@ public class Playing extends State implements Statemethod{
     private void initClasses() {
         background = new Background();
         levelManager = new LevelManager(game);
-        player=new Player(game.TILES_DEFAULT_SIZE,game.TILES_DEFAULT_SIZE*12-1-40,30,42);
+        player = new Player(game.TILES_DEFAULT_SIZE, game.TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
+        enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
     }
-    public void windowFocusLost(){
+
+    public void windowFocusLost() {
         player.resetDirBooleans();
     }
 
@@ -50,24 +54,24 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void update() {
-        if(!pause){
+        if (!pause) {
             levelManager.update();
             player.update();
+            enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
             checkCloseToBorder();
-        }
-        else{
+        } else {
             pauseOverplay.update();
         }
 
     }
 
     private void checkCloseToBorder() {
-        int playerX = (int)player.getHitBox().x;
+        int playerX = (int) player.getHitBox().x;
         int diff = playerX - xLvOffset;
         if (diff > rightBorder) xLvOffset += diff - rightBorder;
         else if (diff < leftBorder) xLvOffset += diff - leftBorder;
 
-        if(xLvOffset > maxLvOffset) xLvOffset = maxLvOffset;
+        if (xLvOffset > maxLvOffset) xLvOffset = maxLvOffset;
         else if (xLvOffset < 0) xLvOffset = 0;
     }
 
@@ -76,11 +80,13 @@ public class Playing extends State implements Statemethod{
         background.draw(g);
         levelManager.draw(g, xLvOffset);
         player.render(g, xLvOffset);
-        if(pause){
+        enemyManager.draw(g, xLvOffset);
+        if (pause) {
             pauseOverplay.draw(g);
         }
     }
-    public void unPauseGame(){
+
+    public void unPauseGame() {
         pause = false;
     }
 
@@ -90,33 +96,34 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void mousePresser(MouseEvent e) {
-        if(pause){
+        if (pause) {
             pauseOverplay.mousePresser(e);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(pause){
+        if (pause) {
             pauseOverplay.mouseReleased(e);
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(pause){
+        if (pause) {
             pauseOverplay.mouseMoved(e);
         }
     }
-    public void mouseDragged(MouseEvent e){
-        if(pause){
+
+    public void mouseDragged(MouseEvent e) {
+        if (pause) {
             pauseOverplay.mouseDragger(e);
         }
     }
 
     @Override
     public void keyPresser(KeyEvent e) {
-        switch (e.getKeyCode()){
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 player.setLeft(true);
                 break;
@@ -132,7 +139,7 @@ public class Playing extends State implements Statemethod{
                 player.setAttacking(true);
                 break;
             case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state=Gamestate.MENU;
+                Gamestate.state = Gamestate.MENU;
                 break;
             case KeyEvent.VK_P:
                 pause = !pause;
@@ -141,7 +148,7 @@ public class Playing extends State implements Statemethod{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()){
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 player.setLeft(false);
                 break;
@@ -155,5 +162,9 @@ public class Playing extends State implements Statemethod{
                 break;
 
         }
+    }
+
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        enemyManager.checkEnemyHit(attackBox);
     }
 }
