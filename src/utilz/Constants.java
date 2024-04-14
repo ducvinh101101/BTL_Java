@@ -65,6 +65,7 @@ public class Constants {
             }
         }
     }
+<<<<<<< HEAD
 
     public static class UI {
         public static class Buttons {
@@ -72,6 +73,14 @@ public class Constants {
             public static final int B_HEIGHT_DEFAULT = 56;
             public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * Game.SCALE);
             public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * Game.SCALE);
+=======
+    public static class UI{
+        public static class Buttons{
+            public static final int B_WIDTH_DEFAULT = 210;
+            public static final int B_HEIGHT_DEFAULT = 84;
+            public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT/1.5 * Game.SCALE);
+            public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT/1.5 * Game.SCALE);
+>>>>>>> 13b3a9915a9990f764dcac08de3471b2f621c0e6
         }
 
         public static class PauseButton {

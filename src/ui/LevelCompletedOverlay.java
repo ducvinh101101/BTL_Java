@@ -17,6 +17,7 @@ public class LevelCompletedOverlay {
     private UrmButton menu, next;
     private BufferedImage img;
     private int bgX,bgY,bgWidth,bgHeight;
+    private boolean map = false;
     public LevelCompletedOverlay(Playing playing){
         this.playing = playing;
         initImg();
@@ -71,6 +72,7 @@ public class LevelCompletedOverlay {
         else if(isIn(next,e)){
             if(next.isMousePressed()){
                 playing.loadNextMap();
+                map = true;
             }
         }
         menu.resetBools();
@@ -86,4 +88,11 @@ public class LevelCompletedOverlay {
         }
     }
 
+    public boolean isMap() {
+        return map;
+    }
+
+    public void setMap(boolean map) {
+        this.map = map;
+    }
 }

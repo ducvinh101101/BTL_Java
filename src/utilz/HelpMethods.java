@@ -29,7 +29,11 @@ public class HelpMethods {
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
+<<<<<<< HEAD
         return value != 80 && value != 7; // thêm vị tr có thể đi  là 7
+=======
+        return value != 17 && value !=7; // thêm vị tr có thể đi  là 7
+>>>>>>> 13b3a9915a9990f764dcac08de3471b2f621c0e6
     }
 
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
