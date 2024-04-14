@@ -8,6 +8,7 @@ public abstract class Entity {
     protected int width, height;
     protected Rectangle2D.Float hitBox;
 
+
     public Entity(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -15,14 +16,17 @@ public abstract class Entity {
         this.width = width;
     }
 
+
     protected void drawHitBox(Graphics g, int levelOffset) {
-        g.setColor(Color.PINK);
+        g.setColor(Color.BLACK);
         g.drawRect((int) hitBox.x - levelOffset, (int) hitBox.y, (int) hitBox.width, (int) hitBox.height);
     }
 
     protected void initHitBox(float x, float y, float width, float height) {
         hitBox = new Rectangle2D.Float(x, y, width, height);
     }
+
+
 //    public void updateHitBox(){
 //        hitBox.x=(int)x;
 //        hitBox.y=(int)y;

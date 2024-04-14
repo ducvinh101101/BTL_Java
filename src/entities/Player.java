@@ -31,7 +31,7 @@ public class Player extends Entity {
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
-    private int lvlData[][] ;
+    private int lvlData[][];
     private BufferedImage statusBarImg;
 
     private int statusBarWidth = (int) (192 * Game.SCALE);
@@ -75,7 +75,7 @@ public class Player extends Entity {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
-    public void update( ) {
+    public void update() {
         lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         updateHealthBar();
         updateAttackBox();
@@ -237,6 +237,7 @@ public class Player extends Entity {
             if (aniIndex >= idAniIm.length) {
                 aniIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }
