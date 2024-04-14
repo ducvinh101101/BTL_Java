@@ -111,6 +111,12 @@ public class Playing extends State implements Statemethod {
         else if (lvlCompleter){// thêm vẽ hộp thoại chuyển map
             levelCompletedOverlay.draw(g);
         }
+        if(levelCompletedOverlay.isMap()){
+            levelManager.importOutsideSprite();
+            levelManager.draw(g,xLvOffset);
+            levelCompletedOverlay.setMap(false);
+        }
+
 
     }
 
