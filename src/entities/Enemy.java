@@ -16,7 +16,8 @@ public class Enemy extends Entity {
     protected float fallSpeed;
     protected float gravity = 0.04f * Game.SCALE;
     protected float walkSpeed = 1.0f * Game.SCALE;
-    protected float walkDir = RIGHT;
+    protected int walkDir = RIGHT;
+
 
     protected int tileY;
 
@@ -24,7 +25,7 @@ public class Enemy extends Entity {
     protected int maxHealth;
 
     protected int currentHealth = maxHealth;
-    protected boolean active = true;
+    protected boolean alive = true;
 
     protected boolean attackChecked;
 
@@ -34,10 +35,6 @@ public class Enemy extends Entity {
         initHitBox(x, y, width, height);
         maxHealth = getMaxHealth(enemyType);
         currentHealth = maxHealth;
-    }
-
-    public int getAnimationIndex() {
-        return animationIndex;
     }
 
     public int getEnemyState() {
@@ -65,7 +62,7 @@ public class Enemy extends Entity {
     protected void move(int[][] lvData) {
         float xSpeed = 0;
         if (walkDir == LEFT) xSpeed -= walkSpeed;
-        else xSpeed = walkSpeed;
+        else xSpeed += walkSpeed;
         if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvData)) {
             if (isFloor(hitBox, xSpeed, lvData)) {
                 hitBox.x += xSpeed;
@@ -116,7 +113,7 @@ public class Enemy extends Entity {
                 animationIndex = 0;
                 if (enemyState == ATTACK) enemyState = IDLE;
                 else if (enemyState == HIT) enemyState = IDLE;
-                else if (enemyState == DEAD) active = false;
+                else if (enemyState == DEAD) alive = false;
             }
         }
     }
@@ -136,12 +133,18 @@ public class Enemy extends Entity {
 
     // MON ATT PLAYER
     protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
-        if (attackBox.intersects(player.hitBox))
-            player.changeHealth(-getEnemyDmg(enemyType));
-        attackChecked = true;
+        if (attackBox.intersects(player.hitBox)) {
+            player.changeHealth(-getEnemyDmg(CRAB));
+            attackChecked = true;
+        }
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isAlive() {
+        return alive;
     }
+
+    public int getWalkDir() {
+        return walkDir;
+    }
+
 }

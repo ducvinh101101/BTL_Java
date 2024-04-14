@@ -22,14 +22,16 @@ public class LevelManager {
         level[1] = new Level(LoadSave.getLevelData2());
         level[2] = new Level(LoadSave.getLevelData3());
     }
-    public void nextMap(boolean kt){
-        if(kt == true){
-            innext +=1;
+
+    public void nextMap(boolean kt) {
+        if (kt) {
+            innext += 1;
         }
-        if(innext>level.length){
+        if (innext > level.length) {
             innext = 0;
         }
     }
+
     private void importOutsideSprite() {
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.TILESET);
         levelSprite = new BufferedImage[81];

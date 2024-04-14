@@ -38,7 +38,8 @@ public class Playing extends State implements Statemethod {
         super(game);
         initClasses();
     }
-    public void loadNextMap(){
+
+    public void loadNextMap() {
         levelManager.nextMap(lvlCompleter);
         lvlCompleter = false;
     }
@@ -48,7 +49,7 @@ public class Playing extends State implements Statemethod {
         levelManager = new LevelManager(game);
         player = new Player(game.TILES_DEFAULT_SIZE, game.TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
-        enemyManager = new EnemyManager(this);
+        enemyManager = new EnemyManager(this); // tao ra quai
         pauseOverplay = new PauseOverplay(this);
         levelCompletedOverlay = new LevelCompletedOverlay(this);
     }
@@ -63,18 +64,16 @@ public class Playing extends State implements Statemethod {
 
     @Override
     public void update() { // đã đổi hàm update
-        if(pause){
+        if (pause) {
             pauseOverplay.update();
-        }
-        else if (lvlCompleter){
+        } else if (lvlCompleter) {
             levelCompletedOverlay.update();
-        }
-        else {
+        } else {
             levelManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
             checkCloseToBorder();
-            if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
+            if (HelpMethods.canNextMap((float) player.getHitBox().x, (float) player.getHitBox().y, (float) player.getHitBox().width, (float) player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleter = true;
             }
         }
@@ -107,8 +106,7 @@ public class Playing extends State implements Statemethod {
         enemyManager.draw(g, xLvOffset);
         if (pause) {
             pauseOverplay.draw(g);
-        }
-        else if (lvlCompleter){// thêm vẽ hộp thoại chuyển map
+        } else if (lvlCompleter) {// thêm vẽ hộp thoại chuyển map
             levelCompletedOverlay.draw(g);
         }
 
@@ -135,8 +133,7 @@ public class Playing extends State implements Statemethod {
     public void mouseReleased(MouseEvent e) {
         if (pause) {
             pauseOverplay.mouseReleased(e);
-        }
-        else if (lvlCompleter) {
+        } else if (lvlCompleter) {
             levelCompletedOverlay.mouseReleased(e);
         }
     }
@@ -145,8 +142,7 @@ public class Playing extends State implements Statemethod {
     public void mouseMoved(MouseEvent e) {
         if (pause) {
             pauseOverplay.mouseMoved(e);
-        }
-        else if (lvlCompleter) {
+        } else if (lvlCompleter) {
             levelCompletedOverlay.mouseMoved(e);
         }
     }
@@ -196,7 +192,6 @@ public class Playing extends State implements Statemethod {
             case KeyEvent.VK_D:
                 player.setRight(false);
                 break;
-
         }
     }
 

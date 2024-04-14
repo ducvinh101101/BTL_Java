@@ -35,6 +35,10 @@ public class LoadSave {
     public static final String CRAB_1 = "monster/15_1.png";
     public static final String CRAB_2 = "monster/15_2.png";
     public static final String CRAB_3 = "monster/15_3.png";
+    public static final String CRAB_0_LEFT = "monster/15_0_L.png";
+    public static final String CRAB_1_LEFT = "monster/15_1_L.png";
+    public static final String CRAB_2_LEFT = "monster/15_2_L.png";
+    public static final String CRAB_3_LEFT = "monster/15_3_L.png";
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "button/completed_sprite.png";
 
@@ -86,6 +90,7 @@ public class LoadSave {
         }
         return lvData;
     }
+
     public static int[][] getLevelData2() { // thêm mảng map 2
         int row = 14;
         int col = 60;
@@ -113,6 +118,7 @@ public class LoadSave {
         }
         return lvData;
     }
+
     public static int[][] getLevelData3() { //thêm mảng map 3
         int row = 14;
         int col = 60;

@@ -2,7 +2,6 @@ package entities;
 
 import Main.Game;
 import gamestates.Playing;
-import levels.LevelManager;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -22,7 +21,10 @@ public class Player extends Entity {
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false;
     private float playerSpeed = 1.5f;
-    private int widthPy = 30, heightPy = 42;
+    private int widthPlayer = 30, heightPlayer = 42;
+    private int damagePlayer = 1;
+    private int maxExp;
+    private int currentExp;
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;
     // nhảy trọng lực:
@@ -31,7 +33,7 @@ public class Player extends Entity {
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
-    private int lvlData[][] ;
+    private int lvlData[][];
     private BufferedImage statusBarImg;
 
     private int statusBarWidth = (int) (192 * Game.SCALE);
@@ -67,15 +69,15 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
-        initHitBox(x, y, widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
+        initHitBox(x, y, widthPlayer * Game.SCALE - 10, heightPlayer * Game.SCALE - 10);
         initAttackBox();
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
+        attackBox = new Rectangle2D.Float(x, y, (int) (30 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
-    public void update( ) {
+    public void update() {
         lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         updateHealthBar();
         updateAttackBox();
@@ -97,12 +99,8 @@ public class Player extends Entity {
     }
 
     private void updateAttackBox() {
-        if (right) {
-            attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 10);
-
-        } else if (left) {
-            attackBox.x = hitBox.x - hitBox.width + (int) (Game.SCALE * 10);
-        }
+        if (right) attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 10);
+        else if (left) attackBox.x = hitBox.x - hitBox.width + (int) (Game.SCALE * 10);
         attackBox.y = hitBox.y + (int) (Game.SCALE);
     }
 
@@ -111,7 +109,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int xLevelOffset) {
-        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet), widthPy, heightPy, null);
+        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet), widthPlayer, heightPlayer, null);
         drawHitBox(g, xLevelOffset);
         drawAttackBox(g, xLevelOffset);
         drawUI(g);
@@ -129,6 +127,7 @@ public class Player extends Entity {
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
     }
 
+    // LOAD IMG
     private void loadAnimations() {
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.PLAYER_ANI);
         idAniIm = new BufferedImage[playerAction];
@@ -237,6 +236,7 @@ public class Player extends Entity {
             if (aniIndex >= idAniIm.length) {
                 aniIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }
@@ -291,7 +291,7 @@ public class Player extends Entity {
             }
         }
         if (attacking) {
-            widthPy = 60;
+            widthPlayer = 60;
             playerAction = ATTACK_1;
             if (checkL && !checkR) {
                 idAniIm = idAniAtL;
@@ -299,7 +299,7 @@ public class Player extends Entity {
                 idAniIm = idAniAt;
             }
         } else {
-            widthPy = 30;
+            widthPlayer = 30;
 
         }
         if (startAnimation != playerAction) {
@@ -316,23 +316,13 @@ public class Player extends Entity {
 
     private void updatePos() {
         moving = false;
-        if (jump) {
-            jump();
-        }
-        if (!left && !right && !inAir) {
-            return;
-        }
+        if (jump) jump();
+        if (!left && !right && !inAir) return;
         float xSpeed = 0;
-        if (left) {
-            xSpeed -= playerSpeed;
-        }
-        if (right) {
-            xSpeed += playerSpeed;
-        }
+        if (left) xSpeed -= playerSpeed;
+        if (right) xSpeed += playerSpeed;
         if (!inAir) {
-            if (!isEntityOnFloor(hitBox, lvlData)) {
-                inAir = true;
-            }
+            if (!isEntityOnFloor(hitBox, lvlData)) inAir = true;
         }
 
         if (inAir) {
@@ -354,9 +344,7 @@ public class Player extends Entity {
     }
 
     private void jump() {
-        if (inAir) {
-            return;
-        }
+        if (inAir) return;
         inAir = true;
         airSpeed = jumpSpeed;
         jump = false;
@@ -381,12 +369,12 @@ public class Player extends Entity {
         right = false;
     }
 
-    public int getWidthPy() {
-        return widthPy;
+    public int getWidthPlayer() {
+        return widthPlayer;
     }
 
-    public int getHeightPy() {
-        return heightPy;
+    public int getHeightPlayer() {
+        return heightPlayer;
     }
 
     public void setAttacking(boolean attacking) {
