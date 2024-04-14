@@ -29,7 +29,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 80 && value !=7; // thêm vị tr có thể đi  là 7
+        return value != 17 && value !=7; // thêm vị tr có thể đi  là 7
     }
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
         float left = x / Game.TILES_SIZE;
