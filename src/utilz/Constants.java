@@ -59,35 +59,23 @@ public class Constants {
         public static int getEnemyDmg(int enemyType) {
             switch (enemyType) {
                 case CRAB:
-                    return 10;
+                    return 100;
                 default:
                     return 1;
             }
         }
     }
-<<<<<<< HEAD
-
-    public static class UI {
-        public static class Buttons {
-            public static final int B_WIDTH_DEFAULT = 140;
-            public static final int B_HEIGHT_DEFAULT = 56;
-            public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * Game.SCALE);
-            public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * Game.SCALE);
-=======
     public static class UI{
         public static class Buttons{
             public static final int B_WIDTH_DEFAULT = 210;
             public static final int B_HEIGHT_DEFAULT = 84;
             public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT/1.5 * Game.SCALE);
             public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT/1.5 * Game.SCALE);
->>>>>>> 13b3a9915a9990f764dcac08de3471b2f621c0e6
         }
-
-        public static class PauseButton {
+        public static class PauseButton{
             public static final int SOUND_SIZE_DEFAUL = 42;
-            public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAUL * Game.SCALE);
+            public static final int SOUND_SIZE = (int)(SOUND_SIZE_DEFAUL*Game.SCALE);
         }
-
         public static class URMButtons {
             public static final int URM_DEFAULT_SIZE = 56;
             public static final int URM_SIZE = (int) (URM_DEFAULT_SIZE * Game.SCALE);
@@ -106,21 +94,20 @@ public class Constants {
 
     }
 
-    public static class Directions {
+    public static class Directions{
         public static final int LEFT = 0;
         public static final int RIGHT = 1;
         public static final int UP = 2;
         public static final int DOWN = 3;
     }
-
-    public static class PlayerConstants {
+    public static class PlayerConstants{
         public static final int RUNNING = 5;
         public static final int IDLE = 5;
-        public static final int JUMPPING = 1;
+        public static final int JUMPPING =1;
         public static final int FALLING = 1;
-        public static final int JUMPPING_LEFT = 1;
+        public static final int JUMPPING_LEFT =1;
         public static final int FALLING_LEFT = 1;
-        public static final int GROUND = 4;
+        public static final int GROUND =4;
         public static final int HIT = 5;
         public static final int ATTACK_1 = 5;
         public static final int AIR = 4;
