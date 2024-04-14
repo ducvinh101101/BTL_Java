@@ -68,6 +68,7 @@ public class LevelManager {
                     g.drawImage(levelSprite[index], Game.TILES_SIZE * j - xLvOffset, Game.TILES_SIZE * i, Game.TILES_SIZE, Game.TILES_SIZE, null);
                 }
             }
+
         } else if (innext == 1) {
             int tileSize = Game.TILES_SIZE;
             for (int i = 0; i < TILES_IN_HEIGHT; i++) {

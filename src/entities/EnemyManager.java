@@ -27,11 +27,15 @@ public class EnemyManager {
         crabs = new ArrayList<>();
         loadEnemyImgsLeft();
         loadEnemyImgsRight();
-        addEnemy();
+//        addEnemy();
     }
 
     public void addEnemy() {
         Crab newCrab = new Crab(TILES_DEFAULT_SIZE * 12, TILES_DEFAULT_SIZE * 12 - 10);
+        crabs.add(newCrab);
+    }
+    public void addEnemy2(){
+        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * 12+111, TILES_DEFAULT_SIZE * 12 - 10);
         crabs.add(newCrab);
     }
 
@@ -71,7 +75,6 @@ public class EnemyManager {
             }
         }
     }
-
     public void loadEnemyImgsRight() {
         crabImgRight = new BufferedImage[9];
         crabImgRight[0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0);
@@ -86,5 +89,13 @@ public class EnemyManager {
         crabImgLeft[1] = LoadSave.getSpriteAlas(LoadSave.CRAB_1_LEFT);
         crabImgLeft[2] = LoadSave.getSpriteAlas(LoadSave.CRAB_3_LEFT);
         crabImgLeft[4] = LoadSave.getSpriteAlas(LoadSave.CRAB_2_LEFT);
+    }
+
+    public ArrayList<Crab> getCrabs() {
+        return crabs;
+    }
+
+    public void setCrabs(ArrayList<Crab> crabs) {
+        this.crabs = crabs;
     }
 }

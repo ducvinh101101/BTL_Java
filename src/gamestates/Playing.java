@@ -31,6 +31,7 @@ public class Playing extends State implements Statemethod {
     private PauseOverplay pauseOverplay;
     private LevelCompletedOverlay levelCompletedOverlay;
     private boolean lvlCompleter = false;
+    private int kt=0;
 
     private boolean pause = false;
 
@@ -51,6 +52,13 @@ public class Playing extends State implements Statemethod {
         enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
         levelCompletedOverlay = new LevelCompletedOverlay(this);
+
+    }
+    public void addCrab(){
+        enemyManager.addEnemy();
+    }
+    public void addCrab2(){
+        enemyManager.addEnemy2();
     }
 
     public void windowFocusLost() {
@@ -77,6 +85,16 @@ public class Playing extends State implements Statemethod {
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleter = true;
             }
+        }
+        if(levelManager.getInnext()==0 && kt ==0){
+            addCrab();
+            kt =1;
+        }
+        else if(levelManager.getInnext()==1 && kt ==1){
+            enemyManager.getCrabs().clear();
+            addCrab();
+            addCrab2();
+            kt =2;
         }
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
 //            levelManager.update();
@@ -116,7 +134,6 @@ public class Playing extends State implements Statemethod {
             levelManager.draw(g,xLvOffset);
             levelCompletedOverlay.setMap(false);
         }
-
 
     }
 

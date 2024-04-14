@@ -48,7 +48,7 @@ public class PauseOverplay {
         int menuX = (int) (313 * Game.SCALE);
         int replayX = (int) (387 * Game.SCALE);
         int unpauseX = (int) (462 * Game.SCALE);
-        int bY = (int) (325 * Game.SCALE);
+        int bY = (int) (320 * Game.SCALE);
         menuButton = new UrmButton(menuX, bY, URM_SIZE, URM_SIZE, 2);
         replayButton = new UrmButton(replayX, bY, URM_SIZE, URM_SIZE, 1);
         unPauseButton = new UrmButton(unpauseX, bY, URM_SIZE, URM_SIZE, 0);
@@ -56,8 +56,8 @@ public class PauseOverplay {
 
     private void loadBackground() {
         pauseBackground = LoadSave.getSpriteAlas(LoadSave.PAUSE_BACKGROUND);
-        bgWidth =(int) (pauseBackground.getWidth()* Game.SCALE);
-        bgHeight = (int)(pauseBackground.getHeight()* Game.SCALE);
+        bgWidth =(int) (pauseBackground.getWidth()/1.5* Game.SCALE);
+        bgHeight = (int)(pauseBackground.getHeight()/1.5* Game.SCALE);
         bgX = Game.GAME_WIDTH/2-bgWidth/2;
         bgY = (int)(25*Game.SCALE);
     }
