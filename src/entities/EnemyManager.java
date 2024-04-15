@@ -31,7 +31,7 @@ public class EnemyManager {
     }
 
     public void addEnemy(int x,int y) {
-        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * x, TILES_DEFAULT_SIZE * y - 10);
+        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * x + 200 , TILES_DEFAULT_SIZE * y - 100);
         crabs.add(newCrab);
 
     }
@@ -60,6 +60,7 @@ public class EnemyManager {
                 g.drawImage(crabImg[crab.getEnemyState()], (int) crab.getHitBox().x - xLvOffset, (int) crab.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT, null);
                 crab.drawHitBox(g, xLvOffset, yLevelOffset);
                 crab.drawAttackBox(g, xLvOffset, yLevelOffset);
+                crab.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
     }
@@ -78,7 +79,7 @@ public class EnemyManager {
         crabImgRight[0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0);
         crabImgRight[1] = LoadSave.getSpriteAlas(LoadSave.CRAB_1);
         crabImgRight[2] = LoadSave.getSpriteAlas(LoadSave.CRAB_3);
-        crabImgRight[4] = LoadSave.getSpriteAlas(LoadSave.CRAB_2);
+        crabImgRight[3] = LoadSave.getSpriteAlas(LoadSave.CRAB_2);
     }
 
     public void loadEnemyImgsLeft() {
@@ -86,7 +87,7 @@ public class EnemyManager {
         crabImgLeft[0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0_LEFT);
         crabImgLeft[1] = LoadSave.getSpriteAlas(LoadSave.CRAB_1_LEFT);
         crabImgLeft[2] = LoadSave.getSpriteAlas(LoadSave.CRAB_3_LEFT);
-        crabImgLeft[4] = LoadSave.getSpriteAlas(LoadSave.CRAB_2_LEFT);
+        crabImgLeft[3] = LoadSave.getSpriteAlas(LoadSave.CRAB_2_LEFT);
     }
 
     public ArrayList<Crab> getCrabs() {

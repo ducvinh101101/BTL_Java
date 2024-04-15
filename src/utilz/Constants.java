@@ -35,15 +35,15 @@ public class Constants {
                 case CRAB:
                     switch (enemy_state) {
                         case IDLE:
-                            return 9;
+                            return 1;
                         case RUNNING:
-                            return 6;
+                            return 1;
                         case ATTACK:
-                            return 7;
+                            return 1;
                         case HIT:
-                            return 4;
+                            return 1;
                         case DEAD:
-                            return 5;
+                            return 1;
                     }
             }
             return 0;

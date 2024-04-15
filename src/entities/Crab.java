@@ -62,9 +62,22 @@ public class Crab extends Enemy {
                     if (animationIndex == 3 && !attackChecked) checkPlayerHit(attackBox, player);
                     break;
                 case DEAD:
+                    alive = false;
                     break;
             }
         }
+    }
+    public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
+        double oneScale = (double)Game.TILES_SIZE/maxHealth;
+        double hpBarValue = oneScale * currentHealth;
+
+        // thanh máu nền
+        g.setColor(new Color(35, 35, 35));
+        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, Game.TILES_SIZE , 6);
+
+        // thanh máu hiện tại
+        g.setColor(new Color(255, 0, 30));
+        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int)hpBarValue, 6);
     }
 
 }
