@@ -1,6 +1,5 @@
 package inputs;
 
-import Main.Game;
 import Main.GamePanel;
 import gamestates.Gamestate;
 
@@ -32,10 +31,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         switch (Gamestate.state) {
             case MENU:
-                gamePanel.getGame().getMenu().mousePresser(e);
+                gamePanel.getGame().getMenu().mousePressed(e);
                 break;
             case PLAYING:
-                gamePanel.getGame().getPlaying().mousePresser(e);
+                gamePanel.getGame().getPlaying().mousePressed(e);
                 break;
             default:
                 break;

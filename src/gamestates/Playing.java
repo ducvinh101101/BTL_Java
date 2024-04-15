@@ -157,7 +157,7 @@ public class Playing extends State implements Statemethod {
     }
 
     @Override
-    public void mousePresser(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (pause) {
             pauseOverplay.mousePresser(e);
         }
@@ -186,7 +186,7 @@ public class Playing extends State implements Statemethod {
     }
 
     @Override
-    public void keyPresser(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 player.setLeft(true);

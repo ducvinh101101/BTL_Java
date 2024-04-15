@@ -23,10 +23,10 @@ public class KeyboardInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (Gamestate.state){
             case MENU:
-                gamePanel.getGame().getMenu().keyPresser(e);
+                gamePanel.getGame().getMenu().keyPressed(e);
                 break;
             case PLAYING:
-                gamePanel.getGame().getPlaying().keyPresser(e);
+                gamePanel.getGame().getPlaying().keyPressed(e);
                 break;
             default:
                 break;
