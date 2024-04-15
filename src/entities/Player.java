@@ -2,7 +2,6 @@ package entities;
 
 import Main.Game;
 import gamestates.Playing;
-import levels.LevelManager;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -339,12 +338,11 @@ public class Player extends Entity {
 
         if (inAir) {
             if(airSpeed>0){
-                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpMap(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData)) {
+                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpTile(hitBox.x, hitBox.y+airSpeed, hitBox.width, hitBox.height, lvlData)) {
                     hitBox.y += airSpeed;
                     airSpeed += gravity;
                     updateXPos(xSpeed);
                 } else {
-
                     hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
                     if (airSpeed > 0) {
                         resetInAir();

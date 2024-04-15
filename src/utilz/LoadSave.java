@@ -13,7 +13,7 @@ public class LoadSave {
     public static final String PLAYER_RUNL = "player/pyrunleft.png";
     public static final String PLAYER_IML = "player/playerLeft.png";
     public static final String BACKGROUND_MAP_1 = "map/background.png";
-    public static final String TILESET = "map/Tileset.png";
+    public static final String TILESET_1 = "map/map1.png";
 
     public static final String PLAYER_IN_AIR = "player/inAir.png";
 
@@ -41,8 +41,8 @@ public class LoadSave {
     public static final String CRAB_3_LEFT = "monster/15_3_L.png";
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "button/completed_sprite.png";
-    public static final String TILESET_2 = "map/tileset2.png";
-    public static final String TILESET_3 = "map/tileset3.png";
+    public static final String TILESET_2 = "map/map2.png";
+    public static final String TILESET_3 = "map/map3.png";
 
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;

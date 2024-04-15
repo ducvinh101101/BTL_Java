@@ -2,7 +2,6 @@ package utilz;
 
 import Main.Game;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class HelpMethods {
@@ -55,23 +54,23 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         return value == 7;
     }
 
-    public static boolean canJumpMap(float x, float y, float width, float height, int[][] lvlData) {
+    public static boolean canJumpTile(float x, float y, float width, float height, int[][] lvlData) {
         float left = x / Game.TILES_SIZE;
         float right = (x + width) / Game.TILES_SIZE;
         float top = y / Game.TILES_SIZE;
         float bottom = (y + height) / Game.TILES_SIZE;
-            if (!isJumpMap(right, bottom, lvlData))
-                    if (!isJumpMap(left, bottom, lvlData))
+            if (!isJumptile(right, bottom, lvlData))
+                    if (!isJumptile(left, bottom, lvlData))
                             return true;
         return false;
     }
-    private static boolean isJumpMap(float xIndex, float yIndex, int[][] lvlData){
+    private static boolean isJumptile(float xIndex, float yIndex, int[][] lvlData){
         if (xIndex < 0 || xIndex >= lvlData[0].length || yIndex < 0 || yIndex >= lvlData.length) {
             return true;
         }
-        return isTileJumpMap((int) xIndex, (int) yIndex, lvlData);
+        return isTileJumpTile((int) xIndex, (int) yIndex, lvlData);
     }
-    public static boolean isTileJumpMap(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra block jump
+    public static boolean isTileJumpTile(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra block jump
         int value = lvData[(int) yTile][(int) xTile];
         return value == 3;
     }
