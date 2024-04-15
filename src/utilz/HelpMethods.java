@@ -61,7 +61,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         float bottom = (y + height) / Game.TILES_SIZE;
             if (!isJumptile(right, bottom, lvlData))
                     if (!isJumptile(left, bottom, lvlData))
-                            return true;
+                        return true;
         return false;
     }
     private static boolean isJumptile(float xIndex, float yIndex, int[][] lvlData){

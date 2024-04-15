@@ -26,7 +26,7 @@ public class Player extends Entity {
     private float yDrawOffSet = 9 * Game.SCALE;
     // nhảy trọng lực:
     private float airSpeed = 0f;
-    private float gravity = 0.04f * Game.SCALE;
+    private float gravity = 0.03f * Game.SCALE;
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
@@ -343,7 +343,6 @@ public class Player extends Entity {
                     airSpeed += gravity;
                     updateXPos(xSpeed);
                 } else {
-                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
                     if (airSpeed > 0) {
                         resetInAir();
                     } else {
