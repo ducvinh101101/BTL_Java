@@ -53,9 +53,9 @@ public class ObjectManager {
             if(gc.isActive()){
                 if(gc.getHitbox().intersects(attackBox)){
                     gc.setAnimation(true);
-                    int type = 0;
+                    int type = 21;
                     if(gc.getObjType() == BARREL){
-                        type = 1;
+                        type = 22;
                     }
                     potions.add(new Potion((int)(gc.getHitbox().x + gc.getHitbox().width / 2),  (int)(gc.getHitbox().y - gc.getHitbox().height / 2), type));
                     return;
