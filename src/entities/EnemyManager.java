@@ -31,9 +31,8 @@ public class EnemyManager {
     }
 
     public void addEnemy(int x,int y) {
-        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * x + 200 , TILES_DEFAULT_SIZE * y - 100);
+        Crab newCrab = new Crab(TILES_DEFAULT_SIZE* x + 200 , TILES_DEFAULT_SIZE *y - 100);
         crabs.add(newCrab);
-
     }
 
 
