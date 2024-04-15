@@ -35,4 +35,9 @@ public abstract class Entity {
     public Rectangle2D.Float getHitBox() {
         return hitBox;
     }
+
+    public void setHitBox(float x, float y) {
+        this.hitBox.x = x;
+        this.hitBox.y = y;
+    }
 }

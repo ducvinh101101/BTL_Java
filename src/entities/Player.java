@@ -25,8 +25,8 @@ public class Player extends Entity {
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;
     // nhảy trọng lực:
-    private float airSpeed = 0f;
-    private float gravity = 0.04f * Game.SCALE;
+    private float airSpeed = 10f;
+    private float gravity = 0.01f * Game.SCALE;
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
@@ -342,12 +342,11 @@ public class Player extends Entity {
                     hitBox.y += airSpeed;
                     airSpeed += gravity;
                     updateXPos(xSpeed);
-                } else {
-                    if (airSpeed > 0) {
-                        resetInAir();
-                    } else {
-                        airSpeed = fallSpeedAfterCollision;
-                    }
+                }
+                else {
+//                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+                    resetInAir();
+                    airSpeed = fallSpeedAfterCollision;
                     updateXPos(xSpeed);
                 }
             }
@@ -356,7 +355,8 @@ public class Player extends Entity {
                     hitBox.y += airSpeed;
                     airSpeed += gravity;
                     updateXPos(xSpeed);
-                } else {
+                }
+                else {
 
                     hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
                     if (airSpeed > 0) {
