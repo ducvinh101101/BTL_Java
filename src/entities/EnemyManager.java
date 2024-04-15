@@ -30,14 +30,12 @@ public class EnemyManager {
 //        addEnemy();
     }
 
-    public void addEnemy() {
-        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * 12, TILES_DEFAULT_SIZE * 12 - 10);
+    public void addEnemy(int x,int y) {
+        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * x, TILES_DEFAULT_SIZE * y - 10);
         crabs.add(newCrab);
+
     }
-    public void addEnemy2(){
-        Crab newCrab = new Crab(TILES_DEFAULT_SIZE * 12+111, TILES_DEFAULT_SIZE * 12 - 10);
-        crabs.add(newCrab);
-    }
+
 
     public void update(int[][] lvData, Player player) {
         ArrayList<Crab> tempCrabs = new ArrayList<>();
@@ -50,7 +48,7 @@ public class EnemyManager {
         }
         crabs.removeAll(tempCrabs);
         if (spawnMonster) {
-            addEnemy();
+            addEnemy(12,12);
             spawnMonster = false;
         }
     }

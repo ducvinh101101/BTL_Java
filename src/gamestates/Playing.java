@@ -55,11 +55,9 @@ public class Playing extends State implements Statemethod {
 
     }
     public void addCrab(){
-        enemyManager.addEnemy();
+        enemyManager.addEnemy(12,12);
     }
-    public void addCrab2(){
-        enemyManager.addEnemy2();
-    }
+
 
     public void windowFocusLost() {
         player.resetDirBooleans();
@@ -86,16 +84,17 @@ public class Playing extends State implements Statemethod {
                 lvlCompleter = true;
             }
         }
-        if(levelManager.getInnext()==0 && kt ==0){
+        if(levelManager.getInnext()==0 && kt ==0){ // create monter
             addCrab();
             kt =1;
         }
         else if(levelManager.getInnext()==1 && kt ==1){
             enemyManager.getCrabs().clear();
             addCrab();
-            addCrab2();
+            enemyManager.addEnemy(15,12);
             kt =2;
         }
+
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
 //            levelManager.update();
 //            player.update();
