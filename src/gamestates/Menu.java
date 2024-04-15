@@ -58,7 +58,7 @@ public class Menu extends State implements Statemethod{
     }
 
     @Override
-    public void mousePresser(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         for (MenuButton mb : buttons) {
             if (isIn(e, mb)) {
                 mb.setMousePressed(true);
@@ -97,7 +97,7 @@ public class Menu extends State implements Statemethod{
     }
 
     @Override
-    public void keyPresser(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             Gamestate.state = Gamestate.PLAYING;
         }
