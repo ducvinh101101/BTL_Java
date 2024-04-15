@@ -28,6 +28,9 @@ public class LevelManager {
             innext += 1;
             kt = false;
         }
+        if(innext > level.length){
+            innext = 0;
+        }
 
     }
 

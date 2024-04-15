@@ -18,9 +18,9 @@ public class SoundButton extends PauseButton{
     private void loadSoundImgs(){
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.SOUND_BUTTON);
         soundImgs = new BufferedImage[2][3];
-        for(int i =0; i<soundImgs.length;i++){
-            for(int j=0;j<soundImgs[i].length;j++){
-                soundImgs[i][j]=img.getSubimage(j*SOUND_SIZE_DEFAUL,i*SOUND_SIZE_DEFAUL,SOUND_SIZE_DEFAUL,SOUND_SIZE_DEFAUL);
+        for(int i =0; i < soundImgs.length; i++){
+            for(int j = 0;j < soundImgs[i].length; j++){
+                soundImgs[i][j] = img.getSubimage(j * SOUND_SIZE_DEFAUL,i * SOUND_SIZE_DEFAUL,SOUND_SIZE_DEFAUL,SOUND_SIZE_DEFAUL);
             }
         }
     }
@@ -36,7 +36,7 @@ public class SoundButton extends PauseButton{
             colIndex = 1;
         }
         if(mousePressed){
-            colIndex =2;
+            colIndex = 2;
         }
     }
     public void resetBool(){

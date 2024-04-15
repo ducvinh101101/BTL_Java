@@ -18,12 +18,12 @@ public class VolumeButton extends PauseButton{
 
     public VolumeButton(int x, int y, int width, int height) {
         super(x+width/2, y, VOLUME_WIDTH, height);
-        bounds.x -= VOLUME_WIDTH/2;
-        buttonX = x+width/2;
-        this.x=x;
-        this.width=width;
-        minX = x+VOLUME_WIDTH/2;
-        maxX = x+width-VOLUME_WIDTH/2;
+        bounds.x -= VOLUME_WIDTH / 2;
+        buttonX = x + width / 2;
+        this.x = x;
+        this.width = width;
+        minX = x + VOLUME_WIDTH / 2;
+        maxX = x + width - VOLUME_WIDTH / 2;
         loadVolumeButton();
     }
 
@@ -31,35 +31,35 @@ public class VolumeButton extends PauseButton{
     private void loadVolumeButton() {
         BufferedImage img = LoadSave.getSpriteAlas(LoadSave.VOLUME_BUTTON);
         imgs = new  BufferedImage[3];
-        for(int i=0; i<imgs.length;i++){
-            imgs[i] = img.getSubimage(i*VOLUME_DEFAULT_WIDTH,0,VOLUME_DEFAULT_WIDTH,VOLUME_DEFAULT_HEIGHT);
+        for(int i = 0; i < imgs.length; i++){
+            imgs[i] = img.getSubimage(i * VOLUME_DEFAULT_WIDTH,0,VOLUME_DEFAULT_WIDTH,VOLUME_DEFAULT_HEIGHT);
         }
-        slide = img.getSubimage(3*VOLUME_DEFAULT_WIDTH, 0, SLIDER_DEFAULT_WIDTH,VOLUME_DEFAULT_HEIGHT);
+        slide = img.getSubimage(3 * VOLUME_DEFAULT_WIDTH, 0, SLIDER_DEFAULT_WIDTH,VOLUME_DEFAULT_HEIGHT);
     }
 
     public void update(){
         index =0;
         if(mouseOver){
-            index =1;
+            index = 1;
         }
         if(mousePressed){
-            index =2;
+            index = 2;
         }
 
     }
     public void draw(Graphics g){
         g.drawImage(slide,x,y,width,height,null);
-        g.drawImage(imgs[index],buttonX - VOLUME_WIDTH/2,y,VOLUME_WIDTH,height,null);
+        g.drawImage(imgs[index],buttonX - VOLUME_WIDTH / 2,y,VOLUME_WIDTH,height,null);
     }
     public void changX(int x){
-        if(x<minX){
+        if(x < minX){
             buttonX = minX;
         }
-        else if(x>maxX){
+        else if(x > maxX){
             buttonX = maxX;
         }
         else buttonX = x;
-        bounds.x = buttonX-VOLUME_WIDTH/2;
+        bounds.x = buttonX - VOLUME_WIDTH / 2;
     }
     public void resetBools() {
         mouseOver = false;

@@ -1,5 +1,7 @@
 package entities;
 
+import Main.Game;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -7,7 +9,9 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected Rectangle2D.Float hitBox;
-
+    protected int aniTick, aniIndex;
+    protected int state;
+    protected boolean inAir = false;
 
     public Entity(float x, float y, int width, int height) {
         this.x = x;
@@ -22,8 +26,8 @@ public abstract class Entity {
         g.drawRect((int) hitBox.x - xlevelOffset, (int) hitBox.y - yLevelOffset, (int) hitBox.width, (int) hitBox.height);
     }
 
-    protected void initHitBox(float x, float y, float width, float height) {
-        hitBox = new Rectangle2D.Float(x, y, width, height);
+    protected void initHitBox( float width, float height) {
+        hitBox = new Rectangle2D.Float(x, y,(int) (width * Game.SCALE),(int) (height * Game.SCALE));
     }
 
 

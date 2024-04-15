@@ -5,6 +5,7 @@ import entities.EnemyManager;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
+import objects.ObjectManager;
 import ui.PauseOverplay;
 import utilz.HelpMethods;
 import utilz.LoadSave;
@@ -19,6 +20,7 @@ import static Main.Game.*;
 public class Playing extends State implements Statemethod {
     private Player player;
     private LevelManager levelManager;
+    private ObjectManager objectManager;
     private Background background;
     private EnemyManager enemyManager;
     private int xLvOffset;
@@ -32,14 +34,19 @@ public class Playing extends State implements Statemethod {
     private int maxLvOffsetWidth = maxTilesOffset * TILES_SIZE;
     private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
     private PauseOverplay pauseOverplay;
-    private boolean lvlCompleter = false;
-    private int kt=0;
+    private boolean lvlCompleted = false;
+    private int kt = 0;
 
-    private boolean pause = false;
+    private boolean paused = false;
 
     public Playing(Game game) {
         super(game);
         initClasses();
+         loadStartLevel();
+    }
+
+    private void loadStartLevel() {
+        objectManager.loadObject(levelManager.getCurrenLevel());
     }
 //    public void loadNextMap(){
 //        levelManager.nextMap(lvlCompleter);
@@ -49,8 +56,10 @@ public class Playing extends State implements Statemethod {
     private void initClasses() {
         background = new Background();
         levelManager = new LevelManager(game);
+        objectManager = new ObjectManager(this);
         player = new Player(game.TILES_DEFAULT_SIZE, game.TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
+        objectManager.loadObject(levelManager.getCurrenLevel());
         enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
 
@@ -70,7 +79,7 @@ public class Playing extends State implements Statemethod {
 
     @Override
     public void update() { // đã đổi hàm update
-        if(pause){
+        if(paused){
             pauseOverplay.update();
         }
 
@@ -78,11 +87,12 @@ public class Playing extends State implements Statemethod {
             levelManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
+            objectManager.update();
             checkCloseToBorder();
             checkOpenToBorder();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
-                lvlCompleter = true;
-                levelManager.nextMap(lvlCompleter);
+                lvlCompleted = true;
+                levelManager.nextMap(lvlCompleted);
             }
         }
         if(levelManager.getInnext()==0 && kt ==0){ // create monter
@@ -128,6 +138,13 @@ public class Playing extends State implements Statemethod {
             yLvOffset = 0;
         }
     }
+    public void resetAll(){
+        //gameOver = false;
+        paused = false;
+        lvlCompleted = false;
+        player.resetAll();
+        objectManager.resetAllObjects();
+    }
 
 
     @Override
@@ -136,36 +153,37 @@ public class Playing extends State implements Statemethod {
         levelManager.draw(g, xLvOffset, yLvOffset);
         player.render(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);
-        if (pause) {
+        objectManager.draw(g,xLvOffset, yLvOffset);
+        if (paused) {
             pauseOverplay.draw(g);
         }
-        if(lvlCompleter){
+        if(lvlCompleted){
             player.getHitBox().x = 0; player.getHitBox().y =0;
             levelManager.importOutsideSprite();
             levelManager.draw(g,xLvOffset, yLvOffset);
-            lvlCompleter = false;
+            lvlCompleted = false;
         }
 
     }
 
     public void unPauseGame() {
-        pause = false;
+        paused = false;
     }
 
     @Override
-    public void mouseClicker(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (pause) {
+        if (paused) {
             pauseOverplay.mousePresser(e);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (pause) {
+        if (paused) {
             pauseOverplay.mouseReleased(e);
         }
 
@@ -173,14 +191,14 @@ public class Playing extends State implements Statemethod {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (pause) {
+        if (paused) {
             pauseOverplay.mouseMoved(e);
         }
 
     }
 
     public void mouseDragged(MouseEvent e) {
-        if (pause) {
+        if (paused) {
             pauseOverplay.mouseDragger(e);
         }
     }
@@ -203,7 +221,7 @@ public class Playing extends State implements Statemethod {
                 player.setAttacking(true);
                 break;
             case KeyEvent.VK_P:
-                pause = !pause;
+                paused = !paused;
         }
     }
 
@@ -225,10 +243,18 @@ public class Playing extends State implements Statemethod {
         }
     }
 
+    public ObjectManager getObjectManager(){
+        return objectManager;
+    }
+    public void checkObjectHit(Rectangle2D.Float attackBox){
+        objectManager.checkObjectHit(attackBox);
+    }
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
     }
-
+    public void checkPotionTouch(Rectangle2D.Float hitBox){
+        objectManager.checkObjectTouched(hitBox);
+    }
     public LevelManager getLevelManager() {
         return levelManager;
     }

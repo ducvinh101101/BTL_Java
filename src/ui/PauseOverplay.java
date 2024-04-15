@@ -24,7 +24,7 @@ public class PauseOverplay {
 
 
     public PauseOverplay(Playing playing){
-        this.playing=playing;
+        this.playing = playing;
         loadBackground();
         createSoundButton();
         createUrmButton();
@@ -32,15 +32,15 @@ public class PauseOverplay {
     }
 
     private void createVolumeButton() {
-        int volumeX = (int)(309*Game.SCALE);
-        int volumeY = (int)(278*Game.SCALE);
+        int volumeX = (int)(309 * Game.SCALE);
+        int volumeY = (int)(278 * Game.SCALE);
         volumeButton = new VolumeButton(volumeX,volumeY,SLIDER_WIDTH,VOLUME_HEIGHT);
     }
 
     private void createSoundButton() {
-        int soundX = (int)(450*Game.SCALE);
-        int musicY = (int)(140*Game.SCALE);
-        int fsxY = (int)(186*Game.SCALE);
+        int soundX = (int)(450 * Game.SCALE);
+        int musicY = (int)(140 * Game.SCALE);
+        int fsxY = (int)(186 * Game.SCALE);
         musicButton = new SoundButton(soundX,musicY,SOUND_SIZE,SOUND_SIZE);
         fsxButton = new SoundButton(soundX,fsxY,SOUND_SIZE,SOUND_SIZE);
     }
@@ -56,10 +56,10 @@ public class PauseOverplay {
 
     private void loadBackground() {
         pauseBackground = LoadSave.getSpriteAlas(LoadSave.PAUSE_BACKGROUND);
-        bgWidth =(int) (pauseBackground.getWidth()/1.5* Game.SCALE);
-        bgHeight = (int)(pauseBackground.getHeight()/1.5* Game.SCALE);
-        bgX = Game.GAME_WIDTH/2-bgWidth/2;
-        bgY = (int)(25*Game.SCALE);
+        bgWidth =(int) (pauseBackground.getWidth() / 1.5 * Game.SCALE);
+        bgHeight = (int)(pauseBackground.getHeight() / 1.5 * Game.SCALE);
+        bgX = Game.GAME_WIDTH / 2 - bgWidth / 2;
+        bgY = (int)(25 * Game.SCALE);
     }
 
     public void update(){

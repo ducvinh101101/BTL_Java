@@ -3,6 +3,12 @@ package utilz;
 import Main.Game;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import objects.Potion;
+import objects.GameContainer;
+
+import static utilz.Constants.ObjectConstants.*;
+import static utilz.Constants.ObjectConstants.BOX;
 
 public class HelpMethods {
 
@@ -28,7 +34,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 17 && value !=7 && value!=3; // thêm vị tr có thể đi  là 7
+        return value != 17 && value != 7 && value!= 3 && value != 21 && value != 22 && value != 60 && value != 116; // thêm vị tr có thể đi  là 7
     }
 
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
@@ -76,10 +82,10 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
     }
     public static float getEntityXPosNextToWall(Rectangle2D.Float hitBox, float xSpeed){
         int currentTile = (int) (hitBox.x/Game.TILES_SIZE);
-        if(xSpeed>0){
+        if(xSpeed > 0){
             int tileXPos =  currentTile*Game.TILES_SIZE;
             int xOffSet = (int) (Game.TILES_SIZE-hitBox.width);
-            return tileXPos+xOffSet-1;
+            return tileXPos + xOffSet - 1;
         }
         else {
             return currentTile*Game.TILES_SIZE;
@@ -90,7 +96,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         if(airSpeed > 0){
             int tileYPos = currentTile * Game.TILES_SIZE;
             int yOffSet = (int) (Game.TILES_SIZE - hitBox.height);
-            return tileYPos + yOffSet-1+Game.TILES_DEFAULT_SIZE;
+            return tileYPos + yOffSet - 1 + Game.TILES_DEFAULT_SIZE;
         }
         else {
             return currentTile * Game.TILES_SIZE;
@@ -100,7 +106,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         float left = hitBox.x / Game.TILES_SIZE;
         float right = (hitBox.x + hitBox.width) / Game.TILES_SIZE;
         float top = hitBox.y / Game.TILES_SIZE;
-        float bottom = (hitBox.y + hitBox.height+1) / Game.TILES_SIZE;
+        float bottom = (hitBox.y + hitBox.height + 1) / Game.TILES_SIZE;
         if (!isSolid(left, bottom, lvlData))
             if (!isSolid(right, bottom, lvlData))
                 if (!isSolid(right, top, lvlData))
@@ -123,5 +129,29 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         int secondXTile = (int) (secondHitBox.x / Game.TILES_SIZE);
         if (firstXTile > secondXTile) return isAllTileWalkable(secondXTile, firstXTile, yTile, lvData);
         else return isAllTileWalkable(firstXTile, secondXTile, yTile, lvData);
+    }
+    public static ArrayList<Potion> getPotions(int[][] lvlData){
+        ArrayList<Potion> list = new ArrayList<>();
+        for(int j = 0; j < lvlData.length; j++){
+            for(int i = 0; i < lvlData[j].length; i++){
+                int value = lvlData[j][i];
+                if(value == RED_POTION || value == BLUE_POTION){ // || value == 82
+                    list.add(new Potion(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
+    }
+    public static ArrayList<GameContainer> getContainers(int[][] lvlData){
+        ArrayList<GameContainer> list = new ArrayList<>();
+        for(int j = 0; j < lvlData.length; j++){
+            for(int i = 0; i < lvlData[j].length; i++){
+                int value = lvlData[j][i];
+                if(value == BARREL || value == BOX){ // || value == 84
+                    list.add(new GameContainer(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
     }
 }
