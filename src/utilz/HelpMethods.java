@@ -34,7 +34,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 17 && value !=16 && value!=52 && value != 91 && value != 92 && value !=93 && value != 94 && value !=95 && value != 21 && value != 22 && value != 60 && value != 116; // thêm vị tr có thể đi  là 7
+        return value != 17 && value !=16 && value!=52 && value != 91 && value != 6 && value != 92 && value !=93 && value != 94 && value !=95 && value != 21 && value != 22 && value != 60 && value != 116; // thêm vị tr có thể đi  là 7
     }
 
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
@@ -80,7 +80,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
     }
     public static boolean isTileJumpTile(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra block jump
         int value = lvData[(int) yTile][(int) xTile];
-        return value == 91 || value == 92 || value ==93 || value == 94 || value ==95;
+        return value == 91 || value == 92 || value ==93 || value == 94 || value ==95 || value ==6;
     }
 
 

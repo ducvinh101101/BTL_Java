@@ -35,7 +35,7 @@ public class Playing extends State implements Statemethod {
     private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
     private PauseOverplay pauseOverplay;
     private boolean lvlCompleted = false;
-    private int kt = 0;
+    private int checkNextMap = 0;
 
     private boolean paused = false;
 
@@ -95,15 +95,15 @@ public class Playing extends State implements Statemethod {
                 levelManager.nextMap(lvlCompleted);
             }
         }
-        if(levelManager.getInnext()==0 && kt ==0){ // create monter
+        if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
             addCrab();
-            kt =1;
+            checkNextMap =1;
         }
-        else if(levelManager.getInnext()==1 && kt ==1){
+        else if(levelManager.getInnext()==1 && checkNextMap ==1){
             enemyManager.getCrabs().clear();
             addCrab();
-            enemyManager.addEnemy(15,12);
-            kt =2;
+            enemyManager.addEnemy(10,20);
+            checkNextMap =2;
         }
 
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
