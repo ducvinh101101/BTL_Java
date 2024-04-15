@@ -90,9 +90,9 @@ public class Player extends Entity {
         playing.checkEnemyHit(attackBox);
     }
 
-    private void drawAttackBox(Graphics g, int xLevelOffset) {
+    private void drawAttackBox(Graphics g, int xLevelOffset, int yLevelOffset) {
         g.setColor(Color.red);
-        g.drawRect((int) attackBox.x - xLevelOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
+        g.drawRect((int) attackBox.x - xLevelOffset, (int) attackBox.y - yLevelOffset, (int) attackBox.width, (int) attackBox.height);
     }
 
     private void updateAttackBox() {
@@ -109,10 +109,10 @@ public class Player extends Entity {
         healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
 
-    public void render(Graphics g, int xLevelOffset) {
-        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet), widthPy, heightPy, null);
-        drawHitBox(g, xLevelOffset);
-        drawAttackBox(g, xLevelOffset);
+    public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
+        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
+        drawHitBox(g, xLevelOffset, yLevelOffset);
+        drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawUI(g);
     }
 

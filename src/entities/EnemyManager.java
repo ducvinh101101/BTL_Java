@@ -53,13 +53,13 @@ public class EnemyManager {
         }
     }
 
-    public void draw(Graphics g, int xLvOffset) {
+    public void draw(Graphics g, int xLvOffset, int yLevelOffset) {
         for (Crab crab : crabs) {
             if (crab.isAlive()) {
                 BufferedImage[] crabImg = (crab.getWalkDir() == RIGHT) ? crabImgRight : crabImgLeft;
-                g.drawImage(crabImg[crab.getEnemyState()], (int) crab.getHitBox().x - xLvOffset, (int) crab.getHitBox().y, MONSTER_WIDTH, MONSTER_HEIGHT, null);
-                crab.drawHitBox(g, xLvOffset);
-                crab.drawAttackBox(g, xLvOffset);
+                g.drawImage(crabImg[crab.getEnemyState()], (int) crab.getHitBox().x - xLvOffset, (int) crab.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT, null);
+                crab.drawHitBox(g, xLvOffset, yLevelOffset);
+                crab.drawAttackBox(g, xLvOffset, yLevelOffset);
             }
         }
     }

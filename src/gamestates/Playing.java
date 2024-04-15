@@ -23,11 +23,15 @@ public class Playing extends State implements Statemethod {
     private Background background;
     private EnemyManager enemyManager;
     private int xLvOffset;
+    private int yLvOffset;
     private int leftBorder = (int) (0.4 * GAME_WIDTH);
     private int rightBorder = (int) (0.6 * GAME_WIDTH);
+    private int upBorder = (int) (0.4 * GAME_HEIGHT);
+    private int downBorder = (int) (0.6 * GAME_HEIGHT);
     private int lvTilesWide = LoadSave.getLevelData()[0].length;
     private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
-    private int maxLvOffset = maxTilesOffset * TILES_SIZE;
+    private int maxLvOffsetWidth = maxTilesOffset * TILES_SIZE;
+    private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
     private PauseOverplay pauseOverplay;
     private LevelCompletedOverlay levelCompletedOverlay;
     private boolean lvlCompleter = false;
@@ -80,6 +84,7 @@ public class Playing extends State implements Statemethod {
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
             checkCloseToBorder();
+            checkOpenToBorder();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleter = true;
             }
@@ -112,16 +117,29 @@ public class Playing extends State implements Statemethod {
         if (diff > rightBorder) xLvOffset += diff - rightBorder;
         else if (diff < leftBorder) xLvOffset += diff - leftBorder;
 
-        if (xLvOffset > maxLvOffset) xLvOffset = maxLvOffset;
+        if (xLvOffset > maxLvOffsetWidth) xLvOffset = maxLvOffsetWidth;
         else if (xLvOffset < 0) xLvOffset = 0;
     }
+    private void checkOpenToBorder() {
+        int playerY = (int) player.getHitBox().y;
+        int screenHeight = maxLvOffsetHeight;
+        int centerY = yLvOffset + (screenHeight / 2);
+        int diff = playerY - centerY;
+        yLvOffset += diff;
+        if (yLvOffset > maxLvOffsetHeight) {
+            yLvOffset = maxLvOffsetHeight;
+        } else if (yLvOffset < 0) {
+            yLvOffset = 0;
+        }
+    }
+
 
     @Override
     public void draw(Graphics g) {
         background.draw(g);
-        levelManager.draw(g, xLvOffset);
-        player.render(g, xLvOffset);
-        enemyManager.draw(g, xLvOffset);
+        levelManager.draw(g, xLvOffset, yLvOffset);
+        player.render(g, xLvOffset, yLvOffset);
+        enemyManager.draw(g, xLvOffset, yLvOffset);
         if (pause) {
             pauseOverplay.draw(g);
         }
@@ -130,7 +148,7 @@ public class Playing extends State implements Statemethod {
         }
         if(levelCompletedOverlay.isMap()){
             levelManager.importOutsideSprite();
-            levelManager.draw(g,xLvOffset);
+            levelManager.draw(g,xLvOffset, yLvOffset);
             levelCompletedOverlay.setMap(false);
         }
 
