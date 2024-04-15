@@ -158,7 +158,7 @@ public class Playing extends State implements Statemethod {
             pauseOverplay.draw(g);
         }
         if(lvlCompleted){
-            player.getHitBox().x = 0; player.getHitBox().y =0;
+            player.setHitBox(TILES_DEFAULT_SIZE*3,TILES_DEFAULT_SIZE*20+3);
             levelManager.importOutsideSprite();
             levelManager.draw(g,xLvOffset, yLvOffset);
             lvlCompleted = false;
@@ -258,4 +258,5 @@ public class Playing extends State implements Statemethod {
     public LevelManager getLevelManager() {
         return levelManager;
     }
+
 }

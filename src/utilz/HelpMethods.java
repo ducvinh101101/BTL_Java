@@ -34,7 +34,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 17 && value != 7 && value!= 3 && value != 21 && value != 22 && value != 60 && value != 116; // thêm vị tr có thể đi  là 7
+        return value != 17 && value !=16 && value!=52 && value != 91 && value != 92 && value !=93 && value != 94 && value !=95 && value != 21 && value != 22 && value != 60 && value != 116; // thêm vị tr có thể đi  là 7
     }
 
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
@@ -57,7 +57,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
     }
     public static boolean isTileNextMap(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra cổng dịch chuyển
         int value = lvData[(int) yTile][(int) xTile];
-        return value == 7;
+        return value == 16;
     }
 
     public static boolean canJumpTile(float x, float y, float width, float height, int[][] lvlData) {
@@ -67,6 +67,8 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         float bottom = (y + height) / Game.TILES_SIZE;
             if (!isJumptile(right, bottom, lvlData))
                     if (!isJumptile(left, bottom, lvlData))
+                        if (!isNextMap(right, top, lvlData))
+                            if (!isNextMap(left, top, lvlData))
                         return true;
         return false;
     }
@@ -78,8 +80,10 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
     }
     public static boolean isTileJumpTile(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra block jump
         int value = lvData[(int) yTile][(int) xTile];
-        return value == 3;
+        return value == 91 || value == 92 || value ==93 || value == 94 || value ==95;
     }
+
+
     public static float getEntityXPosNextToWall(Rectangle2D.Float hitBox, float xSpeed){
         int currentTile = (int) (hitBox.x/Game.TILES_SIZE);
         if(xSpeed > 0){
@@ -111,6 +115,18 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
             if (!isSolid(right, bottom, lvlData))
                 if (!isSolid(right, top, lvlData))
                     if (!isSolid(left, top, lvlData))
+                        return false;
+        return true;
+    }
+    public static boolean isEntityOnFloor1(Rectangle2D.Float hitBox, int [][] lvlData){
+        float left = hitBox.x / Game.TILES_SIZE;
+        float right = (hitBox.x + hitBox.width) / Game.TILES_SIZE;
+        float top = hitBox.y / Game.TILES_SIZE;
+        float bottom = (hitBox.y + hitBox.height+1) / Game.TILES_SIZE;
+        if (!isJumptile(left, bottom, lvlData))
+            if (!isJumptile(right, bottom, lvlData))
+                if (!isJumptile(right, top, lvlData))
+                    if (!isJumptile(left, top, lvlData))
                         return false;
         return true;
     }

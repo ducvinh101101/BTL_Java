@@ -352,12 +352,11 @@ public class Player extends Entity {
                     hitBox.y += airSpeed;
                     airSpeed += GRAVITY;
                     updateXPos(xSpeed);
-                } else {
-                    if (airSpeed > 0) {
-                        resetInAir();
-                    } else {
-                        airSpeed = fallSpeedAfterCollision;
-                    }
+                }
+                else {
+//                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+                    resetInAir();
+                    airSpeed = fallSpeedAfterCollision;
                     updateXPos(xSpeed);
                 }
             }
@@ -366,7 +365,8 @@ public class Player extends Entity {
                     hitBox.y += airSpeed;
                     airSpeed += GRAVITY;
                     updateXPos(xSpeed);
-                } else {
+                }
+                else {
 
                     hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
                     if (airSpeed > 0) {

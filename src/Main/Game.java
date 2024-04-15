@@ -18,8 +18,8 @@ public class Game implements Runnable {
     private final int UPS_SET = 100;
     private Playing playing;
     private Menu menu;
-    public static final int ROW = 26;
-    public static final int COL = 60;
+    public static final int ROW = 30;
+    public static final int COL = 70;
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
     public final static int TILES_IN_WIDTH = 26;
