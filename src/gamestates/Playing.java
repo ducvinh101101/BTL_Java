@@ -42,11 +42,11 @@ public class Playing extends State implements Statemethod {
     public Playing(Game game) {
         super(game);
         initClasses();
-         loadStartLevel();
+        loadStartLevel();
     }
 
     private void loadStartLevel() {
-        objectManager.loadObject(levelManager.getCurrenLevel());
+        objectManager.setCurrentLevel(levelManager.getCurrenLevel());
     }
 //    public void loadNextMap(){
 //        levelManager.nextMap(lvlCompleter);
@@ -59,7 +59,7 @@ public class Playing extends State implements Statemethod {
         objectManager = new ObjectManager(this);
         player = new Player(game.TILES_DEFAULT_SIZE, game.TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
-        objectManager.loadObject(levelManager.getCurrenLevel());
+        objectManager.setCurrentLevel(levelManager.getCurrenLevel());
         enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
 
@@ -98,12 +98,14 @@ public class Playing extends State implements Statemethod {
         if(levelManager.getInnext()==0 && kt ==0){ // create monter
             addCrab();
             kt =1;
+            objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(levelManager.getInnext()==1 && kt ==1){
             enemyManager.getCrabs().clear();
             addCrab();
             enemyManager.addEnemy(15,12);
             kt =2;
+            objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ

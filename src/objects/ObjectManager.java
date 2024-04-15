@@ -15,18 +15,19 @@ public class ObjectManager {
     private BufferedImage[][] potionImgs, containerImgs;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
+    private Level currentLevel;
 
     public ObjectManager(Playing playing){
         this.playing = playing;
+        this.currentLevel = playing.getLevelManager().getCurrenLevel();
         loadImgs();
-        //potions = new ArrayList<>();
-        // potions.add(new Potion(800, 300, RED_POTION));
-        //containers = new ArrayList<>();
-        //object = new GameObject(TILES_DEFAULT_SIZE * 12 + 50, TILES_DEFAULT_SIZE, 0);
+        //loadObject(currentLevel);
+
     }
     public void loadObject(Level newLevel) {
-        potions = newLevel.getPotions();
-        containers = newLevel.getContainers();
+        this.currentLevel = newLevel;
+        potions = new ArrayList<>(newLevel.getPotions());
+        containers = new ArrayList<>(newLevel.getContainers());
     }
 
     public void checkObjectTouched(Rectangle2D.Float hitBox){
@@ -96,6 +97,10 @@ public class ObjectManager {
     public void draw(Graphics g, int xLevelOffset, int yLevelOffset){
         drawPotions(g, xLevelOffset, yLevelOffset);
         drawContainer(g, xLevelOffset, yLevelOffset);
+    }
+    public void setCurrentLevel(Level newLevel){
+        this.currentLevel = newLevel;
+        loadObject(currentLevel);
     }
 
     public void resetAllObjects(){
