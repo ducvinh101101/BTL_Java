@@ -58,7 +58,6 @@ public class LevelManager {
 
     public void draw(Graphics g, int xLvOffset, int yLvOffset) {
         if (innext == 0) {
-            int tileSize = Game.TILES_SIZE;
             for (int i = 0; i < 26; i++) {
                 for (int j = 0; j < level[innext].getlvlData()[0].length; j++) {
                     int index = level[innext].getSpriteIndex(i, j);
@@ -67,7 +66,6 @@ public class LevelManager {
             }
 
         } else if (innext == 1) {
-            int tileSize = Game.TILES_SIZE;
             for (int i = 0; i < 20; i++) {
                 for (int j = 0; j < level[innext].getlvlData()[0].length; j++) {
                     int index = level[innext].getSpriteIndex(i, j);
@@ -75,7 +73,6 @@ public class LevelManager {
                 }
             }
         } else {
-            int tileSize = Game.TILES_SIZE;
             for (int i = 0; i < 20; i++) {
                 for (int j = 0; j < level[innext].getlvlData()[0].length; j++) {
                     int index = level[innext].getSpriteIndex(i, j);

@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static Main.Game.COL;
+import static Main.Game.ROW;
+
 public class LoadSave {
     public static final String PLAYER_AT = "player/playerAttackRight.png";
     public static final String PLAYER_AT_LEFT = "player/playerAttackLeft.png";
@@ -66,9 +69,7 @@ public class LoadSave {
     }
 
     public static int[][] getLevelData() {
-        int row = 26;
-        int col = 60;
-        int[][] lvData = new int[row][col];
+        int[][] lvData = new int[ROW][COL];
         int[][] sampleMap = {
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
@@ -99,16 +100,14 @@ public class LoadSave {
         };
 
         // Copy dữ liệu từ mảng mẫu vào mảng thực tế của game
-        for (int i = 0; i < row; i++) {
-            System.arraycopy(sampleMap[i], 0, lvData[i], 0, col);
+        for (int i = 0; i < ROW; i++) {
+            System.arraycopy(sampleMap[i], 0, lvData[i], 0, COL);
         }
         return lvData;
     }
 
     public static int[][] getLevelData2() { // thêm mảng map 2
-        int row = 20;
-        int col = 60;
-        int[][] lvData = new int[row][col];
+        int[][] lvData = new int[ROW][COL];
         int[][] sampleMap = {
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
@@ -133,16 +132,14 @@ public class LoadSave {
         };
 
         // Copy dữ liệu từ mảng mẫu vào mảng thực tế của game
-        for (int i = 0; i < row; i++) {
-            System.arraycopy(sampleMap[i], 0, lvData[i], 0, col);
+        for (int i = 0; i < ROW; i++) {
+            System.arraycopy(sampleMap[i], 0, lvData[i], 0, COL);
         }
         return lvData;
     }
 
     public static int[][] getLevelData3() { //thêm mảng map 3
-        int row = 20;
-        int col = 60;
-        int[][] lvData = new int[row][col];
+        int[][] lvData = new int[ROW][COL];
         int[][] sampleMap = {
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
                 {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
@@ -167,8 +164,8 @@ public class LoadSave {
         };
 
         // Copy dữ liệu từ mảng mẫu vào mảng thực tế của game
-        for (int i = 0; i < row; i++) {
-            System.arraycopy(sampleMap[i], 0, lvData[i], 0, col);
+        for (int i = 0; i < ROW; i++) {
+            System.arraycopy(sampleMap[i], 0, lvData[i], 0, COL);
         }
         return lvData;
     }
