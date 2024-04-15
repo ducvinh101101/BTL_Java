@@ -36,7 +36,6 @@ public class Playing extends State implements Statemethod {
     private PauseOverplay pauseOverplay;
     private boolean lvlCompleted = false;
     private int checkNextMap = 0;
-
     private boolean paused = false;
 
     public Playing(Game game) {
@@ -97,14 +96,14 @@ public class Playing extends State implements Statemethod {
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
             addCrab();
-            kt =1;
+            checkNextMap = 1;
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(levelManager.getInnext()==1 && checkNextMap ==1){
             enemyManager.getCrabs().clear();
             addCrab();
             enemyManager.addEnemy(15,12);
-            kt =2;
+            checkNextMap = 2;
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 
