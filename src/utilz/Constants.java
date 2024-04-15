@@ -3,7 +3,7 @@ package utilz;
 import Main.Game;
 
 public class Constants {
-    public static final float GRAVITY = 0.04f * Game.SCALE;
+    public static final float GRAVITY = 0.01f * Game.SCALE;
     public static final int ANI_SPEED = 10;
     public static class EnemyConstants {
         public static final int DUMMY = 0;

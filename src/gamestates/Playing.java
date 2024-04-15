@@ -114,7 +114,6 @@ public class Playing extends State implements Statemethod {
 //        } else {
 //            pauseOverplay.update();
 //        }
-
     }
 
     private void checkCloseToBorder() {
@@ -161,6 +160,7 @@ public class Playing extends State implements Statemethod {
             player.setHitBox(TILES_DEFAULT_SIZE*3,TILES_DEFAULT_SIZE*20+3);
             levelManager.importOutsideSprite();
             levelManager.draw(g,xLvOffset, yLvOffset);
+            objectManager.draw(g,xLvOffset, yLvOffset);
             lvlCompleted = false;
         }
 
