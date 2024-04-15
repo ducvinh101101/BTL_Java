@@ -15,7 +15,7 @@ public class Crab extends Enemy {
 
 
     public Crab(float x, float y) {
-        super(x, y, 0, (int) (MONSTER_HEIGHT * Game.SCALE), CRAB);
+        super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT * Game.SCALE), CRAB);
         initHitBox(x, y, (int) (40 * Game.SCALE), (int) (42 * Game.SCALE) - 10);
         initAttackBox();
     }

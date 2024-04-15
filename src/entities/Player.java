@@ -290,6 +290,7 @@ public class Player extends Entity {
                     idAniIm = idAniJump;
                 }
             }
+
         }
         if (attacking) {
             widthPy = 60;
@@ -337,19 +338,39 @@ public class Player extends Entity {
         }
 
         if (inAir) {
-            if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData)) {
-                hitBox.y += airSpeed;
-                airSpeed += gravity;
-                updateXPos(xSpeed);
-            } else {
-                hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
-                if (airSpeed > 0) {
-                    resetInAir();
+            if(airSpeed>0){
+                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpMap(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData)) {
+                    hitBox.y += airSpeed;
+                    airSpeed += gravity;
+                    updateXPos(xSpeed);
                 } else {
-                    airSpeed = fallSpeedAfterCollision;
+
+                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+                    if (airSpeed > 0) {
+                        resetInAir();
+                    } else {
+                        airSpeed = fallSpeedAfterCollision;
+                    }
+                    updateXPos(xSpeed);
                 }
-                updateXPos(xSpeed);
             }
+            else{
+                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) ) {
+                    hitBox.y += airSpeed;
+                    airSpeed += gravity;
+                    updateXPos(xSpeed);
+                } else {
+
+                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+                    if (airSpeed > 0) {
+                        resetInAir();
+                    } else {
+                        airSpeed = fallSpeedAfterCollision;
+                    }
+                    updateXPos(xSpeed);
+                }
+            }
+
         } else updateXPos(xSpeed);
         moving = true;
     }
