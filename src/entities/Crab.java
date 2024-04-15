@@ -23,7 +23,7 @@ public class Crab extends Enemy {
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (100 * Game.SCALE) - 10, (int) (40 * Game.SCALE) - 10);
         attackBoxOffsetX = (int) (Game.SCALE * 30);
-        attackBoxOffsetY = (int) (Game.SCALE * 100);
+        attackBoxOffsetY = (int) (Game.SCALE * 0);
     }
 
     public void update(int[][] lvData, Player player) {
@@ -39,7 +39,7 @@ public class Crab extends Enemy {
 
     public void drawAttackBox(Graphics g, int xlvOffset, int yLevelOffset) {
         g.setColor(Color.red);
-        g.drawRect((int) (attackBox.x - xlvOffset), (int) attackBox.y - yLevelOffset, (int) attackBox.width, (int) attackBox.y);
+        g.drawRect((int) (attackBox.x - xlvOffset), (int) (attackBox.y-yLevelOffset), (int) attackBox.width, (int) attackBox.height);
     }
 
     private void updateBehavior(int[][] lvData, Player player) {

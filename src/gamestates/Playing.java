@@ -5,7 +5,6 @@ import entities.EnemyManager;
 import entities.Player;
 import levels.Background;
 import levels.LevelManager;
-import ui.LevelCompletedOverlay;
 import ui.PauseOverplay;
 import utilz.HelpMethods;
 import utilz.LoadSave;
@@ -33,7 +32,6 @@ public class Playing extends State implements Statemethod {
     private int maxLvOffsetWidth = maxTilesOffset * TILES_SIZE;
     private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
     private PauseOverplay pauseOverplay;
-    private LevelCompletedOverlay levelCompletedOverlay;
     private boolean lvlCompleter = false;
     private int kt=0;
 
@@ -43,10 +41,10 @@ public class Playing extends State implements Statemethod {
         super(game);
         initClasses();
     }
-    public void loadNextMap(){
-        levelManager.nextMap(lvlCompleter);
-        lvlCompleter = false;
-    }
+//    public void loadNextMap(){
+//        levelManager.nextMap(lvlCompleter);
+//        lvlCompleter = false;
+//    }
 
     private void initClasses() {
         background = new Background();
@@ -55,7 +53,6 @@ public class Playing extends State implements Statemethod {
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
         enemyManager = new EnemyManager(this);
         pauseOverplay = new PauseOverplay(this);
-        levelCompletedOverlay = new LevelCompletedOverlay(this);
 
     }
     public void addCrab(){
@@ -76,9 +73,7 @@ public class Playing extends State implements Statemethod {
         if(pause){
             pauseOverplay.update();
         }
-        else if (lvlCompleter){
-            levelCompletedOverlay.update();
-        }
+
         else {
             levelManager.update();
             player.update();
@@ -87,6 +82,7 @@ public class Playing extends State implements Statemethod {
             checkOpenToBorder();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleter = true;
+                levelManager.nextMap(lvlCompleter);
             }
         }
         if(levelManager.getInnext()==0 && kt ==0){ // create monter
@@ -143,13 +139,11 @@ public class Playing extends State implements Statemethod {
         if (pause) {
             pauseOverplay.draw(g);
         }
-        else if (lvlCompleter){// thêm vẽ hộp thoại chuyển map
-            levelCompletedOverlay.draw(g);
-        }
-        if(levelCompletedOverlay.isMap()){
+        if(lvlCompleter){
+            player.getHitBox().x = 0; player.getHitBox().y =0;
             levelManager.importOutsideSprite();
             levelManager.draw(g,xLvOffset, yLvOffset);
-            levelCompletedOverlay.setMap(false);
+            lvlCompleter = false;
         }
 
     }
@@ -166,8 +160,6 @@ public class Playing extends State implements Statemethod {
     public void mousePresser(MouseEvent e) {
         if (pause) {
             pauseOverplay.mousePresser(e);
-        } else if (lvlCompleter) {
-            levelCompletedOverlay.mousePressed(e);
         }
     }
 
@@ -176,9 +168,7 @@ public class Playing extends State implements Statemethod {
         if (pause) {
             pauseOverplay.mouseReleased(e);
         }
-        else if (lvlCompleter) {
-            levelCompletedOverlay.mouseReleased(e);
-        }
+
     }
 
     @Override
@@ -186,9 +176,7 @@ public class Playing extends State implements Statemethod {
         if (pause) {
             pauseOverplay.mouseMoved(e);
         }
-        else if (lvlCompleter) {
-            levelCompletedOverlay.mouseMoved(e);
-        }
+
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -213,9 +201,6 @@ public class Playing extends State implements Statemethod {
                 break;
             case KeyEvent.VK_SPACE:
                 player.setAttacking(true);
-                break;
-            case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state = Gamestate.MENU;
                 break;
             case KeyEvent.VK_P:
                 pause = !pause;
