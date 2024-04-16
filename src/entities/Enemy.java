@@ -40,6 +40,10 @@ public class Enemy extends Entity {
         return enemyState;
     }
 
+    public int getAnimationIndex() {
+        return animationIndex;
+    }
+
     protected void firstUpdateCheck(int[][] lvData) {
         if (!isEntityOnFloor(hitBox, lvData)) {
             inAir = true;

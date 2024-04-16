@@ -9,6 +9,7 @@ public class Constants {
         public static final int DUMMY = 0;
         public static final int FROG = 1;
         public static final int CRAB = 2;
+        public static final int REAPER = 3;
 
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
@@ -28,21 +29,25 @@ public class Constants {
                 case DUMMY:
                     switch (enemy_state) {
                         case IDLE:
-                            return 9;
+                            return 1;
                         case DEAD:
-                            return 5;
+                            return 1;
                     }
                 case CRAB:
                     switch (enemy_state) {
+                        case IDLE, HIT, DEAD:
+                            return 1;
+                        case RUNNING, ATTACK:
+                            return 2;
+                    }
+                case REAPER:
+                    switch (enemy_state) {
                         case IDLE:
-                            return 1;
-                        case RUNNING:
-                            return 1;
+                            return 3;
+                        case RUNNING: return 2;
                         case ATTACK:
-                            return 1;
-                        case HIT:
-                            return 1;
-                        case DEAD:
+                            return 2;
+                        case HIT,DEAD:
                             return 1;
                     }
             }
@@ -53,8 +58,10 @@ public class Constants {
             switch (enemyType) {
                 case CRAB:
                     return 10;
+                case REAPER: return 50;
                 default:
                     return 1;
+
             }
         }
 
@@ -62,6 +69,7 @@ public class Constants {
             switch (enemyType) {
                 case CRAB:
                     return 10;
+                case REAPER: return 20;
                 default:
                     return 1;
             }

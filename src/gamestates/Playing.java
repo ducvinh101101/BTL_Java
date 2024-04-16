@@ -63,10 +63,6 @@ public class Playing extends State implements Statemethod {
         pauseOverplay = new PauseOverplay(this);
 
     }
-    public void addCrab(){
-        enemyManager.addEnemy(12,12);
-    }
-
 
     public void windowFocusLost() {
         player.resetDirBooleans();
@@ -95,15 +91,14 @@ public class Playing extends State implements Statemethod {
             }
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
-            addCrab();
             checkNextMap = 1;
+            enemyManager.addEnemyMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(levelManager.getInnext()==1 && checkNextMap ==1){
-            enemyManager.getCrabs().clear();
-            addCrab();
-            enemyManager.addEnemy(15,12);
+            enemyManager.getDummies().clear();
             checkNextMap = 2;
+            enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 

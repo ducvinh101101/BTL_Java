@@ -5,23 +5,22 @@ import Main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
 
-public class Crab extends Enemy {
+public class Reaper extends Enemy {
     private Rectangle2D.Float attackBox;
 
     private int attackBoxOffsetX;
     private int attackBoxOffsetY;
 
-    public Crab(float x, float y) {
-        super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT* Game.SCALE), CRAB);
-        initHitBox( (int) (40 * Game.SCALE), (int) (42 * Game.SCALE) - 10);
+    public Reaper(float x, float y) {
+        super(x, y, (int) (MONSTER_WIDTH*2 * Game.SCALE), (int) (MONSTER_HEIGHT*2* Game.SCALE), REAPER);
+        initHitBox( (int) (68 * Game.SCALE), (int) (72 * Game.SCALE) - 10);
         initAttackBox();
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (100 * Game.SCALE) - 10, (int) (40 * Game.SCALE) - 10);
+        attackBox = new Rectangle2D.Float(x, y, (int) (140 * Game.SCALE) - 10, (int) (80 * Game.SCALE) - 10);
         attackBoxOffsetX = (int) (Game.SCALE * 30);
         attackBoxOffsetY = (int) (Game.SCALE * 0);
     }
@@ -68,12 +67,12 @@ public class Crab extends Enemy {
         }
     }
     public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
-        double oneScale =  (MONSTER_HEIGHT* Game.SCALE)/maxHealth;
+        double oneScale =  (MONSTER_WIDTH*2* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
 
         // thanh máu nền
         g.setColor(new Color(35, 35, 35));
-        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_HEIGHT* Game.SCALE) , 6);
+        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_WIDTH*2* Game.SCALE) , 6);
 
         // thanh máu hiện tại
         g.setColor(new Color(255, 0, 30));
