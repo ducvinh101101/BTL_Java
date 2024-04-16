@@ -388,10 +388,8 @@ public class Player extends Entity {
                 canDoubleJump = true;
                 inAir = true;
                 airSpeed = jumpSpeed/10*8;
-                jump = false;
                 return;
             }
-            jump=false;
             canDoubleJump = true;
         }
         else {
