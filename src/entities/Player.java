@@ -21,7 +21,7 @@ public class Player extends Entity {
 //    private int playerAction = IDLE;
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
-    private boolean moving = false, attacking = false;
+    private boolean moving = false, attacking = false, canDoubleJump = false;
     private float playerSpeed = 1.5f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
@@ -384,11 +384,23 @@ public class Player extends Entity {
 
     private void jump() {
         if (inAir) {
-            return;
+            if(jump && canDoubleJump == false){
+                canDoubleJump = true;
+                inAir = true;
+                airSpeed = jumpSpeed/10*8;
+                jump = false;
+                return;
+            }
+            jump=false;
+            canDoubleJump = true;
         }
-        inAir = true;
-        airSpeed = jumpSpeed;
-        jump = false;
+        else {
+            canDoubleJump = false;
+            inAir = true;
+            airSpeed = jumpSpeed;
+            jump = false;
+        }
+
     }
 
 
