@@ -7,7 +7,7 @@ import levels.Background;
 import levels.LevelManager;
 import objects.ObjectManager;
 import ui.GameOverOverlay;
-import ui.PauseOverplay;
+import ui.PauseOverlay;
 import utilz.HelpMethods;
 import utilz.LoadSave;
 
@@ -35,7 +35,7 @@ public class Playing extends State implements Statemethod {
     private int maxTilesOffset = lvTilesWide - TILES_IN_WIDTH;
     private int maxLvOffsetWidth = maxTilesOffset * TILES_SIZE;
     private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
-    private PauseOverplay pauseOverplay;
+    private PauseOverlay pauseOverlay;
     private boolean lvlCompleted = false;
     private boolean gameOver;
     private boolean playerDying;
@@ -60,7 +60,7 @@ public class Playing extends State implements Statemethod {
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
         objectManager.setCurrentLevel(levelManager.getCurrenLevel());
         enemyManager = new EnemyManager(this);
-        pauseOverplay = new PauseOverplay(this);
+        pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
 
     }
@@ -76,7 +76,7 @@ public class Playing extends State implements Statemethod {
     @Override
     public void update() { // đã đổi hàm update
         if(paused){
-            pauseOverplay.update();
+            pauseOverlay.update();
         }else if(gameOver){
             gameOverOverlay.update();
         }else if(playerDying){
@@ -167,7 +167,7 @@ public class Playing extends State implements Statemethod {
         objectManager.draw(g,xLvOffset, yLvOffset);
         if (paused) {
             background.drawBackgroundPauseGame(g);
-            pauseOverplay.draw(g);
+            pauseOverlay.draw(g);
         }
         if(lvlCompleted){
             player.setHitBox(TILES_DEFAULT_SIZE*3,TILES_DEFAULT_SIZE*20+3);
@@ -193,7 +193,7 @@ public class Playing extends State implements Statemethod {
     public void mousePressed(MouseEvent e) {
         if(!gameOver){
             if(paused){
-                pauseOverplay.mousePresser(e);
+                pauseOverlay.mousePressed(e);
             }else if(lvlCompleted){
 
             }
@@ -206,7 +206,7 @@ public class Playing extends State implements Statemethod {
     public void mouseReleased(MouseEvent e) {
         if(!gameOver){
             if(paused){
-                pauseOverplay.mouseReleased(e);
+                pauseOverlay.mouseReleased(e);
             }else if(lvlCompleted){
 
             }
@@ -220,7 +220,7 @@ public class Playing extends State implements Statemethod {
     public void mouseMoved(MouseEvent e) {
         if(!gameOver){
             if(paused){
-                pauseOverplay.mouseMoved(e);
+                pauseOverlay.mouseMoved(e);
             }else if(lvlCompleted){
 
             }
@@ -232,7 +232,7 @@ public class Playing extends State implements Statemethod {
 
     public void mouseDragged(MouseEvent e) {
         if (paused) {
-            pauseOverplay.mouseDragger(e);
+            pauseOverlay.mouseDragged(e);
         }
     }
 

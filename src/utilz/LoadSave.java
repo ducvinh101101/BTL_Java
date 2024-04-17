@@ -32,6 +32,7 @@ public class LoadSave {
     public static final String IN_BACKGROUND = "map/8.jpg";
     public static final String PAUSE_BACKGROUND = "button/pause_menu.png";
     public static final String GAMEOVER_BACKGROUND = "button/gameover.png";
+    public static final String OPTIONS_MENU = "button/options.png";
     public static final String SOUND_BUTTON = "button/sound_button.png";
     public static final String URM_BUTTON = "button/urm_buttons.png";
     public static final String VOLUME_BUTTON = "button/volume_buttons.png";

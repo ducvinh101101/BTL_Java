@@ -13,37 +13,26 @@ import static utilz.Constants.UI.PauseButton.*;
 import static utilz.Constants.UI.URMButtons.*;
 import static utilz.Constants.UI.VolumeButtons.*;
 
-public class PauseOverplay {
+public class PauseOverlay {
     private BufferedImage pauseBackground;
     private int bgX,bgY,bgWidth,bgHeight;
-    private SoundButton musicButton, fsxButton;
+    private AudioOptions audioOptions;
     private UrmButton menuButton, replayButton, unPauseButton;
-    private VolumeButton volumeButton;
+
     private Playing playing;
 
 
 
-    public PauseOverplay(Playing playing){
+    public PauseOverlay(Playing playing){
         this.playing = playing;
         loadBackground();
-        createSoundButton();
+        audioOptions = playing.getGame().getAudioOptions();
         createUrmButton();
-        createVolumeButton();
     }
 
-    private void createVolumeButton() {
-        int volumeX = (int)(309 * Game.SCALE);
-        int volumeY = (int)(278 * Game.SCALE);
-        volumeButton = new VolumeButton(volumeX,volumeY,SLIDER_WIDTH,VOLUME_HEIGHT);
-    }
 
-    private void createSoundButton() {
-        int soundX = (int)(450 * Game.SCALE);
-        int musicY = (int)(140 * Game.SCALE);
-        int fsxY = (int)(186 * Game.SCALE);
-        musicButton = new SoundButton(soundX,musicY,SOUND_SIZE,SOUND_SIZE);
-        fsxButton = new SoundButton(soundX,fsxY,SOUND_SIZE,SOUND_SIZE);
-    }
+
+
     private void createUrmButton(){
         int menuX = (int) (313 * Game.SCALE);
         int replayX = (int) (387 * Game.SCALE);
@@ -63,40 +52,33 @@ public class PauseOverplay {
     }
 
     public void update(){
-        musicButton.update();
-        fsxButton.update();
+
         menuButton.update();
         replayButton.update();
         unPauseButton.update();
-        volumeButton.update();
+        audioOptions.update();
+
     }
     public void draw(Graphics g){
         g.drawImage(pauseBackground,bgX,bgY,bgWidth,bgHeight,null);
-        musicButton.draw(g);
-        fsxButton.draw(g);
+
         menuButton.draw(g);
         replayButton.draw(g);
         unPauseButton.draw(g);
-        volumeButton.draw(g);
+
+        audioOptions.draw(g);
     }
 
-    public void mouseDragger(MouseEvent e){
-        if(volumeButton.isMousePressed()){
-            volumeButton.changX(e.getX());
-        }
+    public void mouseDragged(MouseEvent e){
+        audioOptions.mouseDragged(e);
     }
 
-    public void mouseClicker(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
     }
 
-    public void mousePresser(MouseEvent e) {
-        if(isIn(e,musicButton)){
-            musicButton.setMousePressed(true);
-        }
-        else if (isIn(e,fsxButton)){
-            fsxButton.setMousePressed(true);
-        }
-        else if (isIn(e,menuButton)) {
+    public void mousePressed(MouseEvent e) {
+
+        if (isIn(e,menuButton)) {
             menuButton.setMousePressed(true);
         }
         else if (isIn(e,replayButton)) {
@@ -105,24 +87,14 @@ public class PauseOverplay {
         else if (isIn(e,unPauseButton)){
             unPauseButton.setMousePressed(true);
         }
-        else if (isIn(e,volumeButton)){
-            volumeButton.setMousePressed(true);
+        else {
+            audioOptions.mousePressed(e);
         }
 
     }
 
     public void mouseReleased(MouseEvent e) {
-        if(isIn(e,musicButton)){
-            if(musicButton.isMousePressed()){
-                musicButton.setMuted(!musicButton.isMuted());
-            }
-        }
-        else if (isIn(e,fsxButton)){
-            if(fsxButton.isMousePressed()){
-                fsxButton.setMuted(!fsxButton.isMuted());
-            }
-        }
-        else if (isIn(e,menuButton)){
+        if (isIn(e,menuButton)){
             if(menuButton.isMousePressed()){
                 Gamestate.state = Gamestate.MENU;
                 playing.unPauseGame();
@@ -138,29 +110,20 @@ public class PauseOverplay {
                 playing.unPauseGame();
             }
         }
+        else {
+            audioOptions.mouseReleased(e);
+        }
 
-        musicButton.resetBool();
-        fsxButton.resetBool();
         menuButton.resetBools();
         replayButton.resetBools();
         unPauseButton.resetBools();
-        volumeButton.resetBools();
     }
 
     public void mouseMoved(MouseEvent e) {
-        musicButton.setMouseOver(false);
-        fsxButton.setMouseOver(false);
         menuButton.setMouseOver(false);
         replayButton.setMouseOver(false);
         unPauseButton.setMouseOver(false);
-        volumeButton.setMouseOver(false);
-        if(isIn(e,musicButton)){
-            musicButton.setMouseOver(true);
-        }
-        else if (isIn(e,fsxButton)){
-            fsxButton.setMouseOver(true);
-        }
-        else if (isIn(e,menuButton)){
+        if (isIn(e,menuButton)){
             menuButton.setMouseOver(true);
         }
         else if (isIn(e,replayButton)){
@@ -169,8 +132,8 @@ public class PauseOverplay {
         else if (isIn(e,unPauseButton)){
             unPauseButton.setMouseOver(true);
         }
-        else if (isIn(e,volumeButton)){
-            volumeButton.setMouseOver(true);
+        else {
+            audioOptions.mouseMoved(e);
         }
     }
     private boolean isIn(MouseEvent e, PauseButton b){
