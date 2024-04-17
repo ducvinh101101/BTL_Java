@@ -68,6 +68,9 @@ public class LoadSave {
     public static final String REAPER_6_LEFT = "monster/179_5_L.png";
     public static final String REAPER_7_LEFT = "monster/179_6_L.png";
     public static final String REAPER_8_LEFT = "monster/179_7_L.png";
+    public static final String TENGU_1 = "monster/Tengu1.png";
+    public static final String TENGU_2 = "monster/Tengu2.png";
+    public static final String TENGU_3 = "monster/Tengu3.png";
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "button/completed_sprite.png";
     public static final String POTION_ATLAS = "object/potions_sprites.png";

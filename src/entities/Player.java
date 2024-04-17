@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 
 import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.GRAVITY;
+import static utilz.Constants.Projectiles.CANNON_BALL_HEIGHT;
+import static utilz.Constants.Projectiles.CANNON_BALL_WIDTH;
 import static utilz.HelpMethods.*;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethods.getEntityXPosNextToWall;
@@ -21,7 +23,7 @@ public class Player extends Entity {
 //    private int playerAction = IDLE;
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
-    private boolean moving = false, attacking = false, canDoubleJump = false;
+    private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
     private float playerSpeed = 2f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
@@ -477,6 +479,10 @@ public class Player extends Entity {
             aniTick = 0;
             this.attacking = attacking;
         }
+    }
+
+    public void setSkill(boolean skill) {
+        this.skill = skill;
     }
 
     public void setLeft(boolean left) {

@@ -20,6 +20,7 @@ public class Constants {
         public static final int CRAB = 2;
         public static final int REAPER = 3;
         public static final int SAMURAI = 4;
+        public static final int TENGU = 5;
 
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
@@ -38,9 +39,7 @@ public class Constants {
             switch (enemy_type) {
                 case DUMMY:
                     switch (enemy_state) {
-                        case IDLE:
-                            return 1;
-                        case DEAD:
+                        case IDLE, DEAD:
                             return 1;
                     }
                 case CRAB:
@@ -54,9 +53,7 @@ public class Constants {
                     switch (enemy_state) {
                         case IDLE:
                             return 3;
-                        case RUNNING: return 2;
-                        case ATTACK:
-                            return 2;
+                        case RUNNING, ATTACK: return 2;
                         case HIT,DEAD:
                             return 1;
                     }
@@ -70,6 +67,14 @@ public class Constants {
                         case HIT,DEAD:
                             return 1;
                     }
+                case TENGU:
+                    switch (enemy_state) {
+                        case IDLE:
+                            return 6;
+                        case RUNNING: return 8;
+                        case ATTACK:
+                            return 6;
+                    }
             }
             return 0;
         }
@@ -79,6 +84,8 @@ public class Constants {
                 case CRAB:
                     return 10;
                 case REAPER: return 50;
+                case SAMURAI: return 100;
+                case TENGU: return 200;
                 default:
                     return 1;
 
@@ -90,6 +97,8 @@ public class Constants {
                 case CRAB:
                     return 10;
                 case REAPER: return 20;
+                case SAMURAI: return 30;
+                case TENGU: return 50;
                 default:
                     return 1;
             }

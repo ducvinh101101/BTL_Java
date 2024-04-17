@@ -20,12 +20,14 @@ public class EnemyManager {
     private BufferedImage[][] crabImg, crabImgLeft, crabImgRight;
     private BufferedImage[][] deathImg, deathImgRight, deathImgLeft;
     private BufferedImage[][] samuraiImg, samuraiImgLeft, samuraiImgRight;
+    private BufferedImage[][] tenguImg, tenguImgLeft, tenguImgRight;
 
     private BufferedImage[]  dummyImg;
     private ArrayList<Crab> crabs;
     private ArrayList<Dummy> dummies;
     private ArrayList<Reaper> reapers;
     private ArrayList<Samurai> samurais;
+    private ArrayList<Tengu> tengus;
     private boolean spawnMonster = false;
 
     public EnemyManager(Playing playing) {
@@ -34,6 +36,7 @@ public class EnemyManager {
         dummies = new ArrayList<>();
         reapers = new ArrayList<>();
         samurais = new ArrayList<>();
+        tengus = new ArrayList<>();
         loadImgs();
 
 //        addEnemy();
@@ -46,11 +49,13 @@ public class EnemyManager {
         loadDeathImgsLeft();
         loadSamuraiImgsRight();
         loadSamuraiImgsLeft();
+        loadTenguImgsRight();
     }
     public void addEnemyMap1() {
 //        Crab newCrab = new Crab(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 12 - 100);
 //        crabs.add(newCrab);
         dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 22 - 100)); // 22 la o duoi roi
+        tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 15 + 200));
     }
     public void addEnemyMap2() {
         crabs.add(new Crab(TILES_DEFAULT_SIZE* 5 + 100 , TILES_DEFAULT_SIZE * 12 + 100));
@@ -72,14 +77,11 @@ public class EnemyManager {
 //            addEnemy(12,12);
 //            spawnMonster = false;
 //        }
-        for(Crab X : crabs){
-            if(X.alive) X.update(lvData, player);
-        }
-        for(Dummy X : dummies){
-            if(X.alive) X.update(lvData, player);
-        }
+        for(Crab X : crabs) if(X.alive) X.update(lvData, player);
+        for(Dummy X : dummies) if(X.alive) X.update(lvData, player);
         for (Reaper X : reapers)  if(X.alive) X.update(lvData, player);
         for (Samurai X : samurais) if(X.alive) X.update(lvData, player);
+        for (Tengu X : tengus) if(X.alive) X.update(lvData, player);
     }
 
     public void draw(Graphics g, int xLvOffset, int yLevelOffset) {
@@ -112,6 +114,15 @@ public class EnemyManager {
             if (X.isAlive()) {
                 samuraiImg = (X.getWalkDir() == RIGHT) ? samuraiImgRight : samuraiImgLeft;
                 g.drawImage(samuraiImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
+                X.drawHitBox(g, xLvOffset, yLevelOffset);
+                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+                X.drawHP(g, xLvOffset, yLevelOffset);
+            }
+        }
+        for(Tengu X : tengus){
+            if (X.isAlive()) {
+                tenguImg =  tenguImgRight;
+                g.drawImage(tenguImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*3, MONSTER_HEIGHT*3, null);
                 X.drawHitBox(g, xLvOffset, yLevelOffset);
                 X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
@@ -207,8 +218,20 @@ public class EnemyManager {
         samuraiImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_3_LEFT);
 
     }
-    public ArrayList<Crab> getCrabs() {
-        return crabs;
+    public void loadTenguImgsRight(){
+        tenguImgRight = new BufferedImage[5][8];
+        BufferedImage tmp = LoadSave.getSpriteAlas(LoadSave.TENGU_1);
+        for(int i=0; i<6; i++){
+            tenguImgRight[0][i] = tmp.getSubimage(i * 128, 0, 128, 128);
+        }
+        BufferedImage tmp1 = LoadSave.getSpriteAlas(LoadSave.TENGU_2);
+        for(int i=0; i<8; i++){
+            tenguImgRight[1][i] = tmp1.getSubimage(i * 128, 0, 128, 128);
+        }
+        BufferedImage tmp2 = LoadSave.getSpriteAlas(LoadSave.TENGU_3);
+        for(int i=0; i<6; i++){
+            tenguImgRight[2][i] = tmp2.getSubimage(i * 128, 0, 128, 128);
+        }
     }
     public ArrayList<Dummy> getDummies() {
         return dummies;

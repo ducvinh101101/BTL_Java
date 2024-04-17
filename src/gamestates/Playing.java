@@ -215,6 +215,9 @@ public class Playing extends State implements Statemethod {
             case KeyEvent.VK_SPACE:
                 player.setAttacking(true);
                 break;
+            case KeyEvent.VK_H:
+                player.setSkill(true);
+                break;
             case KeyEvent.VK_P:
                 paused = !paused;
         }
