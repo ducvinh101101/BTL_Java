@@ -16,6 +16,7 @@ public class LoadSave {
     public static final String PLAYER_RUNL = "player/pyrunleft.png";
     public static final String PLAYER_IML = "player/playerLeft.png";
     public static final String BACKGROUND_MAP_1 = "map/background.png";
+    public static final String BACKGROUND_PAUSE_GAME = "map/8.jpg";
     public static final String TILESET_1 = "map/map1.png";
 
     public static final String PLAYER_IN_AIR = "player/inAir.png";
