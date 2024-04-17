@@ -130,12 +130,39 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         }
         return true;
     }
-    public static boolean isSightClear(int[][] lvData, Rectangle2D.Float firstHitBox, Rectangle2D.Float secondHitBox, int yTile) {
-        int firstXTile = (int) (firstHitBox.x / Game.TILES_SIZE);
-        int secondXTile = (int) (secondHitBox.x / Game.TILES_SIZE);
-        if (firstXTile > secondXTile) return isAllTileWalkable(secondXTile, firstXTile, yTile, lvData);
-        else return isAllTileWalkable(firstXTile, secondXTile, yTile, lvData);
+//    public static boolean isSightClear(int[][] lvData, Rectangle2D.Float firstHitBox, Rectangle2D.Float secondHitBox, int yTile) {
+//        int firstXTile = (int) (firstHitBox.x / Game.TILES_SIZE);
+//        int secondXTile = (int) (secondHitBox.x / Game.TILES_SIZE);
+//        if (firstXTile > secondXTile) return isAllTileWalkable(secondXTile, firstXTile, yTile, lvData);
+//        else return isAllTileWalkable(firstXTile, secondXTile, yTile, lvData);
+//    }
+public static boolean isSightClear(int[][] lvData, Rectangle2D.Float firstHitBox, Rectangle2D.Float secondHitBox) {
+    int firstXTile = (int) (firstHitBox.getCenterX() / Game.TILES_SIZE);
+    int secondXTile = (int) (secondHitBox.getCenterX() / Game.TILES_SIZE);
+    int startYTile = (int) (firstHitBox.y / Game.TILES_SIZE);
+    int endYTile = (int) (secondHitBox.y / Game.TILES_SIZE);
+    int startY = Math.min(startYTile, endYTile);
+    int endY = Math.max(startYTile, endYTile);
+
+    if (firstXTile > secondXTile) {
+        for (int x = secondXTile; x <= firstXTile; x++) {
+            for (int y = startY; y <= endY; y++) {
+                if (isTileSolid(x, y, lvData)) {
+                    return false;
+                }
+            }
+        }
+    } else {
+        for (int x = firstXTile; x <= secondXTile; x++) {
+            for (int y = startY; y <= endY; y++) {
+                if (isTileSolid(x, y, lvData)) {
+                    return false;
+                }
+            }
+        }
     }
+    return true;
+}
     public static ArrayList<Potion> getPotions(int[][] lvlData){
         ArrayList<Potion> list = new ArrayList<>();
         for(int j = 0; j < lvlData.length; j++){

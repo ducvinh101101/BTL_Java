@@ -54,8 +54,8 @@ public class EnemyManager {
     }
     public void addEnemyMap2() {
         crabs.add(new Crab(TILES_DEFAULT_SIZE* 5 + 100 , TILES_DEFAULT_SIZE * 12 + 100));
-        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 0));
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 14));
+        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 25  , TILES_DEFAULT_SIZE * 3+100));
         samurais.add(new Samurai(TILES_DEFAULT_SIZE* 30 + 100 , TILES_DEFAULT_SIZE * 12 + 200));
     }
     public void update(int[][] lvData, Player player) {

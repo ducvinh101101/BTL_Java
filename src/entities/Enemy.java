@@ -9,7 +9,7 @@ import static utilz.Constants.Directions.*;
 import static utilz.HelpMethods.*;
 
 public class Enemy extends Entity {
-    protected int animationIndex, enemyState, enemyType;
+    protected int animationIndex, enemyState , enemyType;
     protected int animationTick, animationSpeed = 25;
     protected boolean firstUpdate = true;
     protected boolean inAir;
@@ -85,6 +85,7 @@ public class Enemy extends Entity {
             stepsCount++;
             if (stepsCount >= 60 * 3) changeWalkDir();
         }
+
     }
     protected void turnTowardsPlayer(Player player) {
         if (player.hitBox.x > hitBox.x) walkDir = RIGHT;
@@ -92,18 +93,24 @@ public class Enemy extends Entity {
     }
 
     protected boolean canSeePlayer(int[][] lvData, Player player) {
-        int playerTileY = (int) (player.getHitBox().y / Game.TILES_SIZE);
-        if (playerTileY == tileY) {
-            if (isPlayerInRange(player)) {
-                if (isSightClear(lvData, hitBox, player.hitBox, tileY)) return true;
-            }
+//        int playerTileY = (int) (player.getHitBox().y / Game.TILES_SIZE);
+//        if (playerTileY == tileY) {
+//            if (isPlayerInRange(player)) {
+//                if (isSightClear(lvData, hitBox, player.hitBox, tileY)) return true;
+//            }
+//        }
+//        return false;
+        if (isPlayerInRange(player)) {
+            if (isSightClear(lvData, hitBox, player.hitBox)) return true;
         }
         return false;
     }
 
     private boolean isPlayerInRange(Player player) {
-        int absValue = (int) Math.abs(player.hitBox.x - hitBox.x);
-        return absValue <= attackDistance * 5;
+        float distanceX = Math.abs((int) (player.getHitBox().getCenterX() - this.getHitBox().getCenterX())-10);
+        float distanceY = Math.abs((int)(player.getHitBox().getCenterY() - this.getHitBox().getCenterY())-10);
+        float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        return distance <= 2*attackDistance;
     }
 
     protected boolean isPlayerCloseForAttack(Player player) {

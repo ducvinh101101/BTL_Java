@@ -44,7 +44,7 @@ public class SoundButton extends PauseButton{
         mouseOver = false;
     }
     public void draw(Graphics g){
-        g.drawImage(soundImgs[rowIndex][colIndex],x,y,width,height,null);
+        g.drawImage(soundImgs[rowIndex][colIndex],x,y,(int)(width/1.5),(int)(height/1.5),null);
     }
 
     public BufferedImage[][] getSoundImgs() {
