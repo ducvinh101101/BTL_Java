@@ -22,7 +22,7 @@ public class Player extends Entity {
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false;
-    private float playerSpeed = 3f;
+    private float playerSpeed = 2f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;

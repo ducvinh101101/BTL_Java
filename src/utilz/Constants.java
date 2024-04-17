@@ -142,13 +142,13 @@ public class Constants {
         }
 
         public static class PauseButton {
-            public static final int SOUND_SIZE_DEFAUL = 42;
+            public static final int SOUND_SIZE_DEFAUL = (int)(42*1.5);
             public static final int SOUND_SIZE = (int) (SOUND_SIZE_DEFAUL * Game.SCALE);
         }
 
         public static class URMButtons {
-            public static final int URM_DEFAULT_SIZE = 56;
-            public static final int URM_SIZE = (int) (URM_DEFAULT_SIZE * Game.SCALE);
+            public static final int URM_DEFAULT_SIZE = (int)(56*1.5);
+            public static final int URM_SIZE = (int) (URM_DEFAULT_SIZE* Game.SCALE);
 
         }
 
@@ -158,7 +158,7 @@ public class Constants {
             public static final int SLIDER_DEFAULT_WIDTH = 215;
 
             public static final int VOLUME_WIDTH = (int) (VOLUME_DEFAULT_WIDTH * Game.SCALE);
-            public static final int VOLUME_HEIGHT = (int) (VOLUME_DEFAULT_HEIGHT * Game.SCALE);
+            public static final int VOLUME_HEIGHT = (int) (VOLUME_DEFAULT_HEIGHT* Game.SCALE);
             public static final int SLIDER_WIDTH = (int) (SLIDER_DEFAULT_WIDTH * Game.SCALE);
         }
 
