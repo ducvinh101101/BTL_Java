@@ -102,7 +102,8 @@ public class PauseOverlay {
         }
         else if (isIn(e,replayButton)){
             if(replayButton.isMousePressed()){
-                System.out.println("replay lvl");
+                playing.setCheckNextMap(0);
+                playing.resetAll();
             }
         }
         else if (isIn(e,unPauseButton)){

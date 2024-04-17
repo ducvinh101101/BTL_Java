@@ -101,7 +101,7 @@ public class Playing extends State implements Statemethod {
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(levelManager.getInnext()==1 && checkNextMap ==1){
-            enemyManager.getDummies().clear();
+            enemyManager.clearEnemyMap1();
             checkNextMap = 2;
             enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
@@ -139,6 +139,7 @@ public class Playing extends State implements Statemethod {
         }
     }
     public void resetAll(){
+
         levelManager.setInnext(0);
         levelManager.importOutsideSprite();
 //        if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
@@ -155,6 +156,7 @@ public class Playing extends State implements Statemethod {
         playerDying = false;
         player.resetAll();
         objectManager.resetAllObjects();
+        this.update();
     }
 
 
