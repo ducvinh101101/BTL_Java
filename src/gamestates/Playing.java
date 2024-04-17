@@ -37,7 +37,6 @@ public class Playing extends State implements Statemethod {
     private boolean lvlCompleted = false;
     private int checkNextMap = 0;
     private boolean paused = false;
-
     public Playing(Game game) {
         super(game);
         initClasses();
@@ -149,6 +148,7 @@ public class Playing extends State implements Statemethod {
         enemyManager.draw(g, xLvOffset, yLvOffset);
         objectManager.draw(g,xLvOffset, yLvOffset);
         if (paused) {
+            background.drawBackgroundPauseGame(g);
             pauseOverplay.draw(g);
         }
         if(lvlCompleted){
