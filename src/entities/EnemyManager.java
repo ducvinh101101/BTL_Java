@@ -236,4 +236,12 @@ public class EnemyManager {
     public ArrayList<Dummy> getDummies() {
         return dummies;
     }
+
+    public ArrayList<Reaper> getReapers() {
+        return reapers;
+    }
+
+    public ArrayList<Crab> getCrabs() {
+        return crabs;
+    }
 }

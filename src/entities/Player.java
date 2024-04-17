@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 
 import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.GRAVITY;
+import static utilz.Constants.ObjectConstants.getSpriteAmount;
+import static utilz.Constants.PlayerConstants.DEAD;
 import static utilz.Constants.Projectiles.CANNON_BALL_HEIGHT;
 import static utilz.Constants.Projectiles.CANNON_BALL_WIDTH;
 import static utilz.HelpMethods.*;
@@ -97,6 +99,19 @@ public class Player extends Entity {
         lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         checkLevelUp();
         updateBar();
+        if(currentHealth <= 0){
+            if(state != DEAD){
+                state = DEAD;
+                aniTick = 0;
+                aniIndex = 0;
+                playing.setPlayerDying(true);
+            }else if(aniIndex == getSpriteAmountPlayer(DEAD) && aniTick >= ANI_SPEED - 1){
+                playing.setGameOver(true);
+            }else {
+                updateAnimationTick();
+            }
+            return;
+        }
         updateAttackBox();
         updatePos();
         if(moving){
