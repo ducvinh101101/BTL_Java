@@ -2,11 +2,13 @@ package entities;
 
 import Main.Game;
 import gamestates.Playing;
+import objects.Projectile;
 import utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.GRAVITY;
@@ -17,6 +19,51 @@ import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity {
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private BufferedImage cannonBallImgs;
+    private Rectangle2D.Float skillBox;
+
+    public void setSkillBox(Rectangle2D.Float skillBox) {
+        this.skillBox = skillBox;
+    }
+
+    private void activeSkill(){
+        if(skill) {
+            int dir = 0;
+            if(checkR) dir = 1;
+            else if(checkL) dir = -1;
+            projectiles.add(new Projectile((int) getHitBox().x, (int) (getHitBox().y), dir));
+            skill = false;
+        }
+    }
+    private void drawProjectiles(Graphics g, int xLevelOffset, int yLevelOffset) {
+        activeSkill();
+        for (Projectile p : projectiles) {
+            if (p.isActive()) {
+                g.drawImage(
+                        cannonBallImgs,
+                        (int) p.getHitBox().x - xLevelOffset,
+                        (int) p.getHitBox().y - yLevelOffset,
+                        CANNON_BALL_WIDTH,
+                        CANNON_BALL_HEIGHT,
+                        null
+                );
+            }
+        }
+    }
+
+    private void updateProjectiles() {
+        for(Projectile p : projectiles){
+            if(p.isActive()) {
+                p.updatePos();
+                setSkillBox(p.getHitBox());
+                playing.checkEnemyHit(skillBox);
+                projectiles.getLast().setMaxDistance(300);
+            }
+        }
+    }
+
+
 
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
 
@@ -49,7 +96,7 @@ public class Player extends Entity {
     private int currentMana = maxMana;
     private int maxExp = 100;
     private int currentExp = 0;
-    private int damage = 5;
+    private int damage = 1;
 
     private int healthWidth = barWidth;
     private int expWidth = barWidth;
@@ -57,6 +104,7 @@ public class Player extends Entity {
     private int tileY = 0;
 
     private Rectangle2D.Float attackBox;
+
     private boolean attackChecked;
     private Playing playing;
 
@@ -71,6 +119,7 @@ public class Player extends Entity {
         super(x, y, width, height);
         this.playing = playing;
         this.state = IDLE;
+        projectiles = new ArrayList<>();
         loadImg();
         initHitBox(widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
         initAttackBox();
@@ -87,17 +136,19 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
+        cannonBallImgs = LoadSave.getSpriteAlas(LoadSave.CANNON_BALL);
     }
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
     public void update() {
-        System.out.println(levelPlayer);
+        activeSkill();
         lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         checkLevelUp();
         updateBar();
         updateAttackBox();
+        updateProjectiles();
         updatePos();
         if(moving){
             checkPotionTouched();
@@ -157,6 +208,7 @@ public class Player extends Entity {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
         drawHitBox(g, xLevelOffset, yLevelOffset);
         drawAttackBox(g, xLevelOffset, yLevelOffset);
+        drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
     }
 
@@ -210,16 +262,13 @@ public class Player extends Entity {
             idAniRight[i] = imgRight.getSubimage(i * 50, 0, 50, 70);
         }
     }
-
     private void loadAnimationsAttack() {
-
         BufferedImage imgAt = LoadSave.getSpriteAlas(LoadSave.PLAYER_AT);
         idAniAt = new BufferedImage[5];
         for (int i = 0; i < idAniAt.length; i++) {
             idAniAt[i] = imgAt.getSubimage(i * 100, 0, 100, 70);
         }
     }
-
     private void loadAnimationsAttackLeft() {
         BufferedImage imgAt = LoadSave.getSpriteAlas(LoadSave.PLAYER_AT_LEFT);
         idAniAtL = new BufferedImage[5];
@@ -227,7 +276,6 @@ public class Player extends Entity {
             idAniAtL[i] = imgAt.getSubimage(i * 100, 0, 100, 70);
         }
     }
-
     private void loadAnimationsJump() {
         BufferedImage imgJump = LoadSave.getSpriteAlas(LoadSave.PLAYER_JUMP);
         idAniJump = new BufferedImage[5];
@@ -235,7 +283,6 @@ public class Player extends Entity {
             idAniJump[i] = imgJump;
         }
     }
-
     private void loadAnimationsFalling() {
         BufferedImage imgFall = LoadSave.getSpriteAlas(LoadSave.PLAYER_FALL);
         idAniFall = new BufferedImage[5];
@@ -243,7 +290,6 @@ public class Player extends Entity {
             idAniFall[i] = imgFall;
         }
     }
-
     private void loadAnimationsJumpLeft() {
         BufferedImage imgJump = LoadSave.getSpriteAlas(LoadSave.PLAYER_JUMP_LEFT);
         idAniJumpL = new BufferedImage[5];
@@ -251,7 +297,6 @@ public class Player extends Entity {
             idAniJumpL[i] = imgJump;
         }
     }
-
     private void loadAnimationsFallingLeft() {
         BufferedImage imgFall = LoadSave.getSpriteAlas(LoadSave.PLAYER_FALL_LEFT);
         idAniFallL = new BufferedImage[5];
@@ -268,14 +313,12 @@ public class Player extends Entity {
         }
 
     }
-
     public void loadlvlData(int lvlData[][]) {
         this.lvlData = lvlData;
         if (!isEntityOnFloor(hitBox, lvlData)) {
             inAir = true;
         }
     }
-
     private void updateAnimationTick() {
         aniTick++;
         if (aniTick >= ANI_SPEED) {
@@ -422,7 +465,7 @@ public class Player extends Entity {
 
     private void jump() {
         if (inAir) {
-            if(jump && canDoubleJump == false){
+            if(jump && !canDoubleJump){
                 canDoubleJump = true;
                 inAir = true;
                 airSpeed = jumpSpeed/10*8;
@@ -499,4 +542,6 @@ public class Player extends Entity {
     public int getTileY(){
         return tileY;
     }
+
+
 }
