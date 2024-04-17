@@ -82,6 +82,7 @@ public class LoadSave {
     public static final String CANNON_ATLAS = "object/cannon_atlas.png";
 
     public static final String CANNON_BALL = "object/ball.png";
+    public static final String SHURIKEN = "object/shuriken.png";
 
     public static BufferedImage getSpriteAlas(String fileName) {
         BufferedImage img = null;

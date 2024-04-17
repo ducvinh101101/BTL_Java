@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.GRAVITY;
-import static utilz.Constants.ObjectConstants.getSpriteAmount;
 import static utilz.Constants.PlayerConstants.DEAD;
 import static utilz.Constants.Projectiles.CANNON_BALL_HEIGHT;
 import static utilz.Constants.Projectiles.CANNON_BALL_WIDTH;
@@ -22,7 +21,7 @@ import static utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity {
     private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private BufferedImage cannonBallImgs;
+    private BufferedImage shurikenImg;
     private Rectangle2D.Float skillBox;
 
     public void setSkillBox(Rectangle2D.Float skillBox) {
@@ -43,7 +42,7 @@ public class Player extends Entity {
         for (Projectile p : projectiles) {
             if (p.isActive()) {
                 g.drawImage(
-                        cannonBallImgs,
+                        shurikenImg,
                         (int) p.getHitBox().x - xLevelOffset,
                         (int) p.getHitBox().y - yLevelOffset,
                         CANNON_BALL_WIDTH,
@@ -138,7 +137,7 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
-        cannonBallImgs = LoadSave.getSpriteAlas(LoadSave.CANNON_BALL);
+        shurikenImg = LoadSave.getSpriteAlas(LoadSave.SHURIKEN);
     }
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
