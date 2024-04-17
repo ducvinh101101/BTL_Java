@@ -2,6 +2,7 @@
 package entities;
 
 import gamestates.Playing;
+import objects.Projectile;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ public class EnemyManager {
     private BufferedImage[][] deathImg, deathImgRight, deathImgLeft;
     private BufferedImage[][] samuraiImg, samuraiImgLeft, samuraiImgRight;
     private BufferedImage[][] tenguImg, tenguImgLeft, tenguImgRight;
-
+    private Projectile projectile;
     private BufferedImage[]  dummyImg;
     private ArrayList<Crab> crabs;
     private ArrayList<Dummy> dummies;

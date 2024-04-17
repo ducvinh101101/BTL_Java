@@ -9,6 +9,11 @@ public class Projectile {
     private Rectangle2D.Float hitBox;
     private int dir;
     private boolean active = true;
+    private float distance;
+    private float maxDistance;
+    public int getDir() {
+        return dir;
+    }
 
     public Projectile(int x, int y, int dir){
         int xOffset = (int)(-3 * Game.SCALE);
@@ -18,10 +23,18 @@ public class Projectile {
         }
         hitBox = new Rectangle2D.Float(x + xOffset,y + yOffset,CANNON_BALL_WIDTH,CANNON_BALL_HEIGHT);
         this.dir = dir;
+        this.distance = 0;
+        this.maxDistance = 300;
     }
 
     public void updatePos(){
         hitBox.x += dir * SPEED;
+        distance += Math.abs(SPEED);
+
+        if (distance >= maxDistance) {
+
+            active = false;
+        }
     }
 
     public void setPos(int x, int y){
@@ -37,5 +50,9 @@ public class Projectile {
     }
     public boolean isActive(){
         return active;
+    }
+
+    public void setMaxDistance(float maxDistance) {
+        this.maxDistance = maxDistance;
     }
 }
