@@ -52,6 +52,14 @@ public class LoadSave {
     public static final String REAPER_6 = "monster/179_5.png";
     public static final String REAPER_7 = "monster/179_6.png";
     public static final String REAPER_8 = "monster/179_7.png";
+    public static final String SAMURAI_1 = "monster/82_0.png";
+    public static final String SAMURAI_2 = "monster/82_1.png";
+    public static final String SAMURAI_3 = "monster/82_2.png";
+    public static final String SAMURAI_4 = "monster/82_3.png";
+    public static final String SAMURAI_1_LEFT = "monster/82_0_L.png";
+    public static final String SAMURAI_2_LEFT = "monster/82_1_L.png";
+    public static final String SAMURAI_3_LEFT = "monster/82_2_L.png";
+    public static final String SAMURAI_4_LEFT = "monster/82_3_L.png";
     public static final String REAPER_1_LEFT = "monster/179_0_L.png";
     public static final String REAPER_2_LEFT = "monster/179_1_L.png";
     public static final String REAPER_3_LEFT = "monster/179_2_L.png";

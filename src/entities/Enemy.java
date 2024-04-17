@@ -15,8 +15,8 @@ public class Enemy extends Entity {
     protected boolean inAir;
     protected float fallSpeed;
     protected float gravity = 0.04f * Game.SCALE;
-    protected float walkSpeed = 1.0f * Game.SCALE;
-    protected int walkDir = RIGHT;
+    protected float walkSpeed = Game.SCALE;
+    protected int walkDir = LEFT;
 
     protected int tileY;
 
@@ -25,7 +25,7 @@ public class Enemy extends Entity {
 
     protected int currentHealth = maxHealth;
     protected boolean alive = true;
-
+    private int stepsCount;
     protected boolean attackChecked;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
@@ -62,20 +62,30 @@ public class Enemy extends Entity {
         }
     }
 
-    protected void move(int[][] lvData) {
+    protected void  move(int[][] lvData) {
         float xSpeed = 0;
         if (walkDir == LEFT) xSpeed -= walkSpeed;
         else xSpeed += walkSpeed;
         if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvData)) {
-            if (isFloor(hitBox, xSpeed, lvData)) {
+            if (isFloor(hitBox, xSpeed,  lvData)) {
                 hitBox.x += xSpeed;
                 return;
             }
-
         }
         changeWalkDir();
     }
-
+    public void move3(){
+        if (walkDir == RIGHT){
+            hitBox.x += walkSpeed;
+            stepsCount++;
+            if (stepsCount >= 60 * 3) changeWalkDir();
+        }
+        else {
+            hitBox.x -= walkSpeed;
+            stepsCount++;
+            if (stepsCount >= 60 * 3) changeWalkDir();
+        }
+    }
     protected void turnTowardsPlayer(Player player) {
         if (player.hitBox.x > hitBox.x) walkDir = RIGHT;
         else walkDir = LEFT;
@@ -125,6 +135,7 @@ public class Enemy extends Entity {
     protected void changeWalkDir() {
         if (walkDir == LEFT) walkDir = RIGHT;
         else walkDir = LEFT;
+        stepsCount = 0;
     }
 
     // PLAYER ATT MON

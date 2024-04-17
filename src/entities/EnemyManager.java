@@ -17,11 +17,15 @@ import static utilz.Constants.EnemyConstants.*;
 public class EnemyManager {
     private Playing playing;
     private BufferedImage frogImg;
-    private BufferedImage[][] crabImg, crabImgLeft, crabImgRight, deathImg, deathImgRight, deathImgLeft;
+    private BufferedImage[][] crabImg, crabImgLeft, crabImgRight;
+    private BufferedImage[][] deathImg, deathImgRight, deathImgLeft;
+    private BufferedImage[][] samuraiImg, samuraiImgLeft, samuraiImgRight;
+
     private BufferedImage[]  dummyImg;
     private ArrayList<Crab> crabs;
     private ArrayList<Dummy> dummies;
     private ArrayList<Reaper> reapers;
+    private ArrayList<Samurai> samurais;
     private boolean spawnMonster = false;
 
     public EnemyManager(Playing playing) {
@@ -29,24 +33,30 @@ public class EnemyManager {
         crabs = new ArrayList<>();
         dummies = new ArrayList<>();
         reapers = new ArrayList<>();
+        samurais = new ArrayList<>();
+        loadImgs();
 
-
+//        addEnemy();
+    }
+    public void loadImgs(){
         loadCrabImgsLeft();
         loadCrabImgsRight();
         loadDummyImgs();
         loadDeathImgsRight();
         loadDeathImgsLeft();
-//        addEnemy();
+        loadSamuraiImgsRight();
+        loadSamuraiImgsLeft();
     }
-
     public void addEnemyMap1() {
 //        Crab newCrab = new Crab(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 12 - 100);
 //        crabs.add(newCrab);
-        dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 12 - 100));
+        dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 22 - 100)); // 22 la o duoi roi
     }
     public void addEnemyMap2() {
-        crabs.add(new Crab(TILES_DEFAULT_SIZE* 15 + 200 , TILES_DEFAULT_SIZE * 12 - 100));
-        reapers.add(new Reaper(TILES_DEFAULT_SIZE* 12 + 100 , TILES_DEFAULT_SIZE * 12 - 50));
+        crabs.add(new Crab(TILES_DEFAULT_SIZE* 5 + 100 , TILES_DEFAULT_SIZE * 12 + 100));
+        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 0));
+        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 14));
+        samurais.add(new Samurai(TILES_DEFAULT_SIZE* 30 + 100 , TILES_DEFAULT_SIZE * 12 + 200));
     }
     public void update(int[][] lvData, Player player) {
 //        ArrayList<Crab> tempCrabs = new ArrayList<>();
@@ -69,6 +79,7 @@ public class EnemyManager {
             if(X.alive) X.update(lvData, player);
         }
         for (Reaper X : reapers)  if(X.alive) X.update(lvData, player);
+        for (Samurai X : samurais) if(X.alive) X.update(lvData, player);
     }
 
     public void draw(Graphics g, int xLvOffset, int yLevelOffset) {
@@ -83,7 +94,7 @@ public class EnemyManager {
         }
         for (Dummy X : dummies){
             if(X.isAlive()){
-                g.drawImage(dummyImg[X.getEnemyState()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT, null);
+                g.drawImage(dummyImg[X.getEnemyState()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT + 8, null);
                 X.drawHitBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
@@ -92,6 +103,15 @@ public class EnemyManager {
             if (X.isAlive()) {
                 deathImg = (X.getWalkDir() == RIGHT) ? deathImgRight : deathImgLeft;
                 g.drawImage(deathImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
+                X.drawHitBox(g, xLvOffset, yLevelOffset);
+                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+                X.drawHP(g, xLvOffset, yLevelOffset);
+            }
+        }
+        for(Samurai X : samurais){
+            if (X.isAlive()) {
+                samuraiImg = (X.getWalkDir() == RIGHT) ? samuraiImgRight : samuraiImgLeft;
+                g.drawImage(samuraiImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
                 X.drawHitBox(g, xLvOffset, yLevelOffset);
                 X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
@@ -166,6 +186,26 @@ public class EnemyManager {
         deathImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_6_LEFT);
         deathImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_7_LEFT);
         deathImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_8_LEFT);
+    }
+    public void loadSamuraiImgsRight(){
+        samuraiImgRight = new BufferedImage[4][2];
+        samuraiImgRight[0][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1);
+        samuraiImgRight[1][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1);
+        samuraiImgRight[1][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2);
+        samuraiImgRight[2][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2);
+        samuraiImgRight[2][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_4);
+        samuraiImgRight[3][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_3);
+
+    }
+    public void loadSamuraiImgsLeft(){
+        samuraiImgLeft = new BufferedImage[4][2];
+        samuraiImgLeft[0][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1_LEFT);
+        samuraiImgLeft[1][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1_LEFT);
+        samuraiImgLeft[1][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2_LEFT);
+        samuraiImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2_LEFT);
+        samuraiImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_4_LEFT);
+        samuraiImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_3_LEFT);
+
     }
     public ArrayList<Crab> getCrabs() {
         return crabs;

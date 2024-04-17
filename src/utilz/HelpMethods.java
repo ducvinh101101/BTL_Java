@@ -118,20 +118,10 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
                         return false;
         return true;
     }
-    public static boolean isEntityOnFloor1(Rectangle2D.Float hitBox, int [][] lvlData){
-        float left = hitBox.x / Game.TILES_SIZE;
-        float right = (hitBox.x + hitBox.width) / Game.TILES_SIZE;
-        float top = hitBox.y / Game.TILES_SIZE;
-        float bottom = (hitBox.y + hitBox.height+1) / Game.TILES_SIZE;
-        if (!isJumptile(left, bottom, lvlData))
-            if (!isJumptile(right, bottom, lvlData))
-                if (!isJumptile(right, top, lvlData))
-                    if (!isJumptile(left, top, lvlData))
-                        return false;
-        return true;
-    }
+
     public static boolean isFloor(Rectangle2D.Float hitBox, float xSpeed, int[][] lvData) {
-        return isSolid(hitBox.x + xSpeed, hitBox.y + hitBox.height + 1, lvData);
+        if(xSpeed > 0) return isSolid(hitBox.x + hitBox.width + xSpeed, hitBox.y + hitBox.height + 1, lvData);
+        else return isSolid(hitBox.x + xSpeed, hitBox.y + hitBox.height + 1, lvData);
     }
 
     public static boolean isAllTileWalkable(int xStart, int xEnd, int y, int[][] lvData) {

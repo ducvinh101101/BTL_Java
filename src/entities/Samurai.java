@@ -5,22 +5,23 @@ import Main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
 
-public class Reaper extends Enemy {
+public class Samurai extends Enemy {
     private Rectangle2D.Float attackBox;
 
     private int attackBoxOffsetX;
     private int attackBoxOffsetY;
 
-    public Reaper(float x, float y) {
-        super(x, y, (int) (MONSTER_WIDTH*2 * Game.SCALE), (int) (MONSTER_HEIGHT*2* Game.SCALE), REAPER);
-        initHitBox( (int) (68 * Game.SCALE), (int) (68 * Game.SCALE));
+    public Samurai(float x, float y) {
+        super(x, y, (int) (MONSTER_WIDTH*3 * Game.SCALE), (int) (MONSTER_HEIGHT*3* Game.SCALE), SAMURAI);
+        initHitBox( (int) (70 * Game.SCALE), (int) (70 * Game.SCALE) - 10);
         initAttackBox();
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (140 * Game.SCALE), (int) (80 * Game.SCALE));
+        attackBox = new Rectangle2D.Float(x, y, (int) (150 * Game.SCALE) , (int) (80 * Game.SCALE) );
         attackBoxOffsetX = (int) (Game.SCALE * 30);
         attackBoxOffsetY = (int) (Game.SCALE * 0);
     }
@@ -42,7 +43,7 @@ public class Reaper extends Enemy {
     }
 
     private void updateBehavior(int[][] lvData, Player player) {
-//        if (firstUpdate) firstUpdateCheck(lvData);
+        if (firstUpdate) firstUpdateCheck(lvData);
         if (inAir) updateInAir(lvData);
         else {
             switch (enemyState) {
@@ -54,8 +55,8 @@ public class Reaper extends Enemy {
                         turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
                     }
-                    //move(lvData);
-                    move3();
+                    //move3();
+                    move(lvData);
                     break;
                 case ATTACK:
                     if (animationIndex == 0) attackChecked = false;
@@ -68,14 +69,11 @@ public class Reaper extends Enemy {
         }
     }
     public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
-        double oneScale =  (MONSTER_WIDTH*2* Game.SCALE)/maxHealth;
+        double oneScale =  (MONSTER_HEIGHT*2* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
 
-        // thanh máu nền
         g.setColor(new Color(35, 35, 35));
-        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_WIDTH*2* Game.SCALE) , 6);
-
-        // thanh máu hiện tại
+        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_HEIGHT*2* Game.SCALE) , 6);
         g.setColor(new Color(255, 0, 30));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int)hpBarValue, 6);
     }

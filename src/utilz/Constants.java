@@ -10,6 +10,7 @@ public class Constants {
         public static final int FROG = 1;
         public static final int CRAB = 2;
         public static final int REAPER = 3;
+        public static final int SAMURAI = 4;
 
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
@@ -44,6 +45,16 @@ public class Constants {
                     switch (enemy_state) {
                         case IDLE:
                             return 3;
+                        case RUNNING: return 2;
+                        case ATTACK:
+                            return 2;
+                        case HIT,DEAD:
+                            return 1;
+                    }
+                case SAMURAI:
+                    switch (enemy_state) {
+                        case IDLE:
+                            return 1;
                         case RUNNING: return 2;
                         case ATTACK:
                             return 2;

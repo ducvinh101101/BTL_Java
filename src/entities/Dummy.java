@@ -11,7 +11,7 @@ import static utilz.Constants.EnemyConstants.*;
 public class Dummy extends Enemy {
     public Dummy(float x, float y) {
         super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT*2 * Game.SCALE), DUMMY);
-        initHitBox( (int) (40 * Game.SCALE), (int) (42 * Game.SCALE) - 10);
+        initHitBox( (int) (30 * Game.SCALE), (int) (38 * Game.SCALE));
     }
 
     public void update(int[][] lvData, Player player) {

@@ -55,6 +55,7 @@ public class Crab extends Enemy {
                         turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
                     }
+                    //move3();
                     move(lvData);
                     break;
                 case ATTACK:
