@@ -20,8 +20,8 @@ public class Game implements Runnable {
     private Menu menu;
     public static final int ROW = 30;
     public static final int COL = 70;
-    public final static int TILES_DEFAULT_SIZE = 32;
-    public final static float SCALE = 1.0f;
+    public static final int TILES_DEFAULT_SIZE = 32;
+    public static final float SCALE = 1.0f;
     public final static int TILES_IN_WIDTH = 26;
     public final static int TILES_IN_HEIGHT = 14;
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
@@ -66,7 +66,6 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
-
         switch (Gamestate.state) {
             case MENU:
                 menu.draw(g);

@@ -33,31 +33,47 @@ public class Player extends Entity {
 
     private int lvlData[][];
     private BufferedImage statusBarImg;
-
+    private int levelPlayer = 1;
     private int statusBarWidth = (int) (192 * Game.SCALE);
     private int statusBarHeight = (int) (58 * Game.SCALE);
-    private int statusBarX = (int) (10 * Game.SCALE);
-    private int statusBarY = (int) (10 * Game.SCALE);
+    private int statusBarX = (int) (1 * Game.SCALE);
+    private int statusBarY = (int) (3 * Game.SCALE);
 
-    private int healthBarWidth = (int) (150 * Game.SCALE);
-    private int healthBarHeight = (int) (4 * Game.SCALE);
-    private int healthBarXStart = (int) (34 * Game.SCALE);
-    private int healthBarYStart = (int) (14 * Game.SCALE);
-
+    private int barWidth = (int) (152 * Game.SCALE);
+    private int barHeight = (int) (6 * Game.SCALE);
     private int maxHealth = 100;
     private int currentHealth = maxHealth;
+    private int maxMana = 100;
+    private int currentMana = maxMana;
+    private int maxExp = 100;
+    private int currentExp = 0;
+    private int damage = 5;
 
-    private int healthWidth = healthBarWidth;
+    private int healthWidth = barWidth;
+    private int expWidth = barWidth;
+    private int manaWidth = barWidth;
     private int tileY = 0;
 
     private Rectangle2D.Float attackBox;
     private boolean attackChecked;
     private Playing playing;
 
+    public int getCurrentExp() {return currentExp;}
+
+    public void setCurrentExp(int currentExp) {this.currentExp = currentExp;}
+
+    public int getDamage() {return damage;}
+
+
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
         this.state = IDLE;
+        loadImg();
+        initHitBox(widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
+        initAttackBox();
+    }
+    public void loadImg(){
         loadAnimations();
         loadAnimationsImLeft();
         loadAnimationsLeft();
@@ -69,17 +85,16 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
-        initHitBox(widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
-        initAttackBox();
     }
-
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
     public void update() {
+        System.out.println(levelPlayer);
         lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
-        updateHealthBar();
+        checkLevelUp();
+        updateBar();
         updateAttackBox();
         updatePos();
         if(moving){
@@ -90,7 +105,11 @@ public class Player extends Entity {
         updateAnimationTick();
         setAnimation();
     }
-
+    public void updateBar(){
+        updateHealthBar();
+        updateManaBar();
+        updateExpBar();
+    }
     private void checkPotionTouched() {
         playing.checkPotionTouch(hitBox);
     }
@@ -118,9 +137,20 @@ public class Player extends Entity {
     }
 
     private void updateHealthBar() {
-        healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
+        healthWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
     }
-
+    private void updateManaBar(){
+        manaWidth = (int) ((currentMana / (float) maxMana) * barWidth);
+    }
+    private void updateExpBar(){
+        expWidth = (int) ((currentExp / (float) maxExp) * barWidth);
+    }
+    private void checkLevelUp(){
+        if(currentExp >= maxExp){
+             currentExp -= maxExp;
+            levelPlayer++;
+        }
+    }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
         drawHitBox(g, xLevelOffset, yLevelOffset);
@@ -131,7 +161,11 @@ public class Player extends Entity {
     private void drawUI(Graphics g) {
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
         g.setColor(Color.red);
-        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+        g.fillRect(3, 6, healthWidth, barHeight);
+        g.setColor(Color.blue);
+        g.fillRect(3 , 21, manaWidth, barHeight);
+        g.setColor(Color.yellow);
+        g.fillRect(3 , 37, expWidth, barHeight);
     }
 
     public void changeHealth(int value) {
@@ -436,13 +470,6 @@ public class Player extends Entity {
             inAir = true;
     }
 
-    public int getWidthPy() {
-        return widthPy;
-    }
-
-    public int getHeightPy() {
-        return heightPy;
-    }
 
     public void setAttacking(boolean attacking) {
         if (!this.attacking) {
@@ -452,16 +479,8 @@ public class Player extends Entity {
         }
     }
 
-    public boolean isLeft() {
-        return left;
-    }
-
     public void setLeft(boolean left) {
         this.left = left;
-    }
-
-    public boolean isRight() {
-        return right;
     }
 
     public void setRight(boolean right) {

@@ -9,6 +9,7 @@ import static utilz.Constants.Directions.*;
 import static utilz.HelpMethods.*;
 
 public class Enemy extends Entity {
+
     protected int animationIndex, enemyState , enemyType;
     protected int animationTick, animationSpeed = 25;
     protected boolean firstUpdate = true;
@@ -146,16 +147,19 @@ public class Enemy extends Entity {
     }
 
     // PLAYER ATT MON
-    public void hurt(int i) {
+    public void hurt(int i, Player player) {
         currentHealth -= i;
-        if (currentHealth <= 0) newState(DEAD);
+        if (currentHealth <= 0) {
+            newState(DEAD);
+            player.setCurrentExp(player.getCurrentExp() + 60);
+        }
         else newState(HIT);
     }
 
     // MON ATT PLAYER
     protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.hitBox)) {
-            player.changeHealth(-getEnemyDmg(CRAB));
+            player.changeHealth(-getEnemyDmg(enemyType));
             attackChecked = true;
         }
     }

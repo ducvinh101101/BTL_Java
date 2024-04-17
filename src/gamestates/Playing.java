@@ -56,7 +56,7 @@ public class Playing extends State implements Statemethod {
         background = new Background();
         levelManager = new LevelManager(game);
         objectManager = new ObjectManager(this);
-        player = new Player(game.TILES_DEFAULT_SIZE, game.TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
+        player = new Player(TILES_DEFAULT_SIZE, TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
         objectManager.setCurrentLevel(levelManager.getCurrenLevel());
         enemyManager = new EnemyManager(this);
@@ -77,14 +77,13 @@ public class Playing extends State implements Statemethod {
         if(paused){
             pauseOverplay.update();
         }
-
         else {
             levelManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
             objectManager.update(levelManager.getCurrenLevel().getlvlData(),player);
-            checkCloseToBorder();
-            checkOpenToBorder();
+            checkCameraX();
+            checkCameraY();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleted = true;
                 levelManager.nextMap(lvlCompleted);
@@ -112,7 +111,7 @@ public class Playing extends State implements Statemethod {
 //        }
     }
 
-    private void checkCloseToBorder() {
+    private void checkCameraX() {
         int playerX = (int) player.getHitBox().x;
         int diff = playerX - xLvOffset;
         if (diff > rightBorder) xLvOffset += diff - rightBorder;
@@ -121,7 +120,7 @@ public class Playing extends State implements Statemethod {
         if (xLvOffset > maxLvOffsetWidth) xLvOffset = maxLvOffsetWidth;
         else if (xLvOffset < 0) xLvOffset = 0;
     }
-    private void checkOpenToBorder() {
+    private void checkCameraY() {
         int playerY = (int) player.getHitBox().y;
         int screenHeight = maxLvOffsetHeight;
         int centerY = yLvOffset + (screenHeight / 2);
@@ -239,14 +238,11 @@ public class Playing extends State implements Statemethod {
         }
     }
 
-    public ObjectManager getObjectManager(){
-        return objectManager;
-    }
     public void checkObjectHit(Rectangle2D.Float attackBox){
         objectManager.checkObjectHit(attackBox);
     }
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
-        enemyManager.checkEnemyHit(attackBox);
+        enemyManager.checkEnemyHit(attackBox, player);
     }
     public void checkPotionTouch(Rectangle2D.Float hitBox){
         objectManager.checkObjectTouched(hitBox);

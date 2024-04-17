@@ -120,22 +120,22 @@ public class EnemyManager {
     }
 
     // player ATT monster
-    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+    public void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         for (Crab X : crabs) {
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
-                X.hurt(10);
+                X.hurt(player.getDamage(), player);
                 break;
             }
         }
         for (Dummy X : dummies){
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
-                X.hurt(10);
+                X.hurt(player.getDamage(), player);
                 break;
             }
         }
         for (Reaper X : reapers){
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
-                X.hurt(10);
+                X.hurt(player.getDamage(), player);
                 break;
             }
         }
