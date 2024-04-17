@@ -95,8 +95,7 @@ public class Playing extends State implements Statemethod {
             }
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
-            enemyManager.getReapers().clear();
-            enemyManager.getCrabs().clear();
+            enemyManager.clearEnemyMap2();
             checkNextMap = 1;
             enemyManager.addEnemyMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());

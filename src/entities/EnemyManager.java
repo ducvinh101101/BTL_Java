@@ -56,13 +56,23 @@ public class EnemyManager {
 //        Crab newCrab = new Crab(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 12 - 100);
 //        crabs.add(newCrab);
         dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 22 - 100)); // 22 la o duoi roi
-        tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 15 + 200));
+    }
+    public void clearEnemyMap1(){
+        dummies.clear();
     }
     public void addEnemyMap2() {
+
         crabs.add(new Crab(TILES_DEFAULT_SIZE* 5 + 100 , TILES_DEFAULT_SIZE * 12 + 100));
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 14));
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 25  , TILES_DEFAULT_SIZE * 3+100));
-        samurais.add(new Samurai(TILES_DEFAULT_SIZE* 30 + 100 , TILES_DEFAULT_SIZE * 12 + 200));
+       // samurais.add(new Samurai(TILES_DEFAULT_SIZE* 30 + 100 , TILES_DEFAULT_SIZE * 12 + 200));
+        tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 21 + 9 ));
+    }
+    public void clearEnemyMap2(){
+        crabs.clear();
+        reapers.clear();
+        samurais.clear();
+        tengus.clear();
     }
     public void update(int[][] lvData, Player player) {
 //        ArrayList<Crab> tempCrabs = new ArrayList<>();
@@ -146,6 +156,18 @@ public class EnemyManager {
             }
         }
         for (Reaper X : reapers){
+            if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
+                X.hurt(player.getDamage(), player);
+                break;
+            }
+        }
+        for (Samurai X : samurais){
+            if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
+                X.hurt(player.getDamage(), player);
+                break;
+            }
+        }
+        for (Tengu X : tengus){
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
                 X.hurt(player.getDamage(), player);
                 break;

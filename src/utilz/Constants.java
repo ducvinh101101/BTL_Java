@@ -80,28 +80,34 @@ public class Constants {
         }
 
         public static int getMaxHealth(int enemyType) {
-            switch (enemyType) {
-                case CRAB:
-                    return 10;
-                case REAPER: return 50;
-                case SAMURAI: return 100;
-                case TENGU: return 200;
-                default:
-                    return 1;
-
-            }
+            return switch (enemyType) {
+                case DUMMY -> 50;
+                case CRAB -> 100;
+                case REAPER -> 500;
+                case SAMURAI -> 1000;
+                case TENGU -> 2000;
+                default -> 1;
+            };
         }
 
         public static int getEnemyDmg(int enemyType) {
-            switch (enemyType) {
-                case CRAB:
-                    return 10;
-                case REAPER: return 20;
-                case SAMURAI: return 30;
-                case TENGU: return 50;
-                default:
-                    return 1;
-            }
+            return switch (enemyType) {
+                case CRAB -> 10;
+                case REAPER -> 20;
+                case SAMURAI -> 50;
+                case TENGU -> 80;
+                default -> 1;
+            };
+        }
+        public static int getEnemyExp(int enemyType){
+            return switch (enemyType) {
+                case DUMMY -> 10;
+                case CRAB -> 20;
+                case REAPER -> 30;
+                case SAMURAI -> 40;
+                case TENGU -> 50;
+                default -> 1;
+            };
         }
     }
     public static class ObjectConstants{

@@ -72,13 +72,13 @@ public class Player extends Entity {
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 2f;
+    private float playerSpeed = 8f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;
     // nhảy trọng lực:
     private float airSpeed = 0f;
-    private float jumpSpeed = -2.25f * Game.SCALE;
+    private float jumpSpeed = -4.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 
     private int lvlData[][];

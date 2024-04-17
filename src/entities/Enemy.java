@@ -151,7 +151,7 @@ public class Enemy extends Entity {
         currentHealth -= i;
         if (currentHealth <= 0) {
             newState(DEAD);
-            player.setCurrentExp(player.getCurrentExp() + 60);
+            player.setCurrentExp(player.getCurrentExp() + getEnemyExp(enemyType));
         }
         else newState(HIT);
     }
