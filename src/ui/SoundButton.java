@@ -12,7 +12,7 @@ public class SoundButton extends PauseButton{
     private boolean muted;
     private int rowIndex,colIndex;
     public SoundButton(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(x, y,(int)(width/1.5),(int)(height/1.5));
         loadSoundImgs();
     }
     private void loadSoundImgs(){
@@ -44,7 +44,7 @@ public class SoundButton extends PauseButton{
         mouseOver = false;
     }
     public void draw(Graphics g){
-        g.drawImage(soundImgs[rowIndex][colIndex],x,y,(int)(width/1.5),(int)(height/1.5),null);
+        g.drawImage(soundImgs[rowIndex][colIndex],x,y,width,height,null);
     }
 
     public BufferedImage[][] getSoundImgs() {
