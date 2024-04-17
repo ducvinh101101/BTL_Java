@@ -82,7 +82,7 @@ public class Playing extends State implements Statemethod {
             levelManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
-            objectManager.update();
+            objectManager.update(levelManager.getCurrenLevel().getlvlData(),player);
             checkCloseToBorder();
             checkOpenToBorder();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {

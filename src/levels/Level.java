@@ -1,5 +1,6 @@
 package levels;
 
+import objects.Cannon;
 import objects.GameContainer;
 import objects.Potion;
 import utilz.HelpMethods;
@@ -10,10 +11,15 @@ public class Level {
     private int[][] lvData;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
+    private ArrayList<Cannon> cannons;
     public Level(int[][] lvData){
         this.lvData=lvData;
         createPotions();
         createContainers();
+        createCannons();
+    }
+    private void createCannons() {
+        cannons = HelpMethods.getCannons(lvData);
     }
     private void createContainers() {
         containers = HelpMethods.getContainers(lvData);
@@ -34,4 +40,5 @@ public class Level {
     public ArrayList<GameContainer> getContainers() {
         return containers;
     }
+    public ArrayList<Cannon> getCannons(){return cannons;}
 }

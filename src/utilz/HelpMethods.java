@@ -6,6 +6,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import objects.Potion;
 import objects.GameContainer;
+import objects.Projectile;
+import objects.Cannon;
 
 import static utilz.Constants.ObjectConstants.*;
 import static utilz.Constants.ObjectConstants.BOX;
@@ -30,6 +32,9 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
             return true;
         }
         return isTileSolid((int) xIndex, (int) yIndex, lvlData);
+    }
+    public static boolean isProjectileHittingLevel(Projectile p, int[][] lvlData){
+        return isSolid(p.getHitBox().x + p.getHitBox().width / 2, p.getHitBox().y + p.getHitBox().height / 2,lvlData);
     }
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
@@ -123,7 +128,18 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
         if(xSpeed > 0) return isSolid(hitBox.x + hitBox.width + xSpeed, hitBox.y + hitBox.height + 1, lvData);
         else return isSolid(hitBox.x + xSpeed, hitBox.y + hitBox.height + 1, lvData);
     }
-
+    public static boolean canCannonSeePlayer(int[][] lvData, Rectangle2D.Float firstHitBox, Rectangle2D.Float secondHitBox, int yTile){
+        int firstXTile = (int) (firstHitBox.x / Game.TILES_SIZE);
+        int secondXTile = (int) (secondHitBox.x / Game.TILES_SIZE);
+        if (firstXTile > secondXTile) return isAllTilesClear(secondXTile, firstXTile, yTile, lvData);
+        else return isAllTilesClear(firstXTile, secondXTile, yTile, lvData);
+    }
+    public static boolean isAllTilesClear(int xStart, int xEnd, int y, int[][] lvData){
+        for (int i = 0; i < xEnd - xStart; i++) {
+            if (isTileSolid(xStart + i, y, lvData)) return false;
+        }
+        return true;
+    }
     public static boolean isAllTileWalkable(int xStart, int xEnd, int y, int[][] lvData) {
         for (int i = 0; i < xEnd - xStart; i++) {
             if (isTileSolid(xStart + i, y, lvData)) return false;
@@ -155,6 +171,18 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
                 int value = lvlData[j][i];
                 if(value == BARREL || value == BOX){ // || value == 84
                     list.add(new GameContainer(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
+    }
+    public static ArrayList<Cannon> getCannons(int[][] lvlData){
+        ArrayList<Cannon> list = new ArrayList<>();
+        for(int j = 0; j < lvlData.length; j++){
+            for(int i = 0; i < lvlData[j].length; i++){
+                int value = lvlData[j][i];
+                if(value == CANNON_LEFT || value == CANNON_RIGHT){
+                    list.add(new Cannon(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
                 }
             }
         }

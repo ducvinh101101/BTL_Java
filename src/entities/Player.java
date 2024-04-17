@@ -48,6 +48,7 @@ public class Player extends Entity {
     private int currentHealth = maxHealth;
 
     private int healthWidth = healthBarWidth;
+    private int tileY = 0;
 
     private Rectangle2D.Float attackBox;
     private boolean attackChecked;
@@ -83,6 +84,7 @@ public class Player extends Entity {
         updatePos();
         if(moving){
             checkPotionTouched();
+            tileY = (int) hitBox.y / Game.TILES_SIZE;
         }
         if (attacking) checkAttack();
         updateAnimationTick();
@@ -468,5 +470,8 @@ public class Player extends Entity {
 
     public void setJump(boolean jump) {
         this.jump = jump;
+    }
+    public int getTileY(){
+        return tileY;
     }
 }
