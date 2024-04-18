@@ -92,6 +92,7 @@ public class Playing extends State implements Statemethod {
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleted = true;
                 levelManager.nextMap(lvlCompleted);
+                getGame().getAudioPlayer().setLevelSong(levelManager.getInnext());
             }
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
