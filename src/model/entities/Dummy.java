@@ -17,7 +17,6 @@ public class Dummy extends Enemy {
         updateAnimationTick();
     }
 
-
     private void updateBehavior(int[][] lvData, Player player) {
         //if (firstUpdate) firstUpdateCheck(lvData);
         if (inAir) updateInAir(lvData);
@@ -36,11 +35,8 @@ public class Dummy extends Enemy {
         double oneScale =  (MONSTER_WIDTH* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
 
-        // thanh máu nền
         g.setColor(new Color(35, 35, 35));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_WIDTH* Game.SCALE), 6);
-
-        // thanh máu hiện tại
         g.setColor(new Color(255, 0, 30));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int)hpBarValue, 6);
     }

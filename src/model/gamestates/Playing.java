@@ -2,6 +2,7 @@ package model.gamestates;
 
 import model.Game;
 import model.entities.EnemyManager;
+import model.entities.NpcManager;
 import model.entities.Player;
 import view.Background;
 import model.maps.MapManager;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 import static model.Game.*;
 
@@ -24,6 +26,7 @@ public class Playing extends State implements Statemethod {
     private ObjectManager objectManager;
     private Background background;
     private EnemyManager enemyManager;
+    private NpcManager npcManager;
     private GameOverOverlay gameOverOverlay;
     private int xLvOffset;
     private int yLvOffset;
@@ -41,6 +44,7 @@ public class Playing extends State implements Statemethod {
     private boolean playerDying;
     private int checkNextMap = 0;
     private boolean paused = false;
+    private BufferedImage NpcImg, NpcImg2;
     public Playing(Game game) {
         super(game);
         initClasses();
@@ -55,6 +59,7 @@ public class Playing extends State implements Statemethod {
     private void initClasses() {
         background = new Background();
         mapManager = new MapManager(game);
+        npcManager = new NpcManager(this);
         objectManager = new ObjectManager(this);
         player = new Player(TILES_DEFAULT_SIZE, TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
         player.loadlvlData(mapManager.getCurrenLevel().getlvlData());
@@ -62,7 +67,6 @@ public class Playing extends State implements Statemethod {
         enemyManager = new EnemyManager(this);
         pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
-
     }
 
     public void windowFocusLost() {
@@ -86,6 +90,7 @@ public class Playing extends State implements Statemethod {
         else {
             mapManager.update();
             player.update();
+
             enemyManager.update(mapManager.getCurrenLevel().getlvlData(), player);
             objectManager.update(mapManager.getCurrenLevel().getlvlData(),player);
             checkCameraX();
@@ -101,6 +106,7 @@ public class Playing extends State implements Statemethod {
             enemyManager.clearAll();
             checkNextMap = 1;
             enemyManager.addEnemyMap1();
+            npcManager.npcMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(mapManager.getInnext()==1 && checkNextMap ==1){
@@ -108,6 +114,7 @@ public class Playing extends State implements Statemethod {
             enemyManager.clearAll();
             checkNextMap = 2;
             enemyManager.addEnemyMap2();
+            npcManager.npcMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if (mapManager.getInnext()==2&& checkNextMap==2) {
@@ -115,6 +122,7 @@ public class Playing extends State implements Statemethod {
             enemyManager.clearAll();
             checkNextMap = 0;
             enemyManager.addEnemyMap3();
+            npcManager.npcMap3();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 
@@ -167,7 +175,8 @@ public class Playing extends State implements Statemethod {
     @Override
     public void draw(Graphics g) {
         background.draw(g);
-        mapManager.draw(g, xLvOffset, yLvOffset);
+
+        mapManager.draw(g, xLvOffset, yLvOffset);npcManager.draw(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);
         objectManager.draw(g,xLvOffset, yLvOffset);
         player.render(g, xLvOffset, yLvOffset);

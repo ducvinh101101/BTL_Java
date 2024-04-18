@@ -70,7 +70,6 @@ public class Tengu extends Enemy {
     public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
         double oneScale =  (MONSTER_HEIGHT*2* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
-
         g.setColor(new Color(35, 35, 35));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_HEIGHT*2* Game.SCALE) , 6);
         g.setColor(new Color(255, 0, 30));
