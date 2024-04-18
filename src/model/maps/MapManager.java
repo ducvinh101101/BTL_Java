@@ -49,7 +49,7 @@ public class MapManager {
                 int index2 = i;
                 levelSprite[index2] = img.getSubimage(0, i * 72, 72, 72);
             }
-        } else {
+        } else if(innext == 2){
             BufferedImage img = LoadSave.getImage(LoadSave.TILESET_3);
             levelSprite = new BufferedImage[143];
             for (int i = 0; i < 143; i++) {
@@ -75,7 +75,7 @@ public class MapManager {
                     g.drawImage(levelSprite[index], Game.TILES_SIZE * j - xLvOffset , Game.TILES_SIZE * i- yLvOffset, Game.TILES_SIZE, Game.TILES_SIZE, null);
                 }
             }
-        } else {
+        } else if(innext ==2) {
             for (int i = 0; i < ROW; i++) {
                 for (int j = 0; j < COL; j++) {
                     int index = map[innext].getSpriteIndex(i, j);
