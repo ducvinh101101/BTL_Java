@@ -228,8 +228,8 @@ public class Player extends Entity {
     }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
-        drawHitBox(g, xLevelOffset, yLevelOffset);
-        drawAttackBox(g, xLevelOffset, yLevelOffset);
+        //drawHitBox(g, xLevelOffset, yLevelOffset);
+        //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
     }

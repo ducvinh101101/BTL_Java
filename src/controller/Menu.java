@@ -19,7 +19,7 @@ public class Menu extends State implements Statemethod {
     public Menu(Game game) {
         super(game);
         loadButton();
-        loadBackground();
+//        loadBackground();
         loadInBackground();
     }
 

@@ -111,8 +111,8 @@ public class EnemyManager {
             if (X.isAlive()) {
                 crabImg = (X.getWalkDir() == RIGHT) ? crabImgRight : crabImgLeft;
                 g.drawImage(crabImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
@@ -120,24 +120,24 @@ public class EnemyManager {
             if (X.isAlive()) {
                 wandererImg = (X.getWalkDir() == RIGHT) ? wandererImgRight : wandererImgLeft;
                 g.drawImage(wandererImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
         for (Dummy X : dummies){
             if(X.isAlive()){
                 g.drawImage(dummyImg[X.getEnemyState()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT + 8, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawHP(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
         for (Reaper X : reapers) {
             if (X.isAlive()) {
                 deathImg = (X.getWalkDir() == RIGHT) ? deathImgRight : deathImgLeft;
                 g.drawImage(deathImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
@@ -145,8 +145,8 @@ public class EnemyManager {
             if (X.isAlive()) {
                 samuraiImg = (X.getWalkDir() == RIGHT) ? samuraiImgRight : samuraiImgLeft;
                 g.drawImage(samuraiImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
@@ -154,8 +154,8 @@ public class EnemyManager {
             if (X.isAlive()) {
                 tenguImg = (X.getWalkDir() == RIGHT) ? tenguImgRight : tenguImgLeft;
                 g.drawImage(tenguImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*3, MONSTER_HEIGHT*3, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+//                X.drawHitBox(g, xLvOffset, yLevelOffset);
+//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }

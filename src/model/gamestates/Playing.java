@@ -96,24 +96,21 @@ public class Playing extends State implements Statemethod {
             }
         }
         if(mapManager.getInnext()==0 && checkNextMap ==0){ // create monter
-            player.getHitBox().x= 500;
-            player.getHitBox().y = 400;
+            player.setHitBox(100,100);
             enemyManager.clearAll();
             checkNextMap = 1;
             enemyManager.addEnemyMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(mapManager.getInnext()==1 && checkNextMap ==1){
-            player.getHitBox().x= 100;
-            player.getHitBox().y = 100;
+            player.setHitBox(100,300);
             enemyManager.clearAll();
             checkNextMap = 2;
             enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if (mapManager.getInnext()==2&& checkNextMap==2) {
-            player.getHitBox().x= 500;
-            player.getHitBox().y = 400;
+            player.setHitBox(200,500);
             enemyManager.clearAll();
             checkNextMap = 0;
             enemyManager.addEnemyMap3();
