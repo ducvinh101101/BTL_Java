@@ -21,6 +21,9 @@ import static model.utilz.Constants.PlayerConstants.*;
 import static model.utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity {
+    private boolean levelUp;
+    private int frameCount;
+    private static final int LEVEL_UP_DISPLAY_FRAMES = 180;
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
 
     //    private int playerAction = IDLE;
