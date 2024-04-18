@@ -457,6 +457,7 @@ public class Player extends Entity {
 
         if (inAir) {
             if(airSpeed>0){
+                //playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
                 if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpTile(hitBox.x, hitBox.y+airSpeed, hitBox.width, hitBox.height, lvlData)) {
                     hitBox.y += airSpeed;
                     airSpeed += GRAVITY;
@@ -485,6 +486,7 @@ public class Player extends Entity {
                     }
                     updateXPos(xSpeed);
                 }
+                //playing.getGame().getAudioPlayer().playEffect(AudioPlayer.FALL);
             }
 
         } else updateXPos(xSpeed);
