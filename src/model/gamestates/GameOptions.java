@@ -1,9 +1,9 @@
 package model.gamestates;
 
 import model.Game;
-import view.ui.AudioOptions;
-import view.ui.PauseButton;
-import view.ui.UrmButton;
+import view.AudioOptions;
+import view.PauseButton;
+import view.UrmButton;
 import model.utilz.LoadSave;
 
 import java.awt.*;

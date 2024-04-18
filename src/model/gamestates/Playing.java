@@ -6,8 +6,8 @@ import model.entities.Player;
 import view.Background;
 import model.maps.MapManager;
 import model.objects.ObjectManager;
-import view.ui.GameOverOverlay;
-import view.ui.PauseOverlay;
+import view.GameOverOverlay;
+import view.PauseOverlay;
 import model.utilz.HelpMethods;
 import model.utilz.LoadSave;
 
@@ -78,6 +78,7 @@ public class Playing extends State implements Statemethod {
         if(paused){
             pauseOverlay.update();
         }else if(gameOver){
+            mapManager.setInnext(0);
             gameOverOverlay.update();
         }else if(playerDying){
             player.update();
@@ -167,15 +168,14 @@ public class Playing extends State implements Statemethod {
     public void draw(Graphics g) {
         background.draw(g);
         mapManager.draw(g, xLvOffset, yLvOffset);
-        player.render(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);
         objectManager.draw(g,xLvOffset, yLvOffset);
+        player.render(g, xLvOffset, yLvOffset);
         if (paused) {
             background.drawBackgroundPauseGame(g);
             pauseOverlay.draw(g);
         }
         if(lvlCompleted){
-            player.setHitBox(TILES_DEFAULT_SIZE*3,TILES_DEFAULT_SIZE*20+3);
             mapManager.importOutsideSprite();
             mapManager.draw(g,xLvOffset, yLvOffset);
             objectManager.draw(g,xLvOffset, yLvOffset);

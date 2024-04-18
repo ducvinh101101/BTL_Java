@@ -1,4 +1,4 @@
-package view.ui;
+package view;
 
 import model.gamestates.Gamestate;
 import model.utilz.LoadSave;

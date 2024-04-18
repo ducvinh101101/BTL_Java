@@ -6,7 +6,7 @@ import controller.Menu;
 import model.gamestates.Playing;
 import view.GamePanel;
 import view.GameWindow;
-import view.ui.AudioOptions;
+import view.AudioOptions;
 
 import java.awt.*;
 

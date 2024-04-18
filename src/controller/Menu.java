@@ -4,7 +4,7 @@ import model.gamestates.Gamestate;
 import model.gamestates.State;
 import model.gamestates.Statemethod;
 import model.Game;
-import view.ui.MenuButton;
+import view.MenuButton;
 import model.utilz.LoadSave;
 
 import java.awt.*;

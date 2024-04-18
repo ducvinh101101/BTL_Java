@@ -1,4 +1,4 @@
-package view.ui;
+package view;
 
 import model.utilz.LoadSave;
 

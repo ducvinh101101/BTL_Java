@@ -2,7 +2,7 @@ package model.gamestates;
 
 import model.Game;
 import model.AudioPlayer;
-import view.ui.MenuButton;
+import view.MenuButton;
 
 import java.awt.event.MouseEvent;
 

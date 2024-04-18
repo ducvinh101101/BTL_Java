@@ -129,7 +129,7 @@ public class EnemyManager {
             if(X.isAlive()){
                 g.drawImage(dummyImg[X.getEnemyState()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT + 8, null);
 //                X.drawHitBox(g, xLvOffset, yLevelOffset);
-//                X.drawHP(g, xLvOffset, yLevelOffset);
+                X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
         for (Reaper X : reapers) {
