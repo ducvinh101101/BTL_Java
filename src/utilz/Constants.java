@@ -16,7 +16,7 @@ public class Constants {
     }
     public static class EnemyConstants {
         public static final int DUMMY = 0;
-        public static final int FROG = 1;
+        public static final int WANDERER = 1;
         public static final int CRAB = 2;
         public static final int REAPER = 3;
         public static final int SAMURAI = 4;
@@ -48,6 +48,12 @@ public class Constants {
                             return 1;
                         case RUNNING, ATTACK:
                             return 2;
+                    }
+                case WANDERER:
+                    switch (enemy_state) {
+                        case IDLE, HIT, DEAD:
+                            return 1;
+                        case RUNNING, ATTACK: return 2;
                     }
                 case REAPER:
                     switch (enemy_state) {
@@ -83,6 +89,7 @@ public class Constants {
             return switch (enemyType) {
                 case DUMMY -> 50;
                 case CRAB -> 100;
+                case WANDERER -> 200;
                 case REAPER -> 500;
                 case SAMURAI -> 1000;
                 case TENGU -> 2000;
@@ -93,6 +100,7 @@ public class Constants {
         public static int getEnemyDmg(int enemyType) {
             return switch (enemyType) {
                 case CRAB -> 10;
+                case WANDERER -> 15;
                 case REAPER -> 20;
                 case SAMURAI -> 50;
                 case TENGU -> 80;
@@ -102,6 +110,7 @@ public class Constants {
         public static int getEnemyExp(int enemyType){
             return switch (enemyType) {
                 case DUMMY -> 10;
+                case WANDERER -> 15;
                 case CRAB -> 20;
                 case REAPER -> 30;
                 case SAMURAI -> 40;

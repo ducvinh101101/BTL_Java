@@ -21,7 +21,7 @@ public class Dummy extends Enemy {
 
 
     private void updateBehavior(int[][] lvData, Player player) {
-        if (firstUpdate) firstUpdateCheck(lvData);
+        //if (firstUpdate) firstUpdateCheck(lvData);
         if (inAir) updateInAir(lvData);
         else {
             switch (enemyState) {

@@ -143,17 +143,9 @@ public class Playing extends State implements Statemethod {
         objectManager.checkSpikesTouched(player);
     }
     public void resetAll(){
-
+        enemyManager.resetAll();
         levelManager.setInnext(0);
         levelManager.importOutsideSprite();
-//        if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
-//            enemyManager.getReapers().clear();
-//            enemyManager.getCrabs().clear();
-//        }
-//        else if(levelManager.getInnext()==1 && checkNextMap ==1){
-//            enemyManager.getDummies().clear();
-//
-//        }
         gameOver = false;
         paused = false;
         lvlCompleted = false;
