@@ -1,4 +1,4 @@
-package controller.inputs;
+package controller;
 
 import view.Main.GamePanel;
 import model.gamestates.Gamestate;

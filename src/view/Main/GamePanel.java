@@ -1,7 +1,7 @@
 package view.Main;
 
-import controller.inputs.KeyboardInputs;
-import controller.inputs.MouseInputs;
+import controller.KeyboardInputs;
+import controller.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
