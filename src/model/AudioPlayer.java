@@ -37,7 +37,7 @@ public class AudioPlayer {
         playSong(MENU_1);
     }
     private void loadSongs()  {
-        String[] names = {"menu","sound_game","level2"};
+        String[] names = {"menu","0419","0419"};
         songs = new Clip[names.length];
         for(int i = 0; i < songs.length; i++){
             songs[i] = getClip(names[i]);
