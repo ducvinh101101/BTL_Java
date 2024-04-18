@@ -1,12 +1,13 @@
-package view.Main;
+package view;
 
-import controller.inputs.KeyboardInputs;
-import controller.inputs.MouseInputs;
+import controller.KeyboardInputs;
+import controller.MouseInputs;
+import model.Game;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;

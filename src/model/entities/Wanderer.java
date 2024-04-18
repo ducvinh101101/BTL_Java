@@ -1,6 +1,6 @@
 package model.entities;
 
-import view.Main.Game;
+import model.Game;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

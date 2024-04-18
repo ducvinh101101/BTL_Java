@@ -1,4 +1,6 @@
-package view.Main;
+package view;
+
+import view.GamePanel;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;

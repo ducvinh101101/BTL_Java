@@ -1,25 +1,25 @@
-package model.levels;
+package model.maps;
 
-import view.Main.Game;
+import model.Game;
 import model.utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
-public class LevelManager {
+public class MapManager {
     private Game game;
     private BufferedImage[] levelSprite;
-    private Level[] level = new Level[3];
+    private Map[] map = new Map[3];
     private int innext = 0;
 
 
-    public LevelManager(Game game) {
+    public MapManager(Game game) {
         this.game = game;
-        level[0] = new Level(LoadSave.getLevelData());
-        level[1] = new Level(LoadSave.getLevelData2());
-        level[2] = new Level(LoadSave.getLevelData3());
+        map[0] = new Map(LoadSave.getLevelData());
+        map[1] = new Map(LoadSave.getLevelData2());
+        map[2] = new Map(LoadSave.getLevelData3());
         importOutsideSprite();
     }
 
@@ -28,7 +28,7 @@ public class LevelManager {
             innext += 1;
             kt = false;
         }
-        if(innext > level.length){
+        if(innext >= map.length){
             innext = 0;
         }
 
@@ -63,7 +63,7 @@ public class LevelManager {
         if (innext == 0) {
             for (int i = 0; i < ROW; i++) {
                 for (int j = 0; j < COL; j++) {
-                    int index = level[innext].getSpriteIndex(i, j);
+                    int index = map[innext].getSpriteIndex(i, j);
                     g.drawImage(levelSprite[index], Game.TILES_SIZE * j - xLvOffset, Game.TILES_SIZE * i - yLvOffset, Game.TILES_SIZE, Game.TILES_SIZE, null);
                 }
             }
@@ -71,14 +71,14 @@ public class LevelManager {
         } else if (innext == 1) {
             for (int i = 0; i < ROW; i++) {
                 for (int j = 0; j < COL; j++) {
-                    int index = level[innext].getSpriteIndex(i, j);
+                    int index = map[innext].getSpriteIndex(i, j);
                     g.drawImage(levelSprite[index], Game.TILES_SIZE * j - xLvOffset , Game.TILES_SIZE * i- yLvOffset, Game.TILES_SIZE, Game.TILES_SIZE, null);
                 }
             }
         } else {
             for (int i = 0; i < ROW; i++) {
                 for (int j = 0; j < COL; j++) {
-                    int index = level[innext].getSpriteIndex(i, j);
+                    int index = map[innext].getSpriteIndex(i, j);
                     g.drawImage(levelSprite[index], Game.TILES_SIZE * j - xLvOffset, Game.TILES_SIZE * i- yLvOffset, Game.TILES_SIZE, Game.TILES_SIZE, null);
                 }
             }
@@ -90,16 +90,16 @@ public class LevelManager {
 
     }
 
-    public Level getCurrenLevel() {
-        return level[innext];
+    public Map getCurrenLevel() {
+        return map[innext];
     }
 
-    public Level[] getLevel() {
-        return level;
+    public Map[] getLevel() {
+        return map;
     }
 
-    public void setLevel(Level[] level) {
-        this.level = level;
+    public void setLevel(Map[] map) {
+        this.map = map;
     }
 
     public int getInnext() {

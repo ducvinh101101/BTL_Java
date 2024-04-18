@@ -1,9 +1,9 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 import model.entities.Player;
 import model.gamestates.Playing;
-import model.levels.Level;
+import model.maps.Map;
 import model.utilz.LoadSave;
 import static model.utilz.Constants.ObjectConstants.*;
 import static model.utilz.Constants.Projectiles.CANNON_BALL_HEIGHT;
@@ -25,21 +25,21 @@ public class ObjectManager {
     private ArrayList<Cannon> cannons;
     private ArrayList<Spike> spikes;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private Level currentLevel;
+    private Map currentMap;
 
     public ObjectManager(Playing playing){
         this.playing = playing;
-        this.currentLevel = playing.getLevelManager().getCurrenLevel();
+        this.currentMap = playing.getLevelManager().getCurrenLevel();
         loadImgs();
         //loadObject(currentLevel);
 
     }
-    public void loadObject(Level newLevel) {
-        this.currentLevel = newLevel;
-        potions = new ArrayList<>(newLevel.getPotions());
-        containers = new ArrayList<>(newLevel.getContainers());
-        cannons = new ArrayList<>(newLevel.getCannons());
-        spikes = newLevel.getSpikes();
+    public void loadObject(Map newMap) {
+        this.currentMap = newMap;
+        potions = new ArrayList<>(newMap.getPotions());
+        containers = new ArrayList<>(newMap.getContainers());
+        cannons = new ArrayList<>(newMap.getCannons());
+        spikes = newMap.getSpikes();
         projectiles.clear();
     }
     public void checkSpikesTouched(Player p){
@@ -183,13 +183,13 @@ public class ObjectManager {
         drawProjectiles(g,xLevelOffset,yLevelOffset);
         drawTrap(g,xLevelOffset,yLevelOffset);
     }
-    public void setCurrentLevel(Level newLevel){
-        this.currentLevel = newLevel;
-        loadObject(currentLevel);
+    public void setCurrentLevel(Map newMap){
+        this.currentMap = newMap;
+        loadObject(currentMap);
     }
 
     public void resetAllObjects(){
-        loadObject(currentLevel);
+        loadObject(currentMap);
         for(Potion p : potions){
             p.reset();
         }

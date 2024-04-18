@@ -4,7 +4,7 @@ import model.utilz.LoadSave;
 
 import java.awt.*;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
 public class Background {
     public void draw(Graphics g) {

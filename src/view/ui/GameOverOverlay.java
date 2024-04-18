@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import model.gamestates.Gamestate;
 import model.gamestates.Playing;
-import view.Main.Game;
+import model.Game;
 import model.utilz.LoadSave;
 
 import static model.utilz.Constants.UI.URMButtons.URM_SIZE;
@@ -62,7 +62,6 @@ public class GameOverOverlay {
         playing.setCheckNextMap(0);
         menu.update();
         play.update();
-
     }
     public void mouseMoved(MouseEvent e) {
         play.setMouseOver(false);

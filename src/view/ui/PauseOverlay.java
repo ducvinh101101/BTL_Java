@@ -1,6 +1,6 @@
 package view.ui;
 
-import view.Main.Game;
+import model.Game;
 import model.gamestates.Gamestate;
 import model.gamestates.Playing;
 import model.utilz.LoadSave;

@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static view.Main.Game.COL;
-import static view.Main.Game.ROW;
+import static model.Game.COL;
+import static model.Game.ROW;
 
 public class LoadSave {
     public static final String PLAYER_AT = "player/playerAttackRight.png";

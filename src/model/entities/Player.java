@@ -1,7 +1,7 @@
 package model.entities;
 
-import view.Main.Game;
-import model.audio.AudioPlayer;
+import model.Game;
+import model.AudioPlayer;
 import model.gamestates.Playing;
 import model.objects.Projectile;
 import model.utilz.LoadSave;
@@ -533,7 +533,6 @@ public class Player extends Entity {
         moving = false;
         state = IDLE;
         currentHealth = maxHealth;
-
         hitBox.x = x;
         hitBox.y = y;
 

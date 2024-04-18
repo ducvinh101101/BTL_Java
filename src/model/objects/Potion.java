@@ -1,6 +1,6 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 
 public class Potion extends GameObject {
     private float hoverOffset;

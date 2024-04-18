@@ -1,10 +1,10 @@
 package model.gamestates;
 
-import view.Main.Game;
+import model.Game;
 import model.entities.EnemyManager;
 import model.entities.Player;
 import view.Background;
-import model.levels.LevelManager;
+import model.maps.MapManager;
 import model.objects.ObjectManager;
 import view.ui.GameOverOverlay;
 import view.ui.PauseOverlay;
@@ -16,11 +16,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
 public class Playing extends State implements Statemethod {
     private Player player;
-    private LevelManager levelManager;
+    private MapManager mapManager;
     private ObjectManager objectManager;
     private Background background;
     private EnemyManager enemyManager;
@@ -48,17 +48,17 @@ public class Playing extends State implements Statemethod {
     }
 
     private void loadStartLevel() {
-        objectManager.setCurrentLevel(levelManager.getCurrenLevel());
+        objectManager.setCurrentLevel(mapManager.getCurrenLevel());
     }
 
 
     private void initClasses() {
         background = new Background();
-        levelManager = new LevelManager(game);
+        mapManager = new MapManager(game);
         objectManager = new ObjectManager(this);
         player = new Player(TILES_DEFAULT_SIZE, TILES_DEFAULT_SIZE * 12 - 1 - 40, 30, 42, this);
-        player.loadlvlData(levelManager.getCurrenLevel().getlvlData());
-        objectManager.setCurrentLevel(levelManager.getCurrenLevel());
+        player.loadlvlData(mapManager.getCurrenLevel().getlvlData());
+        objectManager.setCurrentLevel(mapManager.getCurrenLevel());
         enemyManager = new EnemyManager(this);
         pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
@@ -83,32 +83,41 @@ public class Playing extends State implements Statemethod {
             player.update();
         }
         else {
-            levelManager.update();
+            mapManager.update();
             player.update();
-            enemyManager.update(levelManager.getCurrenLevel().getlvlData(), player);
-            objectManager.update(levelManager.getCurrenLevel().getlvlData(),player);
+            enemyManager.update(mapManager.getCurrenLevel().getlvlData(), player);
+            objectManager.update(mapManager.getCurrenLevel().getlvlData(),player);
             checkCameraX();
             checkCameraY();
-            if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
+            if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, mapManager.getCurrenLevel().getlvlData())) {
                 lvlCompleted = true;
-                levelManager.nextMap(lvlCompleted);
-                getGame().getAudioPlayer().setLevelSong(levelManager.getInnext());
+                mapManager.nextMap(lvlCompleted);
+                getGame().getAudioPlayer().setLevelSong(mapManager.getInnext());
             }
         }
-        if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
-            enemyManager.clearEnemyMap2();
+        if(mapManager.getInnext()==0 && checkNextMap ==0){ // create monter
+            player.getHitBox().x= 500;
+            player.getHitBox().y = 400;
+            enemyManager.clearAll();
             checkNextMap = 1;
             enemyManager.addEnemyMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
-        else if(levelManager.getInnext()==1 && checkNextMap ==1){
-            enemyManager.clearEnemyMap1();
+        else if(mapManager.getInnext()==1 && checkNextMap ==1){
+            player.getHitBox().x= 100;
+            player.getHitBox().y = 100;
+            enemyManager.clearAll();
             checkNextMap = 2;
             enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
-        else if (levelManager.getInnext()==2&& checkNextMap==2) {
-
+        else if (mapManager.getInnext()==2&& checkNextMap==2) {
+            player.getHitBox().x= 500;
+            player.getHitBox().y = 400;
+            enemyManager.clearAll();
+            checkNextMap = 0;
+            enemyManager.addEnemyMap3();
+            objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
@@ -126,7 +135,6 @@ public class Playing extends State implements Statemethod {
         int diff = playerX - xLvOffset;
         if (diff > rightBorder) xLvOffset += diff - rightBorder;
         else if (diff < leftBorder) xLvOffset += diff - leftBorder;
-
         if (xLvOffset > maxLvOffsetWidth) xLvOffset = maxLvOffsetWidth;
         else if (xLvOffset < 0) xLvOffset = 0;
     }
@@ -146,13 +154,12 @@ public class Playing extends State implements Statemethod {
         objectManager.checkSpikesTouched(player);
     }
     public void resetAll(){
-        levelManager.setInnext(0);
-        levelManager.importOutsideSprite();
+        mapManager.setInnext(0);
+        mapManager.importOutsideSprite();
         gameOver = false;
         paused = false;
         lvlCompleted = false;
         playerDying = false;
-        enemyManager.resetAll();
         player.resetAll();
         objectManager.resetAllObjects();
         this.update();
@@ -162,7 +169,7 @@ public class Playing extends State implements Statemethod {
     @Override
     public void draw(Graphics g) {
         background.draw(g);
-        levelManager.draw(g, xLvOffset, yLvOffset);
+        mapManager.draw(g, xLvOffset, yLvOffset);
         player.render(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);
         objectManager.draw(g,xLvOffset, yLvOffset);
@@ -172,8 +179,8 @@ public class Playing extends State implements Statemethod {
         }
         if(lvlCompleted){
             player.setHitBox(TILES_DEFAULT_SIZE*3,TILES_DEFAULT_SIZE*20+3);
-            levelManager.importOutsideSprite();
-            levelManager.draw(g,xLvOffset, yLvOffset);
+            mapManager.importOutsideSprite();
+            mapManager.draw(g,xLvOffset, yLvOffset);
             objectManager.draw(g,xLvOffset, yLvOffset);
             lvlCompleted = false;
         } else if (gameOver) {
@@ -208,8 +215,6 @@ public class Playing extends State implements Statemethod {
         if(!gameOver){
             if(paused){
                 pauseOverlay.mouseReleased(e);
-            }else if(lvlCompleted){
-
             }
         }else {
             gameOverOverlay.mouseReleased(e);
@@ -222,8 +227,6 @@ public class Playing extends State implements Statemethod {
         if(!gameOver){
             if(paused){
                 pauseOverlay.mouseMoved(e);
-            }else if(lvlCompleted){
-
             }
         }else {
             gameOverOverlay.mouseMoved(e);
@@ -302,8 +305,8 @@ public class Playing extends State implements Statemethod {
     public void checkPotionTouch(Rectangle2D.Float hitBox){
         objectManager.checkObjectTouched(hitBox);
     }
-    public LevelManager getLevelManager() {
-        return levelManager;
+    public MapManager getLevelManager() {
+        return mapManager;
     }
 
 }

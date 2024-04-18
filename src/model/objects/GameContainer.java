@@ -1,6 +1,6 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 
 import static model.utilz.Constants.ObjectConstants.*;
 public class GameContainer extends GameObject{

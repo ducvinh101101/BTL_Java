@@ -1,10 +1,11 @@
-package view.Main;
+package model;
 
-import model.audio.AudioPlayer;
 import model.gamestates.GameOptions;
 import model.gamestates.Gamestate;
 import controller.Menu;
 import model.gamestates.Playing;
+import view.GamePanel;
+import view.GameWindow;
 import view.ui.AudioOptions;
 
 import java.awt.*;

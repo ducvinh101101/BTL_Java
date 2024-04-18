@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static view.Main.Game.TILES_DEFAULT_SIZE;
+import static model.Game.TILES_DEFAULT_SIZE;
 import static model.utilz.Constants.Directions.RIGHT;
 import static model.utilz.Constants.EnemyConstants.*;
 
@@ -65,10 +65,6 @@ public class EnemyManager {
         dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 380 , TILES_DEFAULT_SIZE * 18 - 100)); // 22 la o duoi roi
         wanderers.add(new Wanderer(TILES_DEFAULT_SIZE * 60, TILES_DEFAULT_SIZE * 21 - 100));
     }
-    public void clearEnemyMap1(){
-        dummies.clear();
-        wanderers.clear();
-    }
     public void addEnemyMap2() {
         crabs.add(new Crab(TILES_DEFAULT_SIZE* 5 + 100 , TILES_DEFAULT_SIZE * 12 + 100));
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 22  , TILES_DEFAULT_SIZE * 14));
@@ -76,14 +72,10 @@ public class EnemyManager {
         // samurais.add(new Samurai(TILES_DEFAULT_SIZE* 30 + 100 , TILES_DEFAULT_SIZE * 12 + 200));
         tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 21 + 9 ));
     }
-    public void clearEnemyMap2(){
-        crabs.clear();
-        reapers.clear();
-        samurais.clear();
-        tengus.clear();
-    }
+    public void addEnemyMap3(){
 
-    public void resetAll(){
+    }
+    public void clearAll(){
         dummies.clear();
         wanderers.clear();
         crabs.clear();

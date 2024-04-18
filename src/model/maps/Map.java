@@ -1,4 +1,4 @@
-package model.levels;
+package model.maps;
 
 import model.objects.Cannon;
 import model.objects.GameContainer;
@@ -8,13 +8,13 @@ import model.utilz.HelpMethods;
 
 import java.util.ArrayList;
 
-public class Level {
+public class Map {
     private int[][] lvData;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Cannon> cannons;
     private ArrayList<Spike> spikes;
-    public Level(int[][] lvData){
+    public Map(int[][] lvData){
         this.lvData=lvData;
         createPotions();
         createContainers();
