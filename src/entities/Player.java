@@ -1,6 +1,7 @@
 package entities;
 
 import Main.Game;
+import audio.AudioPlayer;
 import gamestates.Playing;
 import objects.Projectile;
 import utilz.LoadSave;
@@ -154,8 +155,11 @@ public class Player extends Entity {
                 aniTick = 0;
                 aniIndex = 0;
                 playing.setPlayerDying(true);
+                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
             }else if(aniIndex == getSpriteAmountPlayer(DEAD) && aniTick >= ANI_SPEED - 1){
                 playing.setGameOver(true);
+                playing.getGame().getAudioPlayer().stopSong();
+                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
             }else {
                 updateAnimationTick();
             }
@@ -177,6 +181,9 @@ public class Player extends Entity {
         updateManaBar();
         updateExpBar();
     }
+    private void checkSpikesTouched() {
+        playing.checkSpikesTouched(this);
+    }
     private void checkPotionTouched() {
         playing.checkPotionTouch(hitBox);
     }
@@ -186,6 +193,7 @@ public class Player extends Entity {
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
         playing.checkObjectHit(attackBox);
+        playing.getGame().getAudioPlayer().playAttackSound();
     }
 
     private void drawAttackBox(Graphics g, int xLevelOffset, int yLevelOffset) {
@@ -240,6 +248,9 @@ public class Player extends Entity {
         currentHealth += value;
         if (currentHealth <= 0) currentHealth = 0;
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
+    }
+    public void kill(){
+        currentHealth = 0;
     }
 
     private void loadAnimations() {
@@ -494,6 +505,7 @@ public class Player extends Entity {
             airSpeed = jumpSpeed;
             jump = false;
         }
+        playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
 
     }
 

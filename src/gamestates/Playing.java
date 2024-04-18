@@ -92,6 +92,7 @@ public class Playing extends State implements Statemethod {
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, levelManager.getCurrenLevel().getlvlData())) {
                 lvlCompleted = true;
                 levelManager.nextMap(lvlCompleted);
+                getGame().getAudioPlayer().setLevelSong(levelManager.getInnext());
             }
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
@@ -137,6 +138,9 @@ public class Playing extends State implements Statemethod {
         } else if (yLvOffset < 0) {
             yLvOffset = 0;
         }
+    }
+    public void checkSpikesTouched(Player player){
+        objectManager.checkSpikesTouched(player);
     }
     public void resetAll(){
 

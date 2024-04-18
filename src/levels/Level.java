@@ -3,6 +3,7 @@ package levels;
 import objects.Cannon;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Spike;
 import utilz.HelpMethods;
 
 import java.util.ArrayList;
@@ -12,11 +13,16 @@ public class Level {
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Cannon> cannons;
+    private ArrayList<Spike> spikes;
     public Level(int[][] lvData){
         this.lvData=lvData;
         createPotions();
         createContainers();
         createCannons();
+        createSpike();
+    }
+    private void createSpike() {
+        spikes = HelpMethods.getSpikes(lvData);
     }
     private void createCannons() {
         cannons = HelpMethods.getCannons(lvData);
@@ -41,4 +47,5 @@ public class Level {
         return containers;
     }
     public ArrayList<Cannon> getCannons(){return cannons;}
+    public ArrayList<Spike> getSpikes(){return spikes;}
 }

@@ -20,10 +20,11 @@ public class ObjectManager {
     private Playing playing;
     private BufferedImage[][] potionImgs, containerImgs;
     private BufferedImage[] cannonImgs;
-    private BufferedImage cannonBallImgs;
+    private BufferedImage cannonBallImgs, spikeImg;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Cannon> cannons;
+    private ArrayList<Spike> spikes;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private Level currentLevel;
 
@@ -39,7 +40,15 @@ public class ObjectManager {
         potions = new ArrayList<>(newLevel.getPotions());
         containers = new ArrayList<>(newLevel.getContainers());
         cannons = new ArrayList<>(newLevel.getCannons());
+        spikes = newLevel.getSpikes();
         projectiles.clear();
+    }
+    public void checkSpikesTouched(Player p){
+        for(Spike s : spikes){
+            if(s.getHitbox().intersects(p.getHitBox())){
+                p.kill();
+            }
+        }
     }
 
     public void checkObjectTouched(Rectangle2D.Float hitBox){
@@ -98,6 +107,7 @@ public class ObjectManager {
             cannonImgs[i] = temp.getSubimage(i * 40, 0, 40, 26);
         }
         cannonBallImgs = LoadSave.getSpriteAlas(LoadSave.CANNON_BALL);
+        spikeImg = LoadSave.getSpriteAlas(LoadSave.TRAP_ATLAS);
     }
 
     public void update(int[][] lvlData, Player player){
@@ -172,6 +182,7 @@ public class ObjectManager {
         drawContainer(g, xLevelOffset, yLevelOffset);
         drawCannons(g,xLevelOffset,yLevelOffset);
         drawProjectiles(g,xLevelOffset,yLevelOffset);
+        drawTrap(g,xLevelOffset,yLevelOffset);
     }
     public void setCurrentLevel(Level newLevel){
         this.currentLevel = newLevel;
@@ -188,6 +199,11 @@ public class ObjectManager {
         }
         for(Cannon c : cannons){
             c.reset();
+        }
+    }
+    private void drawTrap(Graphics g, int xLevelOffset, int yLevelOffset) {
+        for(Spike s : spikes){
+            g.drawImage(spikeImg,(int) (s.getHitbox().x - xLevelOffset),(int) (s.getHitbox().y - yLevelOffset), SPIKE_WIDTH,SPIKE_HEIGHT, null );
         }
     }
     private void drawProjectiles(Graphics g, int xLevelOffset, int yLevelOffset) {
