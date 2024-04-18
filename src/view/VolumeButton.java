@@ -18,13 +18,13 @@ public class VolumeButton extends PauseButton{
     private float floatValue = 0f;
 
     public VolumeButton(int x, int y, int width, int height) {
-        super(x+width/2, y, VOLUME_WIDTH, height);
+        super(x+width/3, y, (int) (VOLUME_WIDTH), (int) (height/1.5));
         bounds.x -= VOLUME_WIDTH / 2;
-        buttonX = x + width / 2;
+        buttonX = x + (int) (width / 3);
         this.x = x;
-        this.width = width;
-        minX = x + VOLUME_WIDTH / 2;
-        maxX = x + width - VOLUME_WIDTH / 2;
+        this.width = (int) (width/1.5);
+        minX = x + (int)(VOLUME_WIDTH/2);
+        maxX = x + (int) (width/1.5) - VOLUME_WIDTH / 4;
         loadVolumeButton();
     }
 
@@ -50,7 +50,7 @@ public class VolumeButton extends PauseButton{
     }
     public void draw(Graphics g){
         g.drawImage(slide,x,y,width,height,null);
-        g.drawImage(imgs[index],buttonX - VOLUME_WIDTH / 2,y,VOLUME_WIDTH,height,null);
+        g.drawImage(imgs[index],buttonX - VOLUME_WIDTH / 3,y,(int) (VOLUME_WIDTH/1.5),(int)(height),null);
     }
     public void changX(int x){
         if(x < minX){
