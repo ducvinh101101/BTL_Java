@@ -81,6 +81,7 @@ public class LoadSave {
     public static final String TILESET_2 = "map/map2.png";
     public static final String TILESET_3 = "map/map3.png";
     public static final String CANNON_ATLAS = "object/cannon_atlas.png";
+    public static final String TRAP_ATLAS = "object/trap_atlas.png";
 
     public static final String CANNON_BALL = "object/ball.png";
     public static final String SHURIKEN = "object/shuriken.png";

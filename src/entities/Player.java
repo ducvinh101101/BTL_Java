@@ -181,6 +181,9 @@ public class Player extends Entity {
         updateManaBar();
         updateExpBar();
     }
+    private void checkSpikesTouched() {
+        playing.checkSpikesTouched(this);
+    }
     private void checkPotionTouched() {
         playing.checkPotionTouch(hitBox);
     }
@@ -245,6 +248,9 @@ public class Player extends Entity {
         currentHealth += value;
         if (currentHealth <= 0) currentHealth = 0;
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
+    }
+    public void kill(){
+        currentHealth = 0;
     }
 
     private void loadAnimations() {

@@ -139,6 +139,9 @@ public class Playing extends State implements Statemethod {
             yLvOffset = 0;
         }
     }
+    public void checkSpikesTouched(Player player){
+        objectManager.checkSpikesTouched(player);
+    }
     public void resetAll(){
 
         levelManager.setInnext(0);

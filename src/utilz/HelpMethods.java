@@ -4,10 +4,8 @@ import Main.Game;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import objects.Potion;
-import objects.GameContainer;
-import objects.Projectile;
-import objects.Cannon;
+
+import objects.*;
 
 import static utilz.Constants.ObjectConstants.*;
 import static utilz.Constants.ObjectConstants.BOX;
@@ -210,6 +208,18 @@ public static boolean isSightClear(int[][] lvData, Rectangle2D.Float firstHitBox
                 int value = lvlData[j][i];
                 if(value == CANNON_LEFT || value == CANNON_RIGHT){
                     list.add(new Cannon(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
+                }
+            }
+        }
+        return list;
+    }
+    public static ArrayList<Spike> getSpikes(int[][] lvlData){
+        ArrayList<Spike> list = new ArrayList<>();
+        for(int j = 0; j < lvlData.length; j++){
+            for(int i = 0; i < lvlData[j].length; i++){
+                int value = lvlData[j][i];
+                if(value == SPIKE){
+                    list.add(new Spike(i * Game.TILES_SIZE, j * Game.TILES_SIZE, value));
                 }
             }
         }
