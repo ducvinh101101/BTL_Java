@@ -20,11 +20,11 @@ public class AudioPlayer {
     public static int DIE = 0;
     public static int JUMP = 1;
     public static int GAMEOVER = 2;
-    public static int LVL_COMPLETED = 3;
+    //public static int LVL_COMPLETED = 3;
     public static int ATTACK_ONE = 4;
     public static int ATTACK_TWO =  5;
     public static int ATTACK_THREE = 6;
-    public static int FALL = 7;
+    public static int FALL = 3;
     private Clip[] songs,effects;
     private int currentSongId;
     private float volume = 0.5f;
@@ -45,7 +45,7 @@ public class AudioPlayer {
     }
 
     private void loadEffectS(){
-        String[] effectNames = {"die","jump","gameover","lvlcompleted","attack1","attack2", "attack3"};
+        String[] effectNames = {"die","jump","gameover","fall","attack1","attack2", "attack3"};
         effects = new Clip[effectNames.length];
         for(int i = 0; i < effectNames.length; i++){
             effects[i] = getClip(effectNames[i]);
@@ -83,10 +83,10 @@ public class AudioPlayer {
             playSong(LEVEL_2);
         }
     }
-    public void lvlCompleted(){
-        stopSong();
-        playEffect(LVL_COMPLETED);
-    }
+//    public void lvlCompleted(){
+//        stopSong();
+//        playEffect(LVL_COMPLETED);
+//    }
     public void playAttackSound(){
         int start = 4;
         start += rand.nextInt(3);
