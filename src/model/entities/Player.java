@@ -170,6 +170,7 @@ public class Player extends Entity {
         updatePos();
         if(moving){
             checkPotionTouched();
+            checkSpikesTouched();
             tileY = (int) hitBox.y / Game.TILES_SIZE;
         }
         if (attacking) checkAttack();
@@ -250,7 +251,7 @@ public class Player extends Entity {
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
     }
     public void kill(){
-        currentHealth = 0;
+        currentHealth = maxHealth / 2;
     }
 
     private void loadAnimations() {
