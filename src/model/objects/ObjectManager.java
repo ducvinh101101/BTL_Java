@@ -139,6 +139,7 @@ public class ObjectManager {
     private boolean isPlayerInRange(Cannon c, Player player) {
         int absValue = (int) Math.abs(player.getHitBox().x - c.getHitbox().x);
         return absValue <= Game.TILES_SIZE * 5;
+
     }
     private boolean isPlayerInFrontOfCannon(Cannon c, Player player) {
         if(c.getObjType() == CANNON_LEFT){

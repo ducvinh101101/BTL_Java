@@ -37,7 +37,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
 
     public static boolean isTileSolid(int xTile, int yTile, int[][] lvData) {
         int value = lvData[(int) yTile][(int) xTile];
-        return value != 17 && value !=16 && value!=52 && value != 91 && value != 6 && value != 92 && value !=93 && value != 94 && value !=95 && value != 21 && value != 22 && value != 60 && value != 116 && value !=54 && value !=61 && value !=66 && value !=65 && value !=57 && value !=67 && value !=78 && value !=77 && value !=55&& value !=7&& value !=8&& value !=9&& value !=40&& value !=41&& value !=56&& value !=58&& value !=64&& value !=67&& value !=68&& value !=69&& value !=59&& value !=60&& value !=110&& value !=111&& value !=109&& value !=90&& value !=43&& value !=35&& value !=36&& value !=39&& value !=40&& value !=18&& value !=19 && value != 80 && value !=102&& value !=25&& value !=11&& value !=8&& value !=9 && value !=12;
+        return value != 17 && value !=16 && value!=52 && value != 91 && value != 6 && value != 92 && value !=93 && value != 94 && value !=95 && value != 21 && value != 22 && value != 60 && value != 116 && value !=54 && value !=61 && value !=66 && value !=65 && value !=57 && value !=67 && value !=78 && value !=77 && value !=55&& value !=7&& value !=8&& value !=9&& value !=40&& value !=41&& value !=56&& value !=58&& value !=64&& value !=67&& value !=68&& value !=69&& value !=59&& value !=60&& value !=110&& value !=111&& value !=109&& value !=90&& value !=43&& value !=35&& value !=36&& value !=39&& value !=40&& value !=18&& value !=19 && value != 80 && value !=102&& value !=25&& value !=11&& value !=8&& value !=9 && value !=12 && value != 42;
     }
 
     public static boolean canNextMap(float x, float y, float width, float height, int[][] lvlData) {
@@ -83,7 +83,7 @@ public static boolean canMoveHere(float x, float y, float width, float height, i
     }
     public static boolean isTileJumpTile(int xTile, int yTile, int[][] lvData) { // thêm kiểm tra block jump
         int value = lvData[(int) yTile][(int) xTile];
-        return value == 91 || value == 92 || value ==93 || value == 94 || value ==95 || value ==6;
+        return value == 91 || value == 92 || value ==93 || value == 94 || value ==95 || value ==6 || value == 42 || value == 98 || value == 99 ;
     }
 
 
