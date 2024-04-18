@@ -36,21 +36,21 @@ public class LevelManager {
 
     public void importOutsideSprite() {
         if (innext == 0) {
-            BufferedImage img = LoadSave.getSpriteAlas(LoadSave.TILESET_1);
+            BufferedImage img = LoadSave.getImage(LoadSave.TILESET_1);
             levelSprite = new BufferedImage[141];
             for (int i = 0; i < 141; i++) {
                 int index1 = i;
                 levelSprite[index1] = img.getSubimage(0, i * 72, 72, 72);
             }
         } else if (innext == 1) {
-            BufferedImage img = LoadSave.getSpriteAlas(LoadSave.TILESET_2);
+            BufferedImage img = LoadSave.getImage(LoadSave.TILESET_2);
             levelSprite = new BufferedImage[120];
             for (int i = 0; i < 120; i++) {
                 int index2 = i;
                 levelSprite[index2] = img.getSubimage(0, i * 72, 72, 72);
             }
         } else {
-            BufferedImage img = LoadSave.getSpriteAlas(LoadSave.TILESET_3);
+            BufferedImage img = LoadSave.getImage(LoadSave.TILESET_3);
             levelSprite = new BufferedImage[143];
             for (int i = 0; i < 143; i++) {
                 int index3 = i;

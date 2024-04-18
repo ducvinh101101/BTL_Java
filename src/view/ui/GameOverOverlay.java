@@ -35,7 +35,7 @@ public class GameOverOverlay {
     }
 
     private void creatImg() {
-        img = LoadSave.getSpriteAlas(LoadSave.GAMEOVER_BACKGROUND);
+        img = LoadSave.getImage(LoadSave.GAMEOVER_BACKGROUND);
         imgW = (int) (img.getWidth() * Game.SCALE);
         imgH = (int) (img.getHeight() * Game.SCALE);
         imgX = Game.GAME_WIDTH / 2 - imgW / 2;

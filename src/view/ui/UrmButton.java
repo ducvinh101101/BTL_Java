@@ -17,7 +17,7 @@ public class UrmButton extends PauseButton{
     }
 
     private void loadUrmButton() {
-        BufferedImage img = LoadSave.getSpriteAlas(LoadSave.URM_BUTTON);
+        BufferedImage img = LoadSave.getImage(LoadSave.URM_BUTTON);
         urmImgs = new BufferedImage[3];
         for (int i = 0; i < urmImgs.length; i++)
             urmImgs[i] = img.getSubimage(i * URM_DEFAULT_SIZE, rowIndex * URM_DEFAULT_SIZE, URM_DEFAULT_SIZE, URM_DEFAULT_SIZE);

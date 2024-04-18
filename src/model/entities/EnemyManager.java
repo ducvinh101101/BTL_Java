@@ -210,97 +210,97 @@ public class EnemyManager {
     }
     public void loadCrabImgsRight() {
         crabImgRight = new BufferedImage[4][2];
-        crabImgRight[0][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0);
-        crabImgRight[1][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0);
-        crabImgRight[1][1] = LoadSave.getSpriteAlas(LoadSave.CRAB_1);
-        crabImgRight[2][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0);
-        crabImgRight[2][1] = LoadSave.getSpriteAlas(LoadSave.CRAB_3);
-        crabImgRight[3][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_2);
+        crabImgRight[0][0] = LoadSave.getImage(LoadSave.CRAB_0);
+        crabImgRight[1][0] = LoadSave.getImage(LoadSave.CRAB_0);
+        crabImgRight[1][1] = LoadSave.getImage(LoadSave.CRAB_1);
+        crabImgRight[2][0] = LoadSave.getImage(LoadSave.CRAB_0);
+        crabImgRight[2][1] = LoadSave.getImage(LoadSave.CRAB_3);
+        crabImgRight[3][0] = LoadSave.getImage(LoadSave.CRAB_2);
     }
 
     public void loadCrabImgsLeft() {
         crabImgLeft = new BufferedImage[4][2];
-        crabImgLeft[0][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0_LEFT);
-        crabImgLeft[1][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0_LEFT);
-        crabImgLeft[1][1] = LoadSave.getSpriteAlas(LoadSave.CRAB_1_LEFT);
-        crabImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_0_LEFT);
-        crabImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.CRAB_3_LEFT);
-        crabImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.CRAB_2_LEFT);
+        crabImgLeft[0][0] = LoadSave.getImage(LoadSave.CRAB_0_LEFT);
+        crabImgLeft[1][0] = LoadSave.getImage(LoadSave.CRAB_0_LEFT);
+        crabImgLeft[1][1] = LoadSave.getImage(LoadSave.CRAB_1_LEFT);
+        crabImgLeft[2][0] = LoadSave.getImage(LoadSave.CRAB_0_LEFT);
+        crabImgLeft[2][1] = LoadSave.getImage(LoadSave.CRAB_3_LEFT);
+        crabImgLeft[3][0] = LoadSave.getImage(LoadSave.CRAB_2_LEFT);
     }
     public void loadDummyImgs() {
         dummyImg = new BufferedImage[4];
-        dummyImg[0] = LoadSave.getSpriteAlas(LoadSave.DUMMY_1);
-        dummyImg[1] = LoadSave.getSpriteAlas(LoadSave.DUMMY_1);
-        dummyImg[3] = LoadSave.getSpriteAlas(LoadSave.DUMMY_2);
+        dummyImg[0] = LoadSave.getImage(LoadSave.DUMMY_1);
+        dummyImg[1] = LoadSave.getImage(LoadSave.DUMMY_1);
+        dummyImg[3] = LoadSave.getImage(LoadSave.DUMMY_2);
     }
     public void loadDeathImgsRight(){
         deathImgRight = new BufferedImage[4][5];
-        deathImgRight[0][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_1);
-        deathImgRight[0][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_2);
-        deathImgRight[0][2] = LoadSave.getSpriteAlas(LoadSave.REAPER_3);
-        deathImgRight[1][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_4);
-        deathImgRight[1][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_5);
-        deathImgRight[2][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_6);
-        deathImgRight[2][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_7);
-        deathImgRight[3][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_8);
+        deathImgRight[0][0] = LoadSave.getImage(LoadSave.REAPER_1);
+        deathImgRight[0][1] = LoadSave.getImage(LoadSave.REAPER_2);
+        deathImgRight[0][2] = LoadSave.getImage(LoadSave.REAPER_3);
+        deathImgRight[1][0] = LoadSave.getImage(LoadSave.REAPER_4);
+        deathImgRight[1][1] = LoadSave.getImage(LoadSave.REAPER_5);
+        deathImgRight[2][0] = LoadSave.getImage(LoadSave.REAPER_6);
+        deathImgRight[2][1] = LoadSave.getImage(LoadSave.REAPER_7);
+        deathImgRight[3][0] = LoadSave.getImage(LoadSave.REAPER_8);
     }
     public void loadDeathImgsLeft(){
         deathImgLeft = new BufferedImage[4][5];
-        deathImgLeft[0][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_1_LEFT);
-        deathImgLeft[0][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_2_LEFT);
-        deathImgLeft[0][2] = LoadSave.getSpriteAlas(LoadSave.REAPER_3_LEFT);
-        deathImgLeft[1][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_4_LEFT);
-        deathImgLeft[1][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_5_LEFT);
-        deathImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_6_LEFT);
-        deathImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.REAPER_7_LEFT);
-        deathImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.REAPER_8_LEFT);
+        deathImgLeft[0][0] = LoadSave.getImage(LoadSave.REAPER_1_LEFT);
+        deathImgLeft[0][1] = LoadSave.getImage(LoadSave.REAPER_2_LEFT);
+        deathImgLeft[0][2] = LoadSave.getImage(LoadSave.REAPER_3_LEFT);
+        deathImgLeft[1][0] = LoadSave.getImage(LoadSave.REAPER_4_LEFT);
+        deathImgLeft[1][1] = LoadSave.getImage(LoadSave.REAPER_5_LEFT);
+        deathImgLeft[2][0] = LoadSave.getImage(LoadSave.REAPER_6_LEFT);
+        deathImgLeft[2][1] = LoadSave.getImage(LoadSave.REAPER_7_LEFT);
+        deathImgLeft[3][0] = LoadSave.getImage(LoadSave.REAPER_8_LEFT);
     }
     public void loadSamuraiImgsRight(){
         samuraiImgRight = new BufferedImage[4][2];
-        samuraiImgRight[0][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1);
-        samuraiImgRight[1][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1);
-        samuraiImgRight[1][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2);
-        samuraiImgRight[2][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2);
-        samuraiImgRight[2][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_4);
-        samuraiImgRight[3][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_3);
+        samuraiImgRight[0][0] = LoadSave.getImage(LoadSave.SAMURAI_1);
+        samuraiImgRight[1][0] = LoadSave.getImage(LoadSave.SAMURAI_1);
+        samuraiImgRight[1][1] = LoadSave.getImage(LoadSave.SAMURAI_2);
+        samuraiImgRight[2][0] = LoadSave.getImage(LoadSave.SAMURAI_2);
+        samuraiImgRight[2][1] = LoadSave.getImage(LoadSave.SAMURAI_4);
+        samuraiImgRight[3][0] = LoadSave.getImage(LoadSave.SAMURAI_3);
 
     }
     public void loadSamuraiImgsLeft(){
         samuraiImgLeft = new BufferedImage[4][2];
-        samuraiImgLeft[0][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1_LEFT);
-        samuraiImgLeft[1][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_1_LEFT);
-        samuraiImgLeft[1][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2_LEFT);
-        samuraiImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_2_LEFT);
-        samuraiImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_4_LEFT);
-        samuraiImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.SAMURAI_3_LEFT);
+        samuraiImgLeft[0][0] = LoadSave.getImage(LoadSave.SAMURAI_1_LEFT);
+        samuraiImgLeft[1][0] = LoadSave.getImage(LoadSave.SAMURAI_1_LEFT);
+        samuraiImgLeft[1][1] = LoadSave.getImage(LoadSave.SAMURAI_2_LEFT);
+        samuraiImgLeft[2][0] = LoadSave.getImage(LoadSave.SAMURAI_2_LEFT);
+        samuraiImgLeft[2][1] = LoadSave.getImage(LoadSave.SAMURAI_4_LEFT);
+        samuraiImgLeft[3][0] = LoadSave.getImage(LoadSave.SAMURAI_3_LEFT);
 
     }
     public void loadTenguImgsRight(){
         tenguImgRight = new BufferedImage[5][8];
-        BufferedImage tmp = LoadSave.getSpriteAlas(LoadSave.TENGU_1);
+        BufferedImage tmp = LoadSave.getImage(LoadSave.TENGU_1);
         for(int i=0; i<6; i++){
             tenguImgRight[0][i] = tmp.getSubimage(i * 128, 0, 128, 128);
         }
-        BufferedImage tmp1 = LoadSave.getSpriteAlas(LoadSave.TENGU_2);
+        BufferedImage tmp1 = LoadSave.getImage(LoadSave.TENGU_2);
         for(int i=0; i<8; i++){
             tenguImgRight[1][i] = tmp1.getSubimage(i * 128, 0, 128, 128);
         }
-        BufferedImage tmp2 = LoadSave.getSpriteAlas(LoadSave.TENGU_3);
+        BufferedImage tmp2 = LoadSave.getImage(LoadSave.TENGU_3);
         for(int i=0; i<6; i++){
             tenguImgRight[2][i] = tmp2.getSubimage(i * 128, 0, 128, 128);
         }
     }
     public void loadTenguImgsLeft(){
         tenguImgLeft = new BufferedImage[5][8];
-        BufferedImage tmp = LoadSave.getSpriteAlas(LoadSave.TENGU_1_LEFT);
+        BufferedImage tmp = LoadSave.getImage(LoadSave.TENGU_1_LEFT);
         for(int i=0; i<6; i++){
             tenguImgLeft[0][i] = tmp.getSubimage(i * 128, 0, 128, 128);
         }
-        BufferedImage tmp1 = LoadSave.getSpriteAlas(LoadSave.TENGU_2_LEFT);
+        BufferedImage tmp1 = LoadSave.getImage(LoadSave.TENGU_2_LEFT);
         for(int i=0; i<8; i++){
             tenguImgLeft[1][i] = tmp1.getSubimage(i * 128, 0, 128, 128);
         }
-        BufferedImage tmp2 = LoadSave.getSpriteAlas(LoadSave.TENGU_3_LEFT);
+        BufferedImage tmp2 = LoadSave.getImage(LoadSave.TENGU_3_LEFT);
         for(int i=0; i<6; i++){
             tenguImgLeft[2][i] = tmp2.getSubimage(i * 128, 0, 128, 128);
         }
@@ -308,20 +308,20 @@ public class EnemyManager {
 
     public void loadWandererImgsRight(){
         wandererImgRight = new BufferedImage[5][3];
-        wandererImgRight[0][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_1);
-        wandererImgRight[1][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_1);
-        wandererImgRight[1][1] = LoadSave.getSpriteAlas(LoadSave.WANDERER_2);
-        wandererImgRight[2][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_2);
-        wandererImgRight[2][1] = LoadSave.getSpriteAlas(LoadSave.WANDERER_4);
-        wandererImgRight[3][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_3);
+        wandererImgRight[0][0] = LoadSave.getImage(LoadSave.WANDERER_1);
+        wandererImgRight[1][0] = LoadSave.getImage(LoadSave.WANDERER_1);
+        wandererImgRight[1][1] = LoadSave.getImage(LoadSave.WANDERER_2);
+        wandererImgRight[2][0] = LoadSave.getImage(LoadSave.WANDERER_2);
+        wandererImgRight[2][1] = LoadSave.getImage(LoadSave.WANDERER_4);
+        wandererImgRight[3][0] = LoadSave.getImage(LoadSave.WANDERER_3);
     }
     public void loadWandererImgsLeft(){
         wandererImgLeft = new BufferedImage[5][3];
-        wandererImgLeft[0][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_1_LEFT);
-        wandererImgLeft[1][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_1_LEFT);
-        wandererImgLeft[1][1] = LoadSave.getSpriteAlas(LoadSave.WANDERER_2_LEFT);
-        wandererImgLeft[2][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_2_LEFT);
-        wandererImgLeft[2][1] = LoadSave.getSpriteAlas(LoadSave.WANDERER_4_LEFT);
-        wandererImgLeft[3][0] = LoadSave.getSpriteAlas(LoadSave.WANDERER_3_LEFT);
+        wandererImgLeft[0][0] = LoadSave.getImage(LoadSave.WANDERER_1_LEFT);
+        wandererImgLeft[1][0] = LoadSave.getImage(LoadSave.WANDERER_1_LEFT);
+        wandererImgLeft[1][1] = LoadSave.getImage(LoadSave.WANDERER_2_LEFT);
+        wandererImgLeft[2][0] = LoadSave.getImage(LoadSave.WANDERER_2_LEFT);
+        wandererImgLeft[2][1] = LoadSave.getImage(LoadSave.WANDERER_4_LEFT);
+        wandererImgLeft[3][0] = LoadSave.getImage(LoadSave.WANDERER_3_LEFT);
     }
 }

@@ -16,7 +16,7 @@ public class SoundButton extends PauseButton{
         loadSoundImgs();
     }
     private void loadSoundImgs(){
-        BufferedImage img = LoadSave.getSpriteAlas(LoadSave.SOUND_BUTTON);
+        BufferedImage img = LoadSave.getImage(LoadSave.SOUND_BUTTON);
         soundImgs = new BufferedImage[2][3];
         for(int i =0; i < soundImgs.length; i++){
             for(int j = 0;j < soundImgs[i].length; j++){

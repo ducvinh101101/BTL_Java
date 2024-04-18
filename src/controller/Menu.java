@@ -24,14 +24,14 @@ public class Menu extends State implements Statemethod {
     }
 
     private void loadBackground() {
-        backgroundImg = LoadSave.getSpriteAlas(LoadSave.MENU_BACKGROUND);
+        backgroundImg = LoadSave.getImage(LoadSave.MENU_BACKGROUND);
         menuWidth = (int) (backgroundImg.getWidth()/1.5 * Game.SCALE);
         menuHeight = (int) (backgroundImg.getHeight()/1.5 * Game.SCALE);
         menuX = Game.GAME_WIDTH / 2 - menuWidth / 2;
         menuY = (int) (45 * Game.SCALE);
     }
     private void loadInBackground(){
-        backInGround = LoadSave.getSpriteAlas(LoadSave.IN_BACKGROUND);
+        backInGround = LoadSave.getImage(LoadSave.IN_BACKGROUND);
     }
 
     private void loadButton() {

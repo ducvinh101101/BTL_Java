@@ -138,7 +138,7 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
-        shurikenImg = LoadSave.getSpriteAlas(LoadSave.SHURIKEN);
+        shurikenImg = LoadSave.getImage(LoadSave.SHURIKEN);
     }
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
@@ -254,18 +254,18 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        BufferedImage img = LoadSave.getSpriteAlas(LoadSave.PLAYER_ANI);
+        BufferedImage img = LoadSave.getImage(LoadSave.PLAYER_ANI);
         idAniIm = new BufferedImage[state];
         for (int i = 0; i < idAniIm.length; i++) {
             idAniIm[i] = img.getSubimage(i * 50, 0, 50, 70);
         }
         idAniH = new BufferedImage[5];
         idAniH = idAniIm;
-        statusBarImg = LoadSave.getSpriteAlas(LoadSave.STATUS_BAR);
+        statusBarImg = LoadSave.getImage(LoadSave.STATUS_BAR);
     }
 
     private void loadAnimationsImLeft() {
-        BufferedImage imgLeft = LoadSave.getSpriteAlas(LoadSave.PLAYER_IML);
+        BufferedImage imgLeft = LoadSave.getImage(LoadSave.PLAYER_IML);
         idAniL = new BufferedImage[5];
         for (int i = 0; i < idAniL.length; i++) {
             idAniL[i] = imgLeft.getSubimage(i * 50, 0, 50, 70);
@@ -273,7 +273,7 @@ public class Player extends Entity {
     }
 
     private void loadAnimationsLeft() {
-        BufferedImage imgLeft = LoadSave.getSpriteAlas(LoadSave.PLAYER_RUNL);
+        BufferedImage imgLeft = LoadSave.getImage(LoadSave.PLAYER_RUNL);
         idAniLeft = new BufferedImage[5];
         for (int i = 0; i < idAniLeft.length; i++) {
             idAniLeft[i] = imgLeft.getSubimage(i * 50, 0, 50, 70);
@@ -281,49 +281,49 @@ public class Player extends Entity {
     }
 
     private void loadAnimationsRight() {
-        BufferedImage imgRight = LoadSave.getSpriteAlas(LoadSave.PLAYER_RUNR);
+        BufferedImage imgRight = LoadSave.getImage(LoadSave.PLAYER_RUNR);
         idAniRight = new BufferedImage[5];
         for (int i = 0; i < idAniRight.length; i++) {
             idAniRight[i] = imgRight.getSubimage(i * 50, 0, 50, 70);
         }
     }
     private void loadAnimationsAttack() {
-        BufferedImage imgAt = LoadSave.getSpriteAlas(LoadSave.PLAYER_AT);
+        BufferedImage imgAt = LoadSave.getImage(LoadSave.PLAYER_AT);
         idAniAt = new BufferedImage[5];
         for (int i = 0; i < idAniAt.length; i++) {
             idAniAt[i] = imgAt.getSubimage(i * 100, 0, 100, 70);
         }
     }
     private void loadAnimationsAttackLeft() {
-        BufferedImage imgAt = LoadSave.getSpriteAlas(LoadSave.PLAYER_AT_LEFT);
+        BufferedImage imgAt = LoadSave.getImage(LoadSave.PLAYER_AT_LEFT);
         idAniAtL = new BufferedImage[5];
         for (int i = 0; i < idAniAtL.length; i++) {
             idAniAtL[i] = imgAt.getSubimage(i * 100, 0, 100, 70);
         }
     }
     private void loadAnimationsJump() {
-        BufferedImage imgJump = LoadSave.getSpriteAlas(LoadSave.PLAYER_JUMP);
+        BufferedImage imgJump = LoadSave.getImage(LoadSave.PLAYER_JUMP);
         idAniJump = new BufferedImage[5];
         for (int i = 0; i < idAniJump.length; i++) {
             idAniJump[i] = imgJump;
         }
     }
     private void loadAnimationsFalling() {
-        BufferedImage imgFall = LoadSave.getSpriteAlas(LoadSave.PLAYER_FALL);
+        BufferedImage imgFall = LoadSave.getImage(LoadSave.PLAYER_FALL);
         idAniFall = new BufferedImage[5];
         for (int i = 0; i < idAniFall.length; i++) {
             idAniFall[i] = imgFall;
         }
     }
     private void loadAnimationsJumpLeft() {
-        BufferedImage imgJump = LoadSave.getSpriteAlas(LoadSave.PLAYER_JUMP_LEFT);
+        BufferedImage imgJump = LoadSave.getImage(LoadSave.PLAYER_JUMP_LEFT);
         idAniJumpL = new BufferedImage[5];
         for (int i = 0; i < idAniJumpL.length; i++) {
             idAniJumpL[i] = imgJump;
         }
     }
     private void loadAnimationsFallingLeft() {
-        BufferedImage imgFall = LoadSave.getSpriteAlas(LoadSave.PLAYER_FALL_LEFT);
+        BufferedImage imgFall = LoadSave.getImage(LoadSave.PLAYER_FALL_LEFT);
         idAniFallL = new BufferedImage[5];
         for (int i = 0; i < idAniFallL.length; i++) {
             idAniFallL[i] = imgFall;
@@ -331,7 +331,7 @@ public class Player extends Entity {
     }
 
     private void loadAnimationAir() {
-        BufferedImage imgInAir = LoadSave.getSpriteAlas(LoadSave.PLAYER_IN_AIR);
+        BufferedImage imgInAir = LoadSave.getImage(LoadSave.PLAYER_IN_AIR);
         idAniInAir = new BufferedImage[4];
         for (int i = 0; i < idAniInAir.length - 1; i++) {
             idAniInAir[i] = imgInAir.getSubimage(i * 50, 0, 50, 70);

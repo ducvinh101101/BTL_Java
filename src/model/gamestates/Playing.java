@@ -107,6 +107,9 @@ public class Playing extends State implements Statemethod {
             enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
+        else if (levelManager.getInnext()==2&& checkNextMap==2) {
+
+        }
 
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
 //            levelManager.update();

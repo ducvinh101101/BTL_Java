@@ -8,9 +8,9 @@ import static view.Main.Game.*;
 
 public class Background {
     public void draw(Graphics g) {
-        g.drawImage(LoadSave.getSpriteAlas(LoadSave.BACKGROUND_MAP_1), 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
+        g.drawImage(LoadSave.getImage(LoadSave.BACKGROUND_MAP_1), 0, 0, GAME_WIDTH, GAME_HEIGHT, null);
     }
     public void drawBackgroundPauseGame(Graphics g){
-        g.drawImage(LoadSave.getSpriteAlas(LoadSave.BACKGROUND_PAUSE_GAME),0,0,GAME_WIDTH,GAME_HEIGHT,null);
+        g.drawImage(LoadSave.getImage(LoadSave.BACKGROUND_PAUSE_GAME),0,0,GAME_WIDTH,GAME_HEIGHT,null);
     }
 }

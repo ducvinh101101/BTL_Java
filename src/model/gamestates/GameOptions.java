@@ -31,8 +31,8 @@ public class GameOptions extends State implements Statemethod{
     }
 
     private void loadImgs() {
-        backgroundImgs = LoadSave.getSpriteAlas(LoadSave.IN_BACKGROUND);
-        optionsBackgroundImg = LoadSave.getSpriteAlas(LoadSave.OPTIONS_MENU);
+        backgroundImgs = LoadSave.getImage(LoadSave.IN_BACKGROUND);
+        optionsBackgroundImg = LoadSave.getImage(LoadSave.OPTIONS_MENU);
 
         bgWidth = (int) ((optionsBackgroundImg.getWidth() / 1.5) * Game.SCALE);
         bgHeight = (int) ((optionsBackgroundImg.getHeight() / 1.5)* Game.SCALE);

@@ -42,7 +42,7 @@ public class PauseOverlay {
     }
 
     private void loadBackground() {
-        pauseBackground = LoadSave.getSpriteAlas(LoadSave.PAUSE_BACKGROUND);
+        pauseBackground = LoadSave.getImage(LoadSave.PAUSE_BACKGROUND);
         bgWidth =(int) (pauseBackground.getWidth() / 1.5 * Game.SCALE);
         bgHeight = (int)(pauseBackground.getHeight() / 1.5 * Game.SCALE);
         bgX = Game.GAME_WIDTH / 2 - bgWidth / 2;

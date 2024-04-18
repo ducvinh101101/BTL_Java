@@ -86,14 +86,14 @@ public class ObjectManager {
     }
 
     private void loadImgs() {
-        BufferedImage potionSprite = LoadSave.getSpriteAlas(LoadSave.POTION_ATLAS);
+        BufferedImage potionSprite = LoadSave.getImage(LoadSave.POTION_ATLAS);
         potionImgs = new BufferedImage[2][7];
         for(int j = 0; j < potionImgs.length; j++){
             for(int i = 0; i < potionImgs[j].length; i++){
                 potionImgs[j][i] = potionSprite.getSubimage(12 * i, 16 * j, 12, 16);
             }
         }
-        BufferedImage containerSprite = LoadSave.getSpriteAlas(LoadSave.CONTAINER_ATLAS);
+        BufferedImage containerSprite = LoadSave.getImage(LoadSave.CONTAINER_ATLAS);
         containerImgs = new BufferedImage[2][8];
         for(int j = 0; j < containerImgs.length; j++){
             for(int i = 0; i < containerImgs[j].length; i++){
@@ -101,12 +101,12 @@ public class ObjectManager {
             }
         }
         cannonImgs = new BufferedImage[7];
-        BufferedImage temp = LoadSave.getSpriteAlas(LoadSave.CANNON_ATLAS);
+        BufferedImage temp = LoadSave.getImage(LoadSave.CANNON_ATLAS);
         for(int i = 0; i < cannonImgs.length; i++){
             cannonImgs[i] = temp.getSubimage(i * 40, 0, 40, 26);
         }
-        cannonBallImgs = LoadSave.getSpriteAlas(LoadSave.CANNON_BALL);
-        spikeImg = LoadSave.getSpriteAlas(LoadSave.TRAP_ATLAS);
+        cannonBallImgs = LoadSave.getImage(LoadSave.CANNON_BALL);
+        spikeImg = LoadSave.getImage(LoadSave.TRAP_ATLAS);
     }
 
     public void update(int[][] lvlData, Player player){

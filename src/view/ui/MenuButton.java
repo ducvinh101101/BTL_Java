@@ -31,7 +31,7 @@ public class MenuButton {
 
     private void loadsImg() {
         imgs = new BufferedImage[3];
-        BufferedImage temp = LoadSave.getSpriteAlas(LoadSave.MENU_BUTTON);
+        BufferedImage temp = LoadSave.getImage(LoadSave.MENU_BUTTON);
         for (int i = 0; i < imgs.length; i++) {
             imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT, B_HEIGHT_DEFAULT);
         }

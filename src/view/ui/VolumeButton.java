@@ -30,7 +30,7 @@ public class VolumeButton extends PauseButton{
 
 
     private void loadVolumeButton() {
-        BufferedImage img = LoadSave.getSpriteAlas(LoadSave.VOLUME_BUTTON);
+        BufferedImage img = LoadSave.getImage(LoadSave.VOLUME_BUTTON);
         imgs = new  BufferedImage[3];
         for(int i = 0; i < imgs.length; i++){
             imgs[i] = img.getSubimage(i * VOLUME_DEFAULT_WIDTH,0,VOLUME_DEFAULT_WIDTH,VOLUME_DEFAULT_HEIGHT);
