@@ -1,6 +1,6 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 
 import java.awt.geom.Rectangle2D;
 import static model.utilz.Constants.Projectiles.*;

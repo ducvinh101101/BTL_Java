@@ -1,12 +1,12 @@
 package model.maps;
 
-import view.Main.Game;
+import model.Game;
 import model.utilz.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
 public class MapManager {
     private Game game;

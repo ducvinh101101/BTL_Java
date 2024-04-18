@@ -1,6 +1,6 @@
 package model.gamestates;
 
-import view.Main.Game;
+import model.Game;
 import view.ui.AudioOptions;
 import view.ui.PauseButton;
 import view.ui.UrmButton;

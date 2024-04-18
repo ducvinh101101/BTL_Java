@@ -1,6 +1,6 @@
 package model.gamestates;
 
-import view.Main.Game;
+import model.Game;
 import model.AudioPlayer;
 import view.ui.MenuButton;
 

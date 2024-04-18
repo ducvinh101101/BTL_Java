@@ -1,6 +1,6 @@
 package controller;
 
-import view.Main.GamePanel;
+import view.GamePanel;
 import model.gamestates.Gamestate;
 
 import java.awt.event.KeyEvent;

@@ -1,6 +1,6 @@
 package model.gamestates;
 
-import view.Main.Game;
+import model.Game;
 import model.entities.EnemyManager;
 import model.entities.Player;
 import view.Background;
@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import static view.Main.Game.*;
+import static model.Game.*;
 
 public class Playing extends State implements Statemethod {
     private Player player;

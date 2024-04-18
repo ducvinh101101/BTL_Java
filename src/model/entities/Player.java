@@ -1,6 +1,6 @@
 package model.entities;
 
-import view.Main.Game;
+import model.Game;
 import model.AudioPlayer;
 import model.gamestates.Playing;
 import model.objects.Projectile;

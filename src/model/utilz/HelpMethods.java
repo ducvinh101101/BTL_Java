@@ -1,6 +1,6 @@
 package model.utilz;
 
-import view.Main.Game;
+import model.Game;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

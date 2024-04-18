@@ -1,6 +1,6 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 import model.entities.Player;
 import model.gamestates.Playing;
 import model.maps.Map;

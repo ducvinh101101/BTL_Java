@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static view.Main.Game.TILES_DEFAULT_SIZE;
+import static model.Game.TILES_DEFAULT_SIZE;
 import static model.utilz.Constants.Directions.RIGHT;
 import static model.utilz.Constants.EnemyConstants.*;
 

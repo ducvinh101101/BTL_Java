@@ -1,6 +1,6 @@
 package model.objects;
 
-import view.Main.Game;
+import model.Game;
 
 public class Cannon extends GameObject {
     private int tileY;

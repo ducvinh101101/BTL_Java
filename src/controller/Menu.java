@@ -3,7 +3,7 @@ package controller;
 import model.gamestates.Gamestate;
 import model.gamestates.State;
 import model.gamestates.Statemethod;
-import view.Main.Game;
+import model.Game;
 import view.ui.MenuButton;
 import model.utilz.LoadSave;
 

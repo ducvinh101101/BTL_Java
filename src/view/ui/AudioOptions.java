@@ -1,6 +1,6 @@
 package view.ui;
 
-import view.Main.Game;
+import model.Game;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
