@@ -21,6 +21,48 @@ import static model.utilz.Constants.PlayerConstants.*;
 import static model.utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity {
+    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
+
+    //    private int playerAction = IDLE;
+    //    private int playerDir = -1;
+    private boolean left, right, jump, checkL, checkR;
+    private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
+    private float playerSpeed = 2f;
+    private int widthPy = 30, heightPy = 42;
+    private float xDrawOffSet = 5f * Game.SCALE;
+    private float yDrawOffSet = 9 * Game.SCALE;
+    // nhảy trọng lực:
+    private float airSpeed = 0f;
+    private float jumpSpeed = -2.25f * Game.SCALE;
+    private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
+
+    private int lvlData[][];
+    private BufferedImage statusBarImg;
+    private int levelPlayer = 1;
+    private int statusBarWidth = (int) (192 * Game.SCALE);
+    private int statusBarHeight = (int) (58 * Game.SCALE);
+    private int statusBarX = (int) (1 * Game.SCALE);
+    private int statusBarY = (int) (3 * Game.SCALE);
+
+    private int barWidth = (int) (152 * Game.SCALE);
+    private int barHeight = (int) (6 * Game.SCALE);
+    private int maxHealth = 100;
+    private int currentHealth = maxHealth;
+    private int maxMana = 100;
+    private int currentMana = maxMana;
+    private int maxExp = 100;
+    private int currentExp = 0;
+    private int damage = 1;
+
+    private int healthWidth = barWidth;
+    private int expWidth = barWidth;
+    private int manaWidth = barWidth;
+    private int tileY = 0;
+
+    private Rectangle2D.Float attackBox;
+
+    private boolean attackChecked;
+    private Playing playing;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private BufferedImage shurikenImg;
     private Rectangle2D.Float skillBox;
@@ -66,52 +108,6 @@ public class Player extends Entity {
             }
         }
     }
-
-
-
-    private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
-
-//    private int playerAction = IDLE;
-    //    private int playerDir = -1;
-    private boolean left, right, jump, checkL, checkR;
-    private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 10f;
-    private int widthPy = 30, heightPy = 42;
-    private float xDrawOffSet = 5f * Game.SCALE;
-    private float yDrawOffSet = 9 * Game.SCALE;
-    // nhảy trọng lực:
-    private float airSpeed = 0f;
-    private float jumpSpeed = -2.25f * Game.SCALE;
-    private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-
-    private int lvlData[][];
-    private BufferedImage statusBarImg;
-    private int levelPlayer = 1;
-    private int statusBarWidth = (int) (192 * Game.SCALE);
-    private int statusBarHeight = (int) (58 * Game.SCALE);
-    private int statusBarX = (int) (1 * Game.SCALE);
-    private int statusBarY = (int) (3 * Game.SCALE);
-
-    private int barWidth = (int) (152 * Game.SCALE);
-    private int barHeight = (int) (6 * Game.SCALE);
-    private int maxHealth = 100;
-    private int currentHealth = maxHealth;
-    private int maxMana = 100;
-    private int currentMana = maxMana;
-    private int maxExp = 100;
-    private int currentExp = 0;
-    private int damage = 1;
-
-    private int healthWidth = barWidth;
-    private int expWidth = barWidth;
-    private int manaWidth = barWidth;
-    private int tileY = 0;
-
-    private Rectangle2D.Float attackBox;
-
-    private boolean attackChecked;
-    private Playing playing;
-
     public int getCurrentExp() {return currentExp;}
 
     public void setCurrentExp(int currentExp) {this.currentExp = currentExp;}
@@ -231,7 +227,7 @@ public class Player extends Entity {
     }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
-        //drawHitBox(g, xLevelOffset, yLevelOffset);
+        drawHitBox(g, xLevelOffset, yLevelOffset);
         //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);

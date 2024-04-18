@@ -174,8 +174,12 @@ public class Playing extends State implements Statemethod {
 
     @Override
     public void draw(Graphics g) {
-        background.draw(g);
-
+        if(mapManager.getInnext()==1){
+            background.drawBackgroundMap2(g);
+        }
+        else {
+            background.draw(g);
+        }
         mapManager.draw(g, xLvOffset, yLvOffset);npcManager.draw(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);
         objectManager.draw(g,xLvOffset, yLvOffset);
