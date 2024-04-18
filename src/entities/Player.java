@@ -442,6 +442,7 @@ public class Player extends Entity {
         }
 
         if (inAir) {
+            System.out.println(airSpeed+ "  ");
             if(airSpeed>0){
                 if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpTile(hitBox.x, hitBox.y+airSpeed, hitBox.width, hitBox.height, lvlData)) {
                     hitBox.y += airSpeed;
@@ -449,7 +450,7 @@ public class Player extends Entity {
                     updateXPos(xSpeed);
                 }
                 else {
-//                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+                    hitBox.y = getEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
                     resetInAir();
                     airSpeed = fallSpeedAfterCollision;
                     updateXPos(xSpeed);
