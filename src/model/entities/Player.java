@@ -22,7 +22,7 @@ import static model.utilz.HelpMethods.getEntityXPosNextToWall;
 
 public class Player extends Entity {
     private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private BufferedImage shurikenImg;
+    private BufferedImage shurikenImg, levelUpImg;
     private Rectangle2D.Float skillBox;
 
     public void setSkillBox(Rectangle2D.Float skillBox) {
@@ -30,7 +30,7 @@ public class Player extends Entity {
     }
 
     private void activeSkill(){
-        if(currentMana <= 0) skill = false;
+    //    if(currentMana <= 0) skill = false;
         if(skill) {
             currentMana-=5;
             int dir = 0;
@@ -68,7 +68,9 @@ public class Player extends Entity {
     }
 
 
-
+    private boolean levelUp;
+    private int frameCount;
+    private static final int LEVEL_UP_DISPLAY_FRAMES = 180;
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
 
 //    private int playerAction = IDLE;
@@ -141,6 +143,7 @@ public class Player extends Entity {
         loadAnimationsFallingLeft();
         loadAnimationAir();
         shurikenImg = LoadSave.getImage(LoadSave.SHURIKEN);
+        levelUpImg = LoadSave.getImage(LoadSave.LEVELUP);
     }
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
@@ -225,9 +228,13 @@ public class Player extends Entity {
     }
     private void checkLevelUp(){
         if(currentExp >= maxExp){
-             currentExp -= maxExp;
+            currentExp -= maxExp;
             levelPlayer++;
+            levelUp = true;
+            frameCount = 0;
+
         }
+
     }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
@@ -235,6 +242,15 @@ public class Player extends Entity {
         //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
+        if (levelUp && frameCount < LEVEL_UP_DISPLAY_FRAMES) {
+            g.drawImage(levelUpImg, (int) (hitBox.x - xDrawOffSet ) - xLevelOffset,
+                    (int) (hitBox.y - yDrawOffSet -50) - yLevelOffset,
+                    widthPy*2, heightPy, null);
+            frameCount++;
+        } else {
+            levelUp = false;
+            frameCount = 0;
+        }
     }
 
     private void drawUI(Graphics g) {
@@ -540,7 +556,6 @@ public class Player extends Entity {
         currentHealth = maxHealth;
         hitBox.x = x;
         hitBox.y = y;
-
         if (!isEntityOnFloor(hitBox, lvlData))
             inAir = true;
     }

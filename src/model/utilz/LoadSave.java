@@ -98,6 +98,7 @@ public class LoadSave {
 
     public static final String CANNON_BALL = "object/ball.png";
     public static final String SHURIKEN = "object/shuriken.png";
+    public static final String LEVELUP = "object/levelup.png";
 
     public static BufferedImage getImage(String fileName) {
         BufferedImage img = null;

@@ -109,12 +109,12 @@ public class Constants {
         }
         public static int getEnemyExp(int enemyType){
             return switch (enemyType) {
-                case DUMMY -> 10;
-                case WANDERER -> 15;
-                case CRAB -> 20;
-                case REAPER -> 30;
-                case SAMURAI -> 40;
-                case TENGU -> 50;
+                case DUMMY -> 100;
+                case WANDERER -> 50;
+                case CRAB -> 40;
+                case REAPER -> 100;
+                case SAMURAI -> 200;
+                case TENGU -> 500;
                 default -> 1;
             };
         }

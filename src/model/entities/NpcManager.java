@@ -35,7 +35,7 @@ public class NpcManager {
 
     }
     public void draw(Graphics g, int xLvOffset, int yLevelOffset){
-        if(checkMap == 1 || checkMap == 3) g.drawImage(NpcImg, (int) (npc1.getHitBox().x - xLvOffset), (int) (npc1.getHitBox().y - yLevelOffset), MONSTER_WIDTH+2, MONSTER_HEIGHT+18 , null);
+        if(checkMap == 1 || checkMap == 3) g.drawImage(NpcImg, (int) (32*7 - xLvOffset), (int) (32*16+20 - yLevelOffset), MONSTER_WIDTH+2, MONSTER_HEIGHT+18 , null);
         else g.drawImage(NpcImg2,  (720 - xLvOffset), (710 - yLevelOffset), MONSTER_WIDTH*2+20, MONSTER_HEIGHT*2 , null);
     }
     public void loadImg(){
