@@ -75,7 +75,7 @@ public class Player extends Entity {
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 8f;
+    private float playerSpeed = 2f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;
@@ -253,7 +253,7 @@ public class Player extends Entity {
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
     }
     public void kill(){
-        currentHealth = maxHealth / 2;
+        currentHealth = 0;
     }
 
     private void loadAnimations() {
