@@ -1,6 +1,6 @@
 package view.Main;
 
-import model.audio.AudioPlayer;
+import model.AudioPlayer;
 import model.gamestates.GameOptions;
 import model.gamestates.Gamestate;
 import controller.Menu;

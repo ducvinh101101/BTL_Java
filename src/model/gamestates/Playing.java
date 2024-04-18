@@ -96,19 +96,28 @@ public class Playing extends State implements Statemethod {
             }
         }
         if(levelManager.getInnext()==0 && checkNextMap ==0){ // create monter
-            enemyManager.clearEnemyMap2();
+            player.getHitBox().x= 500;
+            player.getHitBox().y = 400;
+            enemyManager.clearAll();
             checkNextMap = 1;
             enemyManager.addEnemyMap1();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if(levelManager.getInnext()==1 && checkNextMap ==1){
-            enemyManager.clearEnemyMap1();
+            player.getHitBox().x= 100;
+            player.getHitBox().y = 100;
+            enemyManager.clearAll();
             checkNextMap = 2;
             enemyManager.addEnemyMap2();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
         else if (levelManager.getInnext()==2&& checkNextMap==2) {
-
+            player.getHitBox().x= 500;
+            player.getHitBox().y = 400;
+            enemyManager.clearAll();
+            checkNextMap = 0;
+            enemyManager.addEnemyMap3();
+            objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
 
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
@@ -126,7 +135,6 @@ public class Playing extends State implements Statemethod {
         int diff = playerX - xLvOffset;
         if (diff > rightBorder) xLvOffset += diff - rightBorder;
         else if (diff < leftBorder) xLvOffset += diff - leftBorder;
-
         if (xLvOffset > maxLvOffsetWidth) xLvOffset = maxLvOffsetWidth;
         else if (xLvOffset < 0) xLvOffset = 0;
     }
@@ -152,7 +160,6 @@ public class Playing extends State implements Statemethod {
         paused = false;
         lvlCompleted = false;
         playerDying = false;
-        enemyManager.resetAll();
         player.resetAll();
         objectManager.resetAllObjects();
         this.update();
@@ -208,8 +215,6 @@ public class Playing extends State implements Statemethod {
         if(!gameOver){
             if(paused){
                 pauseOverlay.mouseReleased(e);
-            }else if(lvlCompleted){
-
             }
         }else {
             gameOverOverlay.mouseReleased(e);
@@ -222,8 +227,6 @@ public class Playing extends State implements Statemethod {
         if(!gameOver){
             if(paused){
                 pauseOverlay.mouseMoved(e);
-            }else if(lvlCompleted){
-
             }
         }else {
             gameOverOverlay.mouseMoved(e);

@@ -62,7 +62,6 @@ public class GameOverOverlay {
         playing.setCheckNextMap(0);
         menu.update();
         play.update();
-
     }
     public void mouseMoved(MouseEvent e) {
         play.setMouseOver(false);
