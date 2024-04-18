@@ -50,11 +50,11 @@ public class Samurai extends Enemy {
                     newState(RUNNING);
                     break;
                 case RUNNING:
-                    if (canSeePlayer(lvData, player)) {
-                        turnTowardsPlayer(player);
+//                    if (canSeePlayer(lvData, player)) {
+//                        turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
-                    }
-                    //move3();
+                   //}
+                    move2(2);
                     move(lvData);
                     break;
                 case ATTACK:

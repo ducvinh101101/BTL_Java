@@ -75,16 +75,16 @@ public class Enemy extends Entity {
         }
         changeWalkDir();
     }
-    public void move3(){
+    public void move2(int i){
         if (walkDir == RIGHT){
             hitBox.x += walkSpeed;
             stepsCount++;
-            if (stepsCount >= 60 * 3) changeWalkDir();
+            if (stepsCount >= 60 * i) changeWalkDir();
         }
         else {
             hitBox.x -= walkSpeed;
             stepsCount++;
-            if (stepsCount >= 60 * 3) changeWalkDir();
+            if (stepsCount >= 60 * i) changeWalkDir();
         }
 
     }
@@ -111,7 +111,7 @@ public class Enemy extends Entity {
         float distanceX = Math.abs((int) (player.getHitBox().getCenterX() - this.getHitBox().getCenterX())-10);
         float distanceY = Math.abs((int)(player.getHitBox().getCenterY() - this.getHitBox().getCenterY())-10);
         float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-        return distance <= 2*attackDistance;
+        return distance <= attackDistance*1.5;
     }
 
     protected boolean isPlayerCloseForAttack(Player player) {

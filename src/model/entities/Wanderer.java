@@ -15,13 +15,13 @@ public class Wanderer extends Enemy {
     private int attackBoxOffsetY;
 
     public Wanderer(float x, float y) {
-        super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT* Game.SCALE), WANDERER);
-        initHitBox( (int) (40 * Game.SCALE), (int) (42 * Game.SCALE) - 10);
+        super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT*2* Game.SCALE), WANDERER);
+        initHitBox( (int) (40 * Game.SCALE), (int) (46 * Game.SCALE) );
         initAttackBox();
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (100 * Game.SCALE) - 10, (int) (40 * Game.SCALE) - 10);
+        attackBox = new Rectangle2D.Float(x, y, (int) (100 * Game.SCALE) - 10, (int) (46 * Game.SCALE) - 10);
         attackBoxOffsetX = (int) (Game.SCALE * 30);
         attackBoxOffsetY = (int) (Game.SCALE * 0);
     }
@@ -51,12 +51,12 @@ public class Wanderer extends Enemy {
                     newState(RUNNING);
                     break;
                 case RUNNING:
-                    if (canSeePlayer(lvData, player)) {
-                        turnTowardsPlayer(player);
+                   // if (canSeePlayer(lvData, player)) {
+                        //turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
-                    }
-                    //move3();
-                    move(lvData);
+                   // }
+                    move2(3);
+                    //move(lvData);
                     break;
                 case ATTACK:
                     if (animationIndex == 0) attackChecked = false;
@@ -69,12 +69,12 @@ public class Wanderer extends Enemy {
         }
     }
     public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
-        double oneScale =  (MONSTER_HEIGHT* Game.SCALE)/maxHealth;
+        double oneScale =  ((MONSTER_HEIGHT+10)* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
 
         // thanh máu nền
         g.setColor(new Color(35, 35, 35));
-        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_HEIGHT* Game.SCALE) , 6);
+        g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) ((MONSTER_HEIGHT+10)* Game.SCALE) , 6);
 
         // thanh máu hiện tại
         g.setColor(new Color(255, 0, 30));

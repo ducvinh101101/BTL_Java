@@ -67,7 +67,7 @@ public class Constants {
                     switch (enemy_state) {
                         case IDLE:
                             return 1;
-                        case RUNNING: return 2;
+                        case RUNNING: return 3;
                         case ATTACK:
                             return 2;
                         case HIT,DEAD:

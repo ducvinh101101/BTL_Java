@@ -55,7 +55,7 @@ public class Reaper extends Enemy {
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
                     }
                     //move(lvData);
-                    move3();
+                    move2(4);
                     break;
                 case ATTACK:
                     if (animationIndex == 0) attackChecked = false;

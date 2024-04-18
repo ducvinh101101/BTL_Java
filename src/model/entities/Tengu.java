@@ -20,7 +20,7 @@ public class Tengu extends Enemy {
     }
 
     private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (150 * Game.SCALE) , (int) (80 * Game.SCALE) );
+        attackBox = new Rectangle2D.Float(x, y, (int) (160 * Game.SCALE) , (int) (80 * Game.SCALE) );
         attackBoxOffsetX = (int) (Game.SCALE * 30);
         attackBoxOffsetY = (int) (Game.SCALE * 0);
     }

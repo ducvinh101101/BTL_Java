@@ -15,7 +15,7 @@ public class Crab extends Enemy {
 
     public Crab(float x, float y) {
         super(x, y, (int) (MONSTER_WIDTH * Game.SCALE), (int) (MONSTER_HEIGHT* Game.SCALE), CRAB);
-        initHitBox( (int) (40 * Game.SCALE), (int) (42 * Game.SCALE) - 10);
+        initHitBox( (int) (40 * Game.SCALE), (int) (30 * Game.SCALE) );
         initAttackBox();
     }
 
@@ -70,12 +70,8 @@ public class Crab extends Enemy {
     public void drawHP(Graphics g,  int xLvOffset, int yLevelOffset){
         double oneScale =  (MONSTER_HEIGHT* Game.SCALE)/maxHealth;
         double hpBarValue = oneScale * currentHealth;
-
-        // thanh máu nền
         g.setColor(new Color(35, 35, 35));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int) (MONSTER_HEIGHT* Game.SCALE) , 6);
-
-        // thanh máu hiện tại
         g.setColor(new Color(255, 0, 30));
         g.fillRect((int) hitBox.x - xLvOffset, (int) hitBox.y - yLevelOffset - 14, (int)hpBarValue, 6);
     }

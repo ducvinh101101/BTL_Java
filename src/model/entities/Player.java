@@ -30,7 +30,9 @@ public class Player extends Entity {
     }
 
     private void activeSkill(){
+        if(currentMana <= 0) skill = false;
         if(skill) {
+            currentMana-=5;
             int dir = 0;
             if(checkR) dir = 1;
             else if(checkL) dir = -1;
@@ -73,7 +75,7 @@ public class Player extends Entity {
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 2f;
+    private float playerSpeed = 8f;
     private int widthPy = 30, heightPy = 42;
     private float xDrawOffSet = 5f * Game.SCALE;
     private float yDrawOffSet = 9 * Game.SCALE;

@@ -280,7 +280,9 @@ public class Playing extends State implements Statemethod {
             case KeyEvent.VK_D:
                 player.setRight(false);
                 break;
-
+            case KeyEvent.VK_H:
+                player.setSkill(false);
+                break;
         }
     }
     public void setGameOver(boolean gameOver){
