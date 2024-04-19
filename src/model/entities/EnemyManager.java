@@ -27,9 +27,8 @@ public class EnemyManager {
     private ArrayList<Crab> crabs;
     private ArrayList<Dummy> dummies;
     private ArrayList<Reaper> reapers;
-    private ArrayList<Samurai> samurais;
     private ArrayList<Tengu> tengus;
-    private ArrayList<Wanderer> wanderers;
+    private ArrayList<Samurai> samurais;
 
     private boolean spawnMonster = false;
 
@@ -38,11 +37,9 @@ public class EnemyManager {
         crabs = new ArrayList<>();
         dummies = new ArrayList<>();
         reapers = new ArrayList<>();
-        samurais = new ArrayList<>();
         tengus = new ArrayList<>();
-        wanderers = new ArrayList<>();
+        samurais = new ArrayList<>();
         loadImgs();
-
 //        addEnemy();
     }
     public void loadImgs(){
@@ -55,24 +52,20 @@ public class EnemyManager {
         loadSamuraiImgsLeft();
         loadTenguImgsRight();
         loadTenguImgsLeft();
-        loadWandererImgsRight();
-        loadWandererImgsLeft();
     }
 
     public void addEnemyMap1() {
         dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 200 , TILES_DEFAULT_SIZE * 22 - 100));
         dummies.add(new Dummy(TILES_DEFAULT_SIZE* 12 + 380 , TILES_DEFAULT_SIZE * 18 - 100));
-        wanderers.add(new Wanderer(TILES_DEFAULT_SIZE * 61, TILES_DEFAULT_SIZE * 11 -100));
     }
     public void addCrabMap2(){
         crabs.add(new Crab(TILES_DEFAULT_SIZE* 6 , TILES_DEFAULT_SIZE * 14));
+        crabs.add(new Crab(TILES_DEFAULT_SIZE* 64 , TILES_DEFAULT_SIZE * 21));
     }
     public void addReaperMap2(){
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 20  , TILES_DEFAULT_SIZE * 15));
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 25  , TILES_DEFAULT_SIZE * 6));
-    }
-    public void addSamuraiMap2(){
-        samurais.add(new Samurai(TILES_DEFAULT_SIZE* 48 , TILES_DEFAULT_SIZE * 8));
+        reapers.add(new Reaper(TILES_DEFAULT_SIZE* 48 , TILES_DEFAULT_SIZE * 8));
     }
     public void addTenguMap2(){
         tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 21 + 9 ));
@@ -80,7 +73,6 @@ public class EnemyManager {
     public void addEnemyMap2() {
         addCrabMap2();
         addReaperMap2();
-        addSamuraiMap2();
         addTenguMap2();
     }
     public void addEnemyMap3(){
@@ -90,10 +82,8 @@ public class EnemyManager {
     }
     public void clearAll(){
         dummies.clear();
-        wanderers.clear();
         crabs.clear();
         reapers.clear();
-        samurais.clear();
         tengus.clear();
     }
 
@@ -115,9 +105,8 @@ public class EnemyManager {
         }
         for(Dummy X : dummies) if(X.alive) X.update(lvData, player);
         for(Crab X : crabs) if(X.alive) X.update(lvData, player);
-        for (Samurai X : samurais) if(X.alive) X.update(lvData, player);
         for (Tengu X : tengus) if(X.alive) X.update(lvData, player);
-        for (Wanderer X : wanderers)  if(X.alive) X.update(lvData, player);
+        for (Samurai X : samurais) if(X.alive) X.update(lvData, player);
     }
 
     public void draw(Graphics g, int xLvOffset, int yLevelOffset) {
@@ -125,15 +114,6 @@ public class EnemyManager {
             if (X.isAlive()) {
                 crabImg = (X.getWalkDir() == RIGHT) ? crabImgRight : crabImgLeft;
                 g.drawImage(crabImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT + 5, null);
-//                X.drawHitBox(g, xLvOffset, yLevelOffset);
-//                X.drawAttackBox(g, xLvOffset, yLevelOffset);
-                X.drawHP(g, xLvOffset, yLevelOffset);
-            }
-        }
-        for (Wanderer X : wanderers){
-            if (X.isAlive()) {
-                wandererImg = (X.getWalkDir() == RIGHT) ? wandererImgRight : wandererImgLeft;
-                g.drawImage(wandererImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH, MONSTER_HEIGHT+20, null);
 //                X.drawHitBox(g, xLvOffset, yLevelOffset);
 //                X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
@@ -195,19 +175,13 @@ public class EnemyManager {
                 break;
             }
         }
-        for (Samurai X : samurais){
-            if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
-                X.hurt(player.getDamage(), player);
-                break;
-            }
-        }
         for (Tengu X : tengus){
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
                 X.hurt(player.getDamage(), player);
                 break;
             }
         }
-        for (Wanderer X : wanderers){
+        for (Samurai X : samurais){
             if (X.isAlive() && attackBox.intersects(X.getHitBox())) {
                 X.hurt(player.getDamage(), player);
                 break;
@@ -314,22 +288,5 @@ public class EnemyManager {
         }
     }
 
-    public void loadWandererImgsRight(){
-        wandererImgRight = new BufferedImage[5][3];
-        wandererImgRight[0][0] = LoadSave.getImage(LoadSave.WANDERER_1);
-        wandererImgRight[1][0] = LoadSave.getImage(LoadSave.WANDERER_1);
-        wandererImgRight[1][1] = LoadSave.getImage(LoadSave.WANDERER_2);
-        wandererImgRight[2][0] = LoadSave.getImage(LoadSave.WANDERER_2);
-        wandererImgRight[2][1] = LoadSave.getImage(LoadSave.WANDERER_4);
-        wandererImgRight[3][0] = LoadSave.getImage(LoadSave.WANDERER_3);
-    }
-    public void loadWandererImgsLeft(){
-        wandererImgLeft = new BufferedImage[5][3];
-        wandererImgLeft[0][0] = LoadSave.getImage(LoadSave.WANDERER_1_LEFT);
-        wandererImgLeft[1][0] = LoadSave.getImage(LoadSave.WANDERER_1_LEFT);
-        wandererImgLeft[1][1] = LoadSave.getImage(LoadSave.WANDERER_2_LEFT);
-        wandererImgLeft[2][0] = LoadSave.getImage(LoadSave.WANDERER_2_LEFT);
-        wandererImgLeft[2][1] = LoadSave.getImage(LoadSave.WANDERER_4_LEFT);
-        wandererImgLeft[3][0] = LoadSave.getImage(LoadSave.WANDERER_3_LEFT);
-    }
+
 }

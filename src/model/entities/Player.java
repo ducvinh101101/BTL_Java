@@ -25,21 +25,21 @@ public class Player extends Entity {
     private int frameCount;
     private static final int LEVEL_UP_DISPLAY_FRAMES = 180;
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
-
+    private BufferedImage idAniHit;
     //    private int playerAction = IDLE;
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 2f;
-    private int widthPy = 30, heightPy = 42;
-    private float xDrawOffSet = 5f * Game.SCALE;
-    private float yDrawOffSet = 9 * Game.SCALE;
+    private float playerSpeed = 8f;
+    private int widthPlayer = 30, heightPlayer = 42;
+    private float cameraX = 5f * Game.SCALE;
+    private float cameraY = 9 * Game.SCALE;
     // nhảy trọng lực:
     private float airSpeed = 0f;
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 
-    private int lvlData[][];
+    private int mapData[][];
     private BufferedImage statusBarImg;
     private int levelPlayer = 1;
     private int statusBarWidth = (int) (192 * Game.SCALE);
@@ -117,6 +117,12 @@ public class Player extends Entity {
 
     public int getDamage() {return damage;}
 
+    @Override
+    public void setState(int state) {
+        super.setState(state);
+        aniTick = 0;
+        aniIndex = 0;
+    }
 
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -124,7 +130,7 @@ public class Player extends Entity {
         this.state = IDLE;
         projectiles = new ArrayList<>();
         loadImg();
-        initHitBox(widthPy * Game.SCALE - 10, heightPy * Game.SCALE - 10);
+        initHitBox(widthPlayer * Game.SCALE - 10, heightPlayer * Game.SCALE - 10);
         initAttackBox();
     }
     public void loadImg(){
@@ -139,6 +145,7 @@ public class Player extends Entity {
         loadAnimationsJumpLeft();
         loadAnimationsFallingLeft();
         loadAnimationAir();
+        idAniHit = LoadSave.getImage(LoadSave.PLAYER_HIT);
         shurikenImg = LoadSave.getImage(LoadSave.SHURIKEN);
         levelUpImg = LoadSave.getImage(LoadSave.LEVELUP);
     }
@@ -148,7 +155,7 @@ public class Player extends Entity {
 
     public void update() {
         activeSkill();
-        lvlData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
+        mapData = playing.getLevelManager().getCurrenLevel().getlvlData(); // bổ sung update map mỗi khi load lại map
         checkLevelUp();
         updateBar();
         if(currentHealth <= 0){
@@ -229,20 +236,18 @@ public class Player extends Entity {
             levelPlayer++;
             levelUp = true;
             frameCount = 0;
-
         }
-
     }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
-        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - xDrawOffSet) - xLevelOffset, (int) (hitBox.y - yDrawOffSet) - yLevelOffset, widthPy, heightPy, null);
+        g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - cameraX) - xLevelOffset, (int) (hitBox.y - cameraY) - yLevelOffset, widthPlayer, heightPlayer, null);
         drawHitBox(g, xLevelOffset, yLevelOffset);
         //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
         if (levelUp && frameCount < LEVEL_UP_DISPLAY_FRAMES) {
-            g.drawImage(levelUpImg, (int) (hitBox.x - xDrawOffSet ) - xLevelOffset,
-                    (int) (hitBox.y - yDrawOffSet -50) - yLevelOffset,
-                    widthPy*2, heightPy, null);
+            g.drawImage(levelUpImg, (int) (hitBox.x - cameraX - 14) - xLevelOffset,
+                    (int) (hitBox.y - cameraY -50) - yLevelOffset,
+                    widthPlayer *2, heightPlayer, null);
             frameCount++;
         } else {
             levelUp = false;
@@ -262,7 +267,10 @@ public class Player extends Entity {
 
     public void changeHealth(int value) {
         currentHealth += value;
-        if (currentHealth <= 0) currentHealth = 0;
+        if (currentHealth <= 0) {
+            state = HIT;
+            currentHealth = 0;
+        }
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
     }
     public void kill(){
@@ -355,7 +363,7 @@ public class Player extends Entity {
 
     }
     public void loadlvlData(int lvlData[][]) {
-        this.lvlData = lvlData;
+        this.mapData = lvlData;
         if (!isEntityOnFloor(hitBox, lvlData)) {
             inAir = true;
         }
@@ -424,7 +432,7 @@ public class Player extends Entity {
 
         }
         if (attacking) {
-            widthPy = 60;
+            widthPlayer = 60;
             state = ATTACK_1;
             if (checkL && !checkR) {
                 idAniIm = idAniAtL;
@@ -432,7 +440,7 @@ public class Player extends Entity {
                 idAniIm = idAniAt;
             }
         } else {
-            widthPy = 30;
+            widthPlayer = 30;
 
         }
         if (startAnimation != state) {
@@ -463,7 +471,7 @@ public class Player extends Entity {
             xSpeed += playerSpeed;
         }
         if (!inAir) {
-            if (!isEntityOnFloor(hitBox, lvlData)) {
+            if (!isEntityOnFloor(hitBox, mapData)) {
                 inAir = true;
             }
         }
@@ -471,7 +479,7 @@ public class Player extends Entity {
         if (inAir) {
             if(airSpeed>0){
                 //playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
-                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) && canJumpTile(hitBox.x, hitBox.y+airSpeed, hitBox.width, hitBox.height, lvlData)) {
+                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, mapData) && canJumpTile(hitBox.x, hitBox.y+airSpeed, hitBox.width, hitBox.height, mapData)) {
                     hitBox.y += airSpeed;
                     airSpeed += GRAVITY;
                     updateXPos(xSpeed);
@@ -484,7 +492,7 @@ public class Player extends Entity {
                 }
             }
             else{
-                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData) ) {
+                if (canMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, mapData) ) {
                     hitBox.y += airSpeed;
                     airSpeed += GRAVITY;
                     updateXPos(xSpeed);
@@ -533,7 +541,7 @@ public class Player extends Entity {
     }
 
     private void updateXPos(float xSpeed) {
-        if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvlData)) {
+        if (canMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, mapData)) {
             hitBox.x += xSpeed;
         } else {
             hitBox.x = getEntityXPosNextToWall(hitBox, xSpeed);
@@ -553,7 +561,7 @@ public class Player extends Entity {
         currentHealth = maxHealth;
         hitBox.x = x;
         hitBox.y = y;
-        if (!isEntityOnFloor(hitBox, lvlData))
+        if (!isEntityOnFloor(hitBox, mapData))
             inAir = true;
     }
 

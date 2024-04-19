@@ -11,6 +11,12 @@ public abstract class Entity {
     protected Rectangle2D.Float hitBox;
     protected int aniTick, aniIndex;
     protected int state;
+
+    public void setState(int state) {
+
+        this.state = state;
+    }
+
     protected boolean inAir = false;
 
     public Entity(float x, float y, int width, int height) {

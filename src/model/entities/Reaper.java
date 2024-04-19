@@ -51,7 +51,7 @@ public class Reaper extends Enemy {
                     break;
                 case RUNNING:
                     if (canSeePlayer(lvData, player)) {
-                        turnTowardsPlayer(player);
+                        //turnTowardsPlayer(player);
                         if (isPlayerCloseForAttack(player)) newState(ATTACK);
                     }
                     //move(lvData);

@@ -21,22 +21,23 @@ public class NpcManager {
     private int checkMap = 0;
     public void npcMap1(){
         checkMap = 1;
-        npc1 = new NPC(TILES_DEFAULT_SIZE* 7  , TILES_DEFAULT_SIZE * 16 + 20);
+
     }
     public void npcMap2(){
         checkMap = 2;
-        //npc2 = new NPC(TILES_DEFAULT_SIZE* 3  , TILES_DEFAULT_SIZE * 18);
+
     }
     public void npcMap3(){
         checkMap = 3;
-        npc1 = new NPC(TILES_DEFAULT_SIZE* 10  , TILES_DEFAULT_SIZE * 20 - 16);
+
     }
     public void update(){
 
     }
     public void draw(Graphics g, int xLvOffset, int yLevelOffset){
-        if(checkMap == 1 || checkMap == 3) g.drawImage(NpcImg, (int) (32*7 - xLvOffset), (int) (32*16+20 - yLevelOffset), MONSTER_WIDTH+2, MONSTER_HEIGHT+18 , null);
-        else g.drawImage(NpcImg2,  (720 - xLvOffset), (710 - yLevelOffset), MONSTER_WIDTH*2+20, MONSTER_HEIGHT*2 , null);
+        if(checkMap == 1) g.drawImage(NpcImg,  (32*7 - xLvOffset), (32*16+20 - yLevelOffset), MONSTER_WIDTH+2, MONSTER_HEIGHT+18 , null);
+        else if (checkMap == 2) g.drawImage(NpcImg2,  (720 - xLvOffset), (710 - yLevelOffset), MONSTER_WIDTH*2+20, MONSTER_HEIGHT*2 , null);
+        else g.drawImage(NpcImg,  (32*10 - xLvOffset), (32*20-14 - yLevelOffset), MONSTER_WIDTH+2, MONSTER_HEIGHT+18 , null);
     }
     public void loadImg(){
         NpcImg = LoadSave.getImage(LoadSave.NPC1);

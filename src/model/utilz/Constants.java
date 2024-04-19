@@ -206,10 +206,10 @@ public class Constants {
         public static final int IDLE = 5;
         public static final int JUMPPING = 1;
         public static final int FALLING = 1;
+        public static final int HIT = 1;
         public static final int JUMPPING_LEFT = 1;
         public static final int FALLING_LEFT = 1;
         public static final int GROUND = 4;
-        public static final int HIT = 5;
         public static final int DEAD = 6;
         public static final int ATTACK_1 = 5;
         public static final int AIR = 4;
