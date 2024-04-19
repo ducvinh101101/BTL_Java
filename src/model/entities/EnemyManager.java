@@ -85,6 +85,7 @@ public class EnemyManager {
         crabs.clear();
         reapers.clear();
         tengus.clear();
+        samurais.clear();
     }
 
 

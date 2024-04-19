@@ -30,7 +30,7 @@ public class Player extends Entity {
     //    private int playerDir = -1;
     private boolean left, right, jump, checkL, checkR;
     private boolean moving = false, attacking = false, canDoubleJump = false, skill = false;
-    private float playerSpeed = 8f;
+    private float playerSpeed = 2f;
     private int widthPlayer = 30, heightPlayer = 42;
     private float cameraX = 5f * Game.SCALE;
     private float cameraY = 9 * Game.SCALE;
@@ -49,13 +49,13 @@ public class Player extends Entity {
 
     private int barWidth = (int) (152 * Game.SCALE);
     private int barHeight = (int) (6 * Game.SCALE);
-    private int maxHealth = 100;
+    private int maxHealth = 9999;
     private int currentHealth = maxHealth;
     private int maxMana = 100;
     private int currentMana = maxMana;
     private int maxExp = 100;
     private int currentExp = 0;
-    private int damage = 1;
+    private int damage = 999;
 
     private int healthWidth = barWidth;
     private int expWidth = barWidth;
@@ -240,7 +240,7 @@ public class Player extends Entity {
     }
     public void render(Graphics g, int xLevelOffset , int yLevelOffset) {
         g.drawImage(idAniIm[aniIndex], (int) (hitBox.x - cameraX) - xLevelOffset, (int) (hitBox.y - cameraY) - yLevelOffset, widthPlayer, heightPlayer, null);
-        drawHitBox(g, xLevelOffset, yLevelOffset);
+        //drawHitBox(g, xLevelOffset, yLevelOffset);
         //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
