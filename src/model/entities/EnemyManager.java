@@ -15,6 +15,8 @@ import static model.utilz.Constants.EnemyConstants.*;
 
 
 public class EnemyManager {
+    private int frameCount;
+    private static final int DISPLAY_FRAMES = 600;
     private Playing playing;
     private BufferedImage[]  dummyImg;
     private BufferedImage[][] crabImg, crabImgLeft, crabImgRight;
@@ -100,10 +102,14 @@ public class EnemyManager {
             }
         }
         reapers.removeAll(temp);
-        if (spawnMonster && n == 0) {
-            addReaperMap2();
-            spawnMonster = false;
-        }
+        if (frameCount <= DISPLAY_FRAMES){
+            if (spawnMonster && n == 0 && frameCount == DISPLAY_FRAMES) {
+                addReaperMap2();
+                spawnMonster = false;
+            }
+            frameCount++;
+        }else frameCount = 0;
+
         for(Dummy X : dummies) if(X.alive) X.update(lvData, player);
         for(Crab X : crabs) if(X.alive) X.update(lvData, player);
         for (Tengu X : tengus) if(X.alive) X.update(lvData, player);
@@ -190,7 +196,7 @@ public class EnemyManager {
         }
     }
     public void loadCrabImgsRight() {
-        crabImgRight = new BufferedImage[4][2];
+        crabImgRight = new BufferedImage[4][3];
         crabImgRight[0][0] = LoadSave.getImage(LoadSave.CRAB_0);
         crabImgRight[1][0] = LoadSave.getImage(LoadSave.CRAB_0);
         crabImgRight[1][1] = LoadSave.getImage(LoadSave.CRAB_1);
@@ -200,7 +206,7 @@ public class EnemyManager {
     }
 
     public void loadCrabImgsLeft() {
-        crabImgLeft = new BufferedImage[4][2];
+        crabImgLeft = new BufferedImage[4][3];
         crabImgLeft[0][0] = LoadSave.getImage(LoadSave.CRAB_0_LEFT);
         crabImgLeft[1][0] = LoadSave.getImage(LoadSave.CRAB_0_LEFT);
         crabImgLeft[1][1] = LoadSave.getImage(LoadSave.CRAB_1_LEFT);

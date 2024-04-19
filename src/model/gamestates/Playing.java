@@ -39,7 +39,7 @@ public class Playing extends State implements Statemethod {
     private int maxLvOffsetWidth = maxTilesOffset * TILES_SIZE;
     private int maxLvOffsetHeight = (30 - TILES_IN_HEIGHT) * TILES_SIZE;
     private PauseOverlay pauseOverlay;
-    private boolean lvlCompleted = false;
+    private boolean nextMapChecked = false;
     private boolean gameOver;
     private boolean playerDying;
     private int checkNextMap = 0;
@@ -82,7 +82,7 @@ public class Playing extends State implements Statemethod {
         if(paused){
             pauseOverlay.update();
         }else if(gameOver){
-            mapManager.setInnext(0);
+           // mapManager.setInnext(0);
             gameOverOverlay.update();
         }else if(playerDying){
             player.update();
@@ -96,8 +96,8 @@ public class Playing extends State implements Statemethod {
             checkCameraX();
             checkCameraY();
             if (HelpMethods.canNextMap((float)player.getHitBox().x, (float)player.getHitBox().y, (float)player.getHitBox().width, (float)player.getHitBox().height, mapManager.getCurrenLevel().getlvlData())) {
-                lvlCompleted = true;
-                mapManager.nextMap(lvlCompleted);
+                nextMapChecked = true;
+                mapManager.nextMap(nextMapChecked);
                 getGame().getAudioPlayer().setLevelSong(mapManager.getInnext());
             }
         }
@@ -164,7 +164,7 @@ public class Playing extends State implements Statemethod {
         mapManager.importOutsideSprite();
         gameOver = false;
         paused = false;
-        lvlCompleted = false;
+        nextMapChecked = false;
         playerDying = false;
         player.resetAll();
         objectManager.resetAllObjects();
@@ -188,11 +188,11 @@ public class Playing extends State implements Statemethod {
             background.drawBackgroundPauseGame(g);
             pauseOverlay.draw(g);
         }
-        if(lvlCompleted){
+        if(nextMapChecked){
             mapManager.importOutsideSprite();
             mapManager.draw(g,xLvOffset, yLvOffset);
             objectManager.draw(g,xLvOffset, yLvOffset);
-            lvlCompleted = false;
+            nextMapChecked = false;
         } else if (gameOver) {
             gameOverOverlay.draw(g);
         }
@@ -212,7 +212,7 @@ public class Playing extends State implements Statemethod {
         if(!gameOver){
             if(paused){
                 pauseOverlay.mousePressed(e);
-            }else if(lvlCompleted){
+            }else if(nextMapChecked){
 
             }
         }else {

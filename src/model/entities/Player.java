@@ -23,7 +23,7 @@ import static model.utilz.HelpMethods.getEntityXPosNextToWall;
 public class Player extends Entity {
     private boolean levelUp;
     private int frameCount;
-    private static final int LEVEL_UP_DISPLAY_FRAMES = 180;
+    private static final int DISPLAY_FRAMES = 180;
     private BufferedImage[] idAniIm, idAniLeft, idAniRight, idAniH, idAniAt, idAniL, idAniAtL, idAniJumpL, idAniFallL, idAniJump, idAniFall, idAniInAir;
     private BufferedImage idAniHit;
     //    private int playerAction = IDLE;
@@ -244,7 +244,7 @@ public class Player extends Entity {
         //drawAttackBox(g, xLevelOffset, yLevelOffset);
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
-        if (levelUp && frameCount < LEVEL_UP_DISPLAY_FRAMES) {
+        if (levelUp && frameCount < DISPLAY_FRAMES) {
             g.drawImage(levelUpImg, (int) (hitBox.x - cameraX - 14) - xLevelOffset,
                     (int) (hitBox.y - cameraY -50) - yLevelOffset,
                     widthPlayer *2, heightPlayer, null);
