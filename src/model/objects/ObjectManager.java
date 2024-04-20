@@ -65,9 +65,9 @@ public class ObjectManager {
         if(p.getObjType() == RED_POTION){
             playing.getPlayer().changeHealth(RED_POTION_VALUE);
         }
-//        else{
-//            playing.getPlayer().changePower(BLUE_POTION_VALUE);
-//        }
+        else{
+            playing.getPlayer().changePower(BLUE_POTION_VALUE);
+        }
     }
     public void checkObjectHit(Rectangle2D.Float attackBox){
         for(GameContainer gc : containers){

@@ -66,8 +66,8 @@ public class EnemyManager {
     }
     public void addReaperMap2(){
         reapers.add(new Reaper(TILES_DEFAULT_SIZE * 20  , TILES_DEFAULT_SIZE * 15));
-        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 25  , TILES_DEFAULT_SIZE * 6));
-        reapers.add(new Reaper(TILES_DEFAULT_SIZE* 48 , TILES_DEFAULT_SIZE * 8));
+//        reapers.add(new Reaper(TILES_DEFAULT_SIZE * 25  , TILES_DEFAULT_SIZE * 6));
+//        reapers.add(new Reaper(TILES_DEFAULT_SIZE* 48 , TILES_DEFAULT_SIZE * 8));
     }
     public void addTenguMap2(){
         tengus.add(new Tengu(TILES_DEFAULT_SIZE* 32 + 100 , TILES_DEFAULT_SIZE * 21 + 9 ));
@@ -146,8 +146,8 @@ public class EnemyManager {
             if (X.isAlive()) {
                 samuraiImg = (X.getWalkDir() == RIGHT) ? samuraiImgRight : samuraiImgLeft;
                 g.drawImage(samuraiImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*2, MONSTER_HEIGHT*2, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+                //X.drawHitBox(g, xLvOffset, yLevelOffset);
+               // X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
@@ -155,8 +155,8 @@ public class EnemyManager {
             if (X.isAlive()) {
                 tenguImg = (X.getWalkDir() == RIGHT) ? tenguImgRight : tenguImgLeft;
                 g.drawImage(tenguImg[X.getEnemyState()][X.getAnimationIndex()], (int) X.getHitBox().x - xLvOffset, (int) X.getHitBox().y - yLevelOffset, MONSTER_WIDTH*4, MONSTER_HEIGHT*3, null);
-                X.drawHitBox(g, xLvOffset, yLevelOffset);
-                X.drawAttackBox(g, xLvOffset, yLevelOffset);
+                //X.drawHitBox(g, xLvOffset, yLevelOffset);
+                //X.drawAttackBox(g, xLvOffset, yLevelOffset);
                 X.drawHP(g, xLvOffset, yLevelOffset);
             }
         }
@@ -282,15 +282,15 @@ public class EnemyManager {
     public void loadTenguImgsLeft(){
         tenguImgLeft = new BufferedImage[5][8];
         BufferedImage tmp = LoadSave.getImage(LoadSave.TENGU_1_LEFT);
-        for(int i=0; i<6; i++){
+        for(int i=5; i>=0; i--){
             tenguImgLeft[0][i] = tmp.getSubimage(i * 128, 0, 128, 128);
         }
         BufferedImage tmp1 = LoadSave.getImage(LoadSave.TENGU_2_LEFT);
-        for(int i=0; i<8; i++){
+        for(int i=7; i>=0; i--){
             tenguImgLeft[1][i] = tmp1.getSubimage(i * 128, 0, 128, 128);
         }
         BufferedImage tmp2 = LoadSave.getImage(LoadSave.TENGU_3_LEFT);
-        for(int i=0; i<6; i++){
+        for(int i=5; i>=0; i--){
             tenguImgLeft[2][i] = tmp2.getSubimage(i * 128, 0, 128, 128);
         }
     }

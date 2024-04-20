@@ -49,13 +49,13 @@ public class Player extends Entity {
 
     private int barWidth = (int) (152 * Game.SCALE);
     private int barHeight = (int) (6 * Game.SCALE);
-    private int maxHealth = 9999;
+    private int maxHealth = 100;
     private int currentHealth = maxHealth;
     private int maxMana = 100;
     private int currentMana = maxMana;
     private int maxExp = 100;
     private int currentExp = 0;
-    private int damage = 999;
+    private int damageSword = 500, damageShuriken = 2;
 
     private int healthWidth = barWidth;
     private int expWidth = barWidth;
@@ -115,7 +115,10 @@ public class Player extends Entity {
 
     public void setCurrentExp(int currentExp) {this.currentExp = currentExp;}
 
-    public int getDamage() {return damage;}
+    public int getDamage() {
+        if(attackChecked) return damageSword;
+        else return damageShuriken;
+    }
 
     @Override
     public void setState(int state) {
@@ -232,7 +235,10 @@ public class Player extends Entity {
     }
     private void checkLevelUp(){
         if(currentExp >= maxExp){
-            currentExp -= maxExp;
+            maxHealth += 100;currentHealth = maxHealth;
+
+            maxMana += 100; currentMana = maxMana;
+            currentExp -= maxExp; maxExp += 100;
             levelPlayer++;
             levelUp = true;
             frameCount = 0;
@@ -245,9 +251,9 @@ public class Player extends Entity {
         drawProjectiles(g, xLevelOffset, yLevelOffset);
         drawUI(g);
         if (levelUp && frameCount < DISPLAY_FRAMES) {
-            g.drawImage(levelUpImg, (int) (hitBox.x - cameraX - 14) - xLevelOffset,
-                    (int) (hitBox.y - cameraY -50) - yLevelOffset,
-                    widthPlayer *2, heightPlayer, null);
+            g.drawImage(levelUpImg, (int) (hitBox.x - cameraX - 20) - xLevelOffset,
+                    (int) (hitBox.y - cameraY -30) - yLevelOffset,
+                    80, 30, null);
             frameCount++;
         } else {
             levelUp = false;
@@ -272,6 +278,13 @@ public class Player extends Entity {
             currentHealth = 0;
         }
         else if (currentHealth >= maxHealth) currentHealth = maxHealth;
+    }
+    public void changePower(int value){
+        currentMana += value;
+        if (currentMana <= 0) {
+            currentMana = 0;
+        }
+        else if (currentMana >= maxMana) currentMana = maxMana;
     }
     public void kill(){
         currentHealth = 0;

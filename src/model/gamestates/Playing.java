@@ -125,7 +125,6 @@ public class Playing extends State implements Statemethod {
             npcManager.npcMap3();
             objectManager.setCurrentLevel(this.getLevelManager().getCurrenLevel());
         }
-
 //        if (!pause && !lvlCompleter) { // thêm !lvlCompleter code cũ
 //            levelManager.update();
 //            player.update();
@@ -177,8 +176,11 @@ public class Playing extends State implements Statemethod {
         if(mapManager.getInnext()==1){
             background.drawBackgroundMap2(g);
         }
-        else {
+        else if(mapManager.getInnext()==2){
             background.draw(g);
+        }
+        else {
+            background.drawBackgroundMap1(g);
         }
         mapManager.draw(g, xLvOffset, yLvOffset);npcManager.draw(g, xLvOffset, yLvOffset);
         enemyManager.draw(g, xLvOffset, yLvOffset);

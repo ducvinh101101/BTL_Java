@@ -16,4 +16,7 @@ public class Background {
     public void drawBackgroundMap2(Graphics g){
         g.drawImage(LoadSave.getImage(LoadSave.BACKGROUND_MAP_2),0,0,GAME_WIDTH,GAME_HEIGHT,null);
     }
+    public void drawBackgroundMap1(Graphics g){
+        g.drawImage(LoadSave.getImage(LoadSave.BACKGROUND_MAP_11),0,0,GAME_WIDTH,GAME_HEIGHT,null);
+    }
 }
