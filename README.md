@@ -1,6 +1,6 @@
 # BÀI TẬP LỚN MÔN CÔNG NGHỆ JAVA - UTC - 2024
 
-MENBER:
+MEMBER:
 
 **Mai Đức Vinh**  
 **Trịnh Mạnh Quang**  
